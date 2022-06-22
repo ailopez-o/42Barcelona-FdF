@@ -12,26 +12,32 @@
 
 NAME	= 	a.out
 
-SRCS		=	main.c
+SRCS	=	src/main.c src/events.c src/my_draws.c src/utils.c
+
+MLX		= 	miniliblx/minilibx_macos
 
 OBJ		=	$(SRCS:%.c=%.o)
 
 CC		=	gcc
 
-#CFLAGS	=	-Wall -Wextra -Werror
+CFLAGS	=	-Wall -Wextra -Werror
 
-CFLAGS = 
+NOFLAGS = 
 
 RM		=	rm -f
 
 %.o: %.c
-	$(CC) ${CFLAGS} -Imlx -c $< -o $@
+	$(CC) ${NOFLAGS} -Imlx -c $< -o $@
 
-all: ${NAME}
+all:	makelibs
+	@$(MAKE)	$(NAME)
+
+makelibs:	
+	@$(MAKE) -C $(MLX)
 
 $(NAME): $(OBJ)
-	$(CC) $(OBJ) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
-
+#	$(CC) $(OBJ) ${MLX}/libmlx.a -framework OpenGL -framework AppKit -o $(NAME)
+	$(CC) $(OBJ) ${NOFLAGS} -I minilibx -L $(MLX) -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
 #Regla para borrar todos los objetos y directorios
 clean:
