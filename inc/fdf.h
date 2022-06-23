@@ -37,6 +37,8 @@ typedef struct	s_bitmap {
 typedef struct	s_vars {
 	void	*mlx;
 	void	*win;
+	int		winX;
+	int		winY;
 }				t_vars;
 
 typedef struct	s_meta {
@@ -44,9 +46,19 @@ typedef struct	s_meta {
 	t_bitmap	bitmap;
 }				t_meta;
 
+typedef struct	s_line {
+	int		beginX;
+	int 	beginY;
+	int 	begincolor;
+	int 	endX;
+	int		endY;
+	int		endcolor;
+}				t_line;
 
 int		keyrelease(int keycode, t_meta *meta);
-int 	draw_line(t_vars *vars, int beginX, int beginY, int endX, int endY, int color);
+int 	draw_line(t_meta *meta, t_line line);
 void 	generate_background(t_meta *meta, int color);
 void 	draw_bitmap(t_meta *meta, int x0, int y0);
+int		mouse_hook(int value, t_meta *meta);
+int 	my_putpixel(t_meta *meta, int pixelX, int pixelY, int color);
 #endif

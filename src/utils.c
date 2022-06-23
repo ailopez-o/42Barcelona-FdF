@@ -6,18 +6,44 @@ void draw_bitmap(t_meta *meta, int x0, int y0)
     mlx_put_image_to_window(meta->vars.mlx, meta->vars.win, meta->bitmap.img, x0, y0);
 }
 
-int draw_line(t_vars *vars, int beginX, int beginY, int endX, int endY, int color)
+int my_putpixel(t_meta *meta, int pixelX, int pixelY, int color)
 {
-	double deltaX = endX - beginX; // 10
-	double deltaY = endY - beginY; // 0	
+    int pixel;
+    //Calculo la posicion en el buffer;
+    pixel = (pixelY * meta->vars.winX * 4) + (pixelX * 4);
+    if (meta->bitmap.bitxpixel != 32)
+        color = mlx_get_color_value(meta->vars.mlx, color);
+    //Generamos el color
+    if (meta->bitmap.endian == 1)        // Most significant (Alpha) byte first
+        {
+        meta->bitmap.buffer[pixel + 0] = (color >> 24);
+        meta->bitmap.buffer[pixel + 1] = (color >> 16) & 0xFF;
+        meta->bitmap.buffer[pixel + 2] = (color >> 8) & 0xFF;
+        meta->bitmap.buffer[pixel + 3] = (color) & 0xFF;
+        }
+    else if (meta->bitmap.endian == 0)   // Least significant (Blue) byte first
+    {
+        meta->bitmap.buffer[pixel + 0] = (color) & 0xFF;
+        meta->bitmap.buffer[pixel + 1] = (color >> 8) & 0xFF;
+        meta->bitmap.buffer[pixel + 2] = (color >> 16) & 0xFF;
+        meta->bitmap.buffer[pixel + 3] = (color >> 24);
+    }
+}
+
+
+int draw_line(t_meta *meta, t_line line)
+{
+	double deltaX = line.endX - line.beginX; // 10
+	double deltaY = line.endY - line.beginY; // 0	
 	int pixels = sqrt((deltaX * deltaX) + (deltaY * deltaY));
+
 	deltaX /= pixels; // 1
 	deltaY /= pixels; // 0
-	double pixelX = beginX;
-	double pixelY = beginY;
+	double pixelX = line.beginX;
+	double pixelY = line.beginY;
 	while (pixels)
 	{
-    	mlx_pixel_put(vars->mlx, vars->win, pixelX, pixelY, color);
+    	my_putpixel(meta, pixelX, pixelY, line.begincolor);
     	pixelX += deltaX;
     	pixelY += deltaY;
     	--pixels;
@@ -63,9 +89,9 @@ void generate_background(t_meta *meta, int color)
         color = mlx_get_color_value(meta->vars.mlx, color);
     x = 0;
     y = 0;
-    while (y < 1080)
+    while (y < meta->vars.winY)
     {
-        while(x < 1920)
+        while(x < meta->vars.winX)
         {
             pixel = (y * meta->bitmap.lines) + (x * 4);
             if (meta->bitmap.endian == 1)        // Most significant (Alpha) byte first
@@ -86,6 +112,6 @@ void generate_background(t_meta *meta, int color)
         }
         y++;
         x = 0;
-        if (y%3 == 0) color++;
+        //if (y%3 == 0) color++;
     }
 }

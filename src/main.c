@@ -14,9 +14,12 @@
 int main()
 {
 	t_meta meta;
+	int		loop;
 
 	// Creo una instancia MLX
     meta.vars.mlx = mlx_init();
+	meta.vars.winX = WINX;
+	meta.vars.winY = WINY;
 	// Creo una nueva ventana
     meta.vars.win = mlx_new_window(meta.vars.mlx, WINX, WINY, "FDF - ailopez-");
 	// Creo una imagen
@@ -26,6 +29,8 @@ int main()
 		&meta.bitmap.bitxpixel, &meta.bitmap.lines, &meta.bitmap.endian);	
 	// Capturamos los eventos del teclado
 	mlx_hook(meta.vars.win, 2, 1L<<0, keyrelease, &meta);
+	// Capturamos eventos del ratóm
+	mlx_mouse_hook(meta.vars.win, mouse_hook, &meta);
 	// Loop esperando eventos
     mlx_loop(meta.vars.mlx);
 	return(0);
