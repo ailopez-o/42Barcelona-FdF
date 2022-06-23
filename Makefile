@@ -22,7 +22,7 @@ CC		=	gcc
 
 CFLAGS	=	-Wall -Wextra -Werror
 
-NOFLAGS = 
+NOFLAGS = 	-g
 
 RM		=	rm -f
 
@@ -37,7 +37,7 @@ makelibs:
 
 $(NAME): $(OBJ)
 #	$(CC) $(OBJ) ${MLX}/libmlx.a -framework OpenGL -framework AppKit -o $(NAME)
-	$(CC) $(OBJ) ${NOFLAGS} -I minilibx -L $(MLX) -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	$(CC)  ${NOFLAGS} $(OBJ) -I minilibx -L $(MLX) -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
 #Regla para borrar todos los objetos y directorios
 clean:

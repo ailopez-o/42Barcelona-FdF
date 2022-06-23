@@ -33,7 +33,6 @@ int colorgrade (int color, int endian)
     newcolor++;
     return (newcolor);
 }
-
 void draw_line_fast(t_vars *vars, int x0, int y0, int x1, int y1, int color)
 {
     void    *image;
@@ -45,7 +44,7 @@ void draw_line_fast(t_vars *vars, int x0, int y0, int x1, int y1, int color)
     int     y;
     int     pixel;
 
-    image = mlx_new_image(vars->mlx, 1920, 1080);
+    image = mlx_new_image(vars->mlx, WINX, WINY);
     buffer = mlx_get_data_addr(image, &pixel_bits, &line_bytes, &endian);
     printf("PixelBits [%d] - LineBytes [%d] - endian [%d]\n", pixel_bits, line_bytes, endian);
     if (pixel_bits != 32)
@@ -76,7 +75,7 @@ void draw_line_fast(t_vars *vars, int x0, int y0, int x1, int y1, int color)
         y++;
         x = 0;
         printf("Color [%d][%#x]\n",color, color);
-        //color = colorgrade(color,0);
+        color = colorgrade(color,0);
     }
     draw_bitmap(vars, image, 0, 0);
 }

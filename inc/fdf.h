@@ -18,6 +18,9 @@
 # include <stdio.h>
 # include <stdlib.h>
 
+# define WINX 800
+# define WINY 600
+
 typedef struct	s_data {
 	void	*img;
 	char	*addr;
