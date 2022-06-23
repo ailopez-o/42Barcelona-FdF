@@ -6,49 +6,86 @@
 #    By: ailopez- <ailopez-@student.42barcelon      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/09 16:48:38 by ailopez-          #+#    #+#              #
-#    Updated: 2022/05/18 16:15:48 by ailopez-         ###   ########.fr        #
+#    Updated: 2022/06/03 13:50:22 by aitoraudi        ###   ########.fr        #
+#    Updated: 2022/05/24 00:35:24 by aitorlope        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+#Variables
 
-NAME	= 	a.out
-
-SRCS	=	src/main.c src/events.c src/my_draws.c src/utils.c
-
+NAME		= a.out
+INCLUDE		= inc
+LIBFT		= libft
+SRC_DIR		= src/
+OBJ_DIR		= obj/
+CC			= gcc
+CFLAGS		= -Wall -Werror -Wextra -MMD -I
+NOFLAGS		= -g
+RM			= rm -f
 MLX		= 	miniliblx/minilibx_macos
 
-OBJ		=	$(SRCS:%.c=%.o)
+# Colors
 
-CC		=	gcc
+DEF_COLOR = \033[0;39m
+GRAY = \033[0;90m
+RED = \033[0;91m
+GREEN = \033[0;92m
+YELLOW = \033[0;93m
+BLUE = \033[0;94m
+MAGENTA = \033[0;95m
+CYAN = \033[0;96m
+WHITE = \033[0;97m
 
-CFLAGS	=	-Wall -Wextra -Werror
+#Sources
 
-NOFLAGS = 	-g
+SRC_FILES	=	main events my_draws utils
 
-RM		=	rm -f
+SRC 		= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
+OBJ 		= 	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
+DEPS 		= 	$(addprefix $(OBJ_DIR), $(addsuffix .d, $(SRC_FILES)))
 
-%.o: %.c
-	$(CC) ${NOFLAGS} -Imlx -c $< -o $@
+###
+
+OBJF		=	.cache_exists
 
 all:	makelibs
 	@$(MAKE)	$(NAME)
 
 makelibs:	
-	@$(MAKE) -C $(MLX)
+			@$(MAKE) -C $(MLX)
+			
+-include 	${DEPS}
+$(NAME):	$(OBJ) $(INCLUDE)/fdf.h
+			@$(CC)  ${NOFLAGS} $(OBJ) -I minilibx -L $(MLX) -lmlx -framework OpenGL -framework AppKit -o $@			
+			@echo "$(MAGENTA)$(CC)  ${NOFLAGS} $(OBJ) -I minilibx -L $(MLX) -lmlx -framework OpenGL -framework AppKit -o $@	$(DEF_COLOR)"
+			@echo "$(GREEN)Ffd compiled!$(DEF_COLOR)"
 
-$(NAME): $(OBJ)
-#	$(CC) $(OBJ) ${MLX}/libmlx.a -framework OpenGL -framework AppKit -o $(NAME)
-	$(CC)  ${NOFLAGS} $(OBJ) -I minilibx -L $(MLX) -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+bonus:		
+			@$(MAKE) all
+			
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c | $(OBJF)
+			@echo "$(YELLOW)Compiling: $< $(DEF_COLOR)"
+			$(CC) $(NOFLAGS) -c $< -o $@
 
-#Regla para borrar todos los objetos y directorios
+$(OBJF):
+			@mkdir -p $(OBJ_DIR)
+
 clean:
-		${RM} ${OBJ}
+			$(RM) -rf $(OBJ_DIR)
+			@make clean -C $(MLX)
+			@echo "$(CYAN)Fdf object files cleaned!$(DEF_COLOR)"
 
-#Regla para borrar todo lo que ha sido creado or el makefile
-fclean:	clean
-		${RM} ${NAME} 
+fclean:		clean
+			$(RM) -f $(NAME)
+			@echo "$(CYAN)Fdf executable files cleaned!$(DEF_COLOR)"
+			$(RM) -f $(MLX)/libmlx.a
+			@echo "$(CYAN)libmlx.a lib cleaned!$(DEF_COLOR)"
 
-#Regla  para rehacer todo
-re:		fclean all
+re:			fclean 
+			@$(MAKE)	
+			@echo "$(GREEN)Cleaned and rebuilt everything for Fdf!$(DEF_COLOR)"
 
-.PHONY: fclean, all, clean, re
+norm:
+			@norminette $(SRC) $(INCLUDE) $(LIBFT) | grep -v Norme -B1 || true
+
+.PHONY:		all clean fclean re norm
 

@@ -1,7 +1,7 @@
 
 #include "../inc/fdf.h"
 
-int draw_bitmap(t_meta *meta, int x0, int y0)
+void draw_bitmap(t_meta *meta, int x0, int y0)
 {
     mlx_put_image_to_window(meta->vars.mlx, meta->vars.win, meta->bitmap.img, x0, y0);
 }
@@ -59,9 +59,6 @@ void generate_background(t_meta *meta, int color)
     int y;
     int pixel;
 
-    //image = mlx_new_image(vars->mlx, WINX, WINY);
-    //buffer = mlx_get_data_addr(image, &pixel_bits, &line_bytes, &endian);
-    //printf("PixelBits [%d] - LineBytes [%d] - endian [%d]\n", pixel_bits, line_bytes, endian);
     if (meta->bitmap.bitxpixel != 32)
         color = mlx_get_color_value(meta->vars.mlx, color);
     x = 0;
@@ -89,8 +86,6 @@ void generate_background(t_meta *meta, int color)
         }
         y++;
         x = 0;
-        //printf("Color [%d][%#x] - Buffer [%u][%u][%u]]\n",color, color, buffer[pixel + 0],buffer[pixel + 1], buffer[pixel + 2], buffer[pixel + 3]);
-        //draw_line(vars,0,0,1920,y,color);
         if (y%3 == 0) color++;
     }
 }

@@ -48,5 +48,5 @@ typedef struct	s_meta {
 int		keyrelease(int keycode, t_meta *meta);
 int 	draw_line(t_vars *vars, int beginX, int beginY, int endX, int endY, int color);
 void 	generate_background(t_meta *meta, int color);
-int 	draw_bitmap(t_meta *meta, int x0, int y0);
+void 	draw_bitmap(t_meta *meta, int x0, int y0);
 #endif

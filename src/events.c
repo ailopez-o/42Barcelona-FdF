@@ -20,7 +20,9 @@ int	keyrelease(int keycode, t_meta *meta)
 		exit(0);
 	}
 	if (keycode == 18)
+	{
 		generate_background(meta, 0xFF0000);
+	}
 	if (keycode == 19)
 		generate_background(meta, 0x00FF00);
 	if (keycode == 20)
