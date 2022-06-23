@@ -11,18 +11,22 @@
 /* ************************************************************************** */
 #include "../inc/fdf.h"
 
-
-
 int main()
 {
-	t_vars	vars;
-	int startx;
-	int starty;
-	int color;
+	t_meta meta;
 
-    vars.mlx = mlx_init();
-    vars.win = mlx_new_window(vars.mlx, WINX, WINY, "Tutorial Window - Draw Line");
-	mlx_hook(vars.win, 2, 1L<<0, keyrelease, &vars);
-    mlx_loop(vars.mlx);
+	// Creo una instancia MLX
+    meta.vars.mlx = mlx_init();
+	// Creo una nueva ventana
+    meta.vars.win = mlx_new_window(meta.vars.mlx, WINX, WINY, "FDF - ailopez-");
+	// Creo una imagen
+  	meta.bitmap.img = mlx_new_image(meta.vars.mlx, WINX, WINY);
+	// Creo un buffer bitmap	
+    meta.bitmap.buffer = mlx_get_data_addr(meta.bitmap.img , \
+		&meta.bitmap.bitxpixel, &meta.bitmap.lines, &meta.bitmap.endian);	
+	// Capturamos los eventos del teclado
+	mlx_hook(meta.vars.win, 2, 1L<<0, keyrelease, &meta);
+	// Loop esperando eventos
+    mlx_loop(meta.vars.mlx);
 	return(0);
 }

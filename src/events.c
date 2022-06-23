@@ -11,21 +11,24 @@
 /* ************************************************************************** */
 #include "../inc/fdf.h"
 
-int	keyrelease(int keycode, t_vars *vars)
+int	keyrelease(int keycode, t_meta *meta)
 {
 	printf("Keycode Press [%d]\n", keycode);
 	if (keycode == 53)
 	{
-		mlx_destroy_window(vars->mlx, vars->win);
+		mlx_destroy_window(meta->vars.mlx, meta->vars.win);
 		exit(0);
 	}
 	if (keycode == 18)
-		draw_line_fast(vars,0,0,0,0, 0xFF0000);
+		generate_background(meta, 0xFF0000);
 	if (keycode == 19)
-		draw_line(vars, 20, 40, 1920, 1080, 0x00FF00);
+		generate_background(meta, 0x00FF00);
 	if (keycode == 20)
-		draw_line(vars, 500, 800, 1920, 1080, 0x0000FF);
+		generate_background(meta, 0x000000);
 	if (keycode == 21)
-		draw_line(vars, 0, 0, 1920, 1080, 0xFF0000);
+		generate_background(meta, 0xFF4534);
+
+	if (meta->bitmap.img)
+		draw_bitmap(meta, 0, 0);	
 	return(0);
 }

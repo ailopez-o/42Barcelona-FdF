@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/fdf.h"
-
+/*
 int 	discoteque(t_vars *vars, int sizex, int sizey, int color)
 {
 	int colorize;
@@ -61,3 +61,4 @@ int		drawing(t_vars *vars, int sizex, int sizey, int color)
 	draw_line(vars, sizex, sizey, 1920, 1080, color);	
 	return(0);	
 }
+*/

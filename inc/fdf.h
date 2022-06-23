@@ -21,22 +21,32 @@
 # define WINX 800
 # define WINY 600
 
-typedef struct	s_data {
+# define R(a) (a) >> 16
+# define G(a) ((a) >> 8) & 0xFF
+# define B(a) (a) & 0xFF
+# define RGB(a, b, c) ((a) << 16) + ((b) << 8) + (c)
+
+typedef struct	s_bitmap {
 	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
+	char	*buffer;
+	int		bitxpixel;
+	int		lines;
 	int		endian;
-}				t_data;
+}				t_bitmap;
 
 typedef struct	s_vars {
 	void	*mlx;
 	void	*win;
 }				t_vars;
 
-int	keyrelease(int keycode, t_vars *vars);
-int draw_line(t_vars *vars, int beginX, int beginY, int endX, int endY, int color);
-int	discoteque(t_vars *vars, int sizex, int sizey, int color);
-void draw_line_fast(t_vars *vars, int x0, int y0, int x1, int y1, int color);
-int		drawing(t_vars *vars, int sizex, int sizey, int color);
+typedef struct	s_meta {
+	t_vars		vars;
+	t_bitmap	bitmap;
+}				t_meta;
+
+
+int		keyrelease(int keycode, t_meta *meta);
+int 	draw_line(t_vars *vars, int beginX, int beginY, int endX, int endY, int color);
+void 	generate_background(t_meta *meta, int color);
+int 	draw_bitmap(t_meta *meta, int x0, int y0);
 #endif

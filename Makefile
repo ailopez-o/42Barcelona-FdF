@@ -41,7 +41,7 @@ $(NAME): $(OBJ)
 
 #Regla para borrar todos los objetos y directorios
 clean:
-		${RM} ${OBJS}
+		${RM} ${OBJ}
 
 #Regla para borrar todo lo que ha sido creado or el makefile
 fclean:	clean
