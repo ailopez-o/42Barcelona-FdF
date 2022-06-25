@@ -20,12 +20,7 @@ int	mouse_hook(int value, t_meta *meta)
 int	keyrelease(int keycode, t_meta *meta)
 {
 	t_line	line;
-
-	line.beginX = 0;
-	line.beginY = 0;
-	line.begincolor = 0x005500;
-	line.endX = meta->vars.winX;
-	line.endY = meta->vars.winY;
+	t_coord	dot;
 
 	printf("Keycode Press [%d]\n", keycode);
 	if (keycode == 53)
@@ -34,34 +29,39 @@ int	keyrelease(int keycode, t_meta *meta)
 		generate_background(meta, 0x000000);
 	if (keycode == 19)
 	{
-		line.beginX = 0;
-		line.beginY = 0;
-		line.begincolor = 0x005500;
-		line.endX = meta->vars.winX;
-		line.endY = meta->vars.winY;
-		while (line.endX > 0)
+		line.start.X = 0;
+		line.start.Y = 0;
+		line.start.color = 0x005500;
+		line.end.X = meta->vars.winX;
+		line.end.Y = meta->vars.winY;
+		while (line.end.X > 0)
 		{
 			draw_line(meta, line);
-			line.endX -= 20;
+			line.end.X -= 20;
 		}
 	}
 	if (keycode == 20)
 	{
-		line.beginX = meta->vars.winX;
-		line.beginY = 0;
-		line.endX = 0;
-		line.endY = meta->vars.winY;
-		line.begincolor = 0xFF5500;
+		line.start.X = meta->vars.winX;
+		line.start.Y = 0;
+		line.start.color = 0xFF5500;
+		line.end.X = 0;
+		line.end.Y = meta->vars.winY;
 
-		while (line.endX < meta->vars.winX)
+		while (line.end.X < meta->vars.winX)
 		{
 			draw_line(meta, line);
-			line.endX += 20;
+			line.end.X += 20;
 		}
-	
 	}
 	if (keycode == 21)
-		generate_background(meta, 0xFF4534);
+	{	
+		dot.X = 300;
+		dot.Y = 150;
+		dot.color = VERDE;
+		draw_dot(meta, dot, 10);
+	
+	}
 	if (meta->bitmap.img)
 		draw_bitmap(meta, 0, 0);	
 	return(0);

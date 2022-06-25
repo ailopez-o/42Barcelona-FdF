@@ -14,7 +14,7 @@
 
 NAME		= a.out
 INCLUDE		= inc
-LIBFT		= libft
+LIB			= lib
 SRC_DIR		= src/
 OBJ_DIR		= obj/
 CC			= gcc
@@ -51,12 +51,12 @@ all:	makelibs
 	@$(MAKE)	$(NAME)
 
 makelibs:	
-			@$(MAKE) -C $(MLX)
+			@$(MAKE) -C $(LIB)/$(MLX)
 			
 -include 	${DEPS}
 $(NAME):	$(OBJ) $(INCLUDE)/fdf.h
-			@$(CC)  ${NOFLAGS} $(OBJ) -I minilibx -L $(MLX) -lmlx -framework OpenGL -framework AppKit -o $@			
-			@echo "$(MAGENTA)$(CC)  ${NOFLAGS} $(OBJ) -I minilibx -L $(MLX) -lmlx -framework OpenGL -framework AppKit -o $@	$(DEF_COLOR)"
+			@$(CC)  ${NOFLAGS} $(OBJ) -I minilibx -L $(LIB)/$(MLX) -lmlx -framework OpenGL -framework AppKit -o $@			
+			@echo "$(MAGENTA)$(CC)  ${NOFLAGS} $(OBJ) -I minilibx -L $(LIB)/$(MLX) -lmlx -framework OpenGL -framework AppKit -o $@	$(DEF_COLOR)"
 			@echo "$(GREEN)Ffd compiled!$(DEF_COLOR)"
 
 bonus:		
@@ -71,13 +71,13 @@ $(OBJF):
 
 clean:
 			$(RM) -rf $(OBJ_DIR)
-			@make clean -C $(MLX)
+			@make clean -C $(LIB)/$(MLX)
 			@echo "$(CYAN)Fdf object files cleaned!$(DEF_COLOR)"
 
 fclean:		clean
 			$(RM) -f $(NAME)
 			@echo "$(CYAN)Fdf executable files cleaned!$(DEF_COLOR)"
-			$(RM) -f $(MLX)/libmlx.a
+			$(RM) -f $(LIB)/$(MLX)/libmlx.a
 			@echo "$(CYAN)libmlx.a lib cleaned!$(DEF_COLOR)"
 
 re:			fclean 
@@ -85,7 +85,7 @@ re:			fclean
 			@echo "$(GREEN)Cleaned and rebuilt everything for Fdf!$(DEF_COLOR)"
 
 norm:
-			@norminette $(SRC) $(INCLUDE) $(LIBFT) | grep -v Norme -B1 || true
+			@norminette $(SRC) $(INCLUDE) | grep -v Norme -B1 || true
 
 .PHONY:		all clean fclean re norm
 
