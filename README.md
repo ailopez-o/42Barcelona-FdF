@@ -3,6 +3,8 @@
 
 Documentation:
 
+http://di002.edv.uniovi.es/~rr/Tema2.pdf
+
 https://www.cs.buap.mx/~iolmos/graficacion/5_Transformaciones_geometricas_3D.pdf
 
 https://github.com/qst0/ft_libgfx#the-graphics-branch
