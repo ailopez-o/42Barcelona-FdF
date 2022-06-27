@@ -19,8 +19,8 @@ int	mouse_hook(int value, t_meta *meta)
 
 int	keyrelease(int keycode, t_meta *meta)
 {
-	t_line	line;
-	t_coord	dot;
+	t_line		line;
+	t_point		dot;
 
 	printf("Keycode Press [%d]\n", keycode);
 	if (keycode == 53)
@@ -56,12 +56,17 @@ int	keyrelease(int keycode, t_meta *meta)
 	}
 	if (keycode == 21)
 	{	
-		dot.X = 300;
-		dot.Y = 150;
+		dot.axis[x] = 300;
+		dot.axis[y] = 150;
 		dot.color = VERDE;
 		draw_dot(meta, dot, 10);
 	
 	}
+	if (keycode == 22)
+	{
+		my_cube(meta);
+	}
+
 	if (meta->bitmap.img)
 		draw_bitmap(meta, 0, 0);	
 	return(0);

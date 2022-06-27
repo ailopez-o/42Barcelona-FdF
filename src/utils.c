@@ -166,70 +166,106 @@ void generate_background(t_meta *meta, int color)
 }
 
 
-// function to multiply two matrices
-void multiply_matrix(float first[][10], float second[][10], float result[][10],
-                      int r1, int c1, int r2, int c2) {
-
-   // Initializing elements of matrix mult to 0.
-   for (int i = 0; i < r1; ++i) {
-      for (int j = 0; j < c2; ++j) {
-         result[i][j] = 0;
-      }
-   }
-
-   // Multiplying first and second matrices and storing it in result
-   for (int i = 0; i < r1; ++i) {
-      for (int j = 0; j < c2; ++j) {
-         for (int k = 0; k < c1; ++k) {
-            result[i][j] += first[i][k] * second[k][j];
-         }
-      }
-   }
-}
- 
-
-void mul_mat(float mat1[2][3], float mat2[3][1], float rslt[2][1]) 
+// Esta funcion multiplica una coordenada por la correspondiente matriz
+t_point mul_mat(t_point point, float matrix[3][3]) 
 {
- 
-    printf("Multiplication of given two matrices is:\n\n");
- 
-    for (int i = 0; i < 2; i++) {
-        for (int j = 0; j < 1; j++) {
-            rslt[i][j] = 0;
- 
-            for (int k = 0; k < 3; k++) {
-                rslt[i][j] += mat1[i][k] * mat2[k][j];
-            }
- 
-            printf("%f\t", rslt[i][j]);
+    int i;
+    int k;
+    t_point result;
+
+    i = 0;
+    while (i < 3)
+    {
+        result.axis[i] = 0;
+        result.color = point.color;
+        k = 0;
+        while (k < 3)
+        {
+            result.axis[i] += matrix[i][k] * point.axis[i];
+            k++;
         }
- 
-        printf("\n");
+    i++;
     }
+    return (result);
 }
 
 
-int orto_proyection(t_point *points, t_point *proyection, int len)
+void rotate_x(t_point *points, t_point *proyection, float ang, int len)
 {
     int     i;
-    float   proyect[2][3] = {
+    float   proyect_matrix[3][3] = {
         {1, 0, 0},
-        {0, 1, 0}
+        {0, cos(ang), -(sin(ang))},
+        {0, sin(ang), cos(ang)}
     };
-    float   point[3][1];
-    float   proyected[2][1];
 
     i = 0;
     while (i < len)
     {
-        point[0][0] = points[i].axis[x];
-        point[1][0] = points[i].axis[y];
-        point[2][0] = points[i].axis[z];
-        mul_mat(proyect, point, proyected);
-        proyection[i].axis[x] =  proyected[0][0];
-        proyection[i].axis[y] =  proyected[1][0];
-        proyection[i].axis[z] =  0;
+        proyection[i] = mul_mat(points[i], proyect_matrix);
         i++;
     }
+}
 
+void rotate_y(t_point *points, t_point *proyection, float ang, int len)
+{
+    int     i;
+    float   proyect_matrix[3][3] = {
+        {cos(ang), 0, sin(ang)},
+        {0, 1, 0},
+        {-(sin(ang)), 0, cos(ang)}
+    };
+
+    i = 0;
+    while (i < len)
+    {
+        proyection[i] = mul_mat(points[i], proyect_matrix);
+        i++;
+    }
+}
+
+void traslate(t_point *points, t_point move, int len)
+{
+    int     i;
+    i = 0;
+    while (i < len)
+    {
+        points[i].axis[x] = points[i].axis[x] + move.axis[x];
+        points[i].axis[y] = points[i].axis[y] + move.axis[y];
+        i++;
+    }
+}
+
+void rotate_z(t_point *points, t_point *proyection, float ang, int len)
+{
+    int     i;
+    float   proyect_matrix[3][3] = {
+        {cos(ang), -(sin(ang)), 0},
+        {sin (ang), cos(ang), 0},
+        {0, 0, 1}
+    };
+
+    i = 0;
+    while (i < len)
+    {
+        proyection[i] = mul_mat(points[i], proyect_matrix);
+        i++;
+    }
+}
+
+void orto_proyection(t_point *points, t_point *proyection, int len)
+{
+    int     i;
+    float   proyect_matrix[3][3] = {
+        {1, 0, 0},
+        {0, 1, 0},
+        {0, 0, 0}
+    };
+
+    i = 0;
+    while (i < len)
+    {
+        proyection[i] = mul_mat(points[i], proyect_matrix);
+        i++;
+    }
 }

@@ -93,5 +93,10 @@ void 	draw_bitmap(t_meta *meta, int x0, int y0);
 int		mouse_hook(int value, t_meta *meta);
 void 	my_putpixel(t_meta *meta, t_coord pixel);
 void	draw_dot(t_meta *meta, t_point point, int radius);
-int		orto_proyection(t_point *points, t_point *proyection, int len);
+void	orto_proyection(t_point *points, t_point *proyection, int len);
+void	rotate_x(t_point *points, t_point *proyection, float ang, int len);
+void	rotate_y(t_point *points, t_point *proyection, float ang, int len);
+void	rotate_z(t_point *points, t_point *proyection, float ang, int len);
+void	my_cube(t_meta *meta);
+void	traslate(t_point *points, t_point move, int len);
 #endif
