@@ -22,12 +22,13 @@
 # define WINX 800
 # define WINY 600
 
+# define x 0
+# define y 1
+# define z 2
 
 # define ROJO 0xc1272d
 # define VERDE 0x33cc55
 # define FUCSIA 0xff255c
-
-
 
 # define R(a) (a) >> 16
 # define G(a) ((a) >> 8) & 0xFF
@@ -55,14 +56,22 @@ typedef struct	s_meta {
 }				t_meta;
 
 typedef struct	s_coord {
-	int		X;
-	int 	Y;
+	float		X;
+	float 		Y;	
+	float	 	Z;
 	int 	color;
 }				t_coord;
+
+
+typedef struct	s_point {
+	float		axis[3];
+	int 		color;
+}				t_point;
 
 typedef struct	s_pcoord {
 	double		X;
 	double 		Y;
+	double		Z;	
 	int 		color;
 }				t_pcoord;
 
@@ -82,6 +91,7 @@ int 	draw_line(t_meta *meta, t_line line);
 void 	generate_background(t_meta *meta, int color);
 void 	draw_bitmap(t_meta *meta, int x0, int y0);
 int		mouse_hook(int value, t_meta *meta);
-int 	my_putpixel(t_meta *meta, t_coord pixel);
-void 	draw_dot(t_meta *meta, t_coord pos, int radius);
+void 	my_putpixel(t_meta *meta, t_coord pixel);
+void	draw_dot(t_meta *meta, t_point point, int radius);
+int		orto_proyection(t_point *points, t_point *proyection, int len);
 #endif

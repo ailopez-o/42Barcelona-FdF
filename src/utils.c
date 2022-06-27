@@ -6,7 +6,7 @@ void draw_bitmap(t_meta *meta, int x0, int y0)
     mlx_put_image_to_window(meta->vars.mlx, meta->vars.win, meta->bitmap.img, x0, y0);
 }
 
-int my_putpixel(t_meta *meta, t_coord pixel)
+void my_putpixel(t_meta *meta, t_coord pixel)
 {
     int mypixel;
     //Calculo la posicion en el buffer;
@@ -30,42 +30,42 @@ int my_putpixel(t_meta *meta, t_coord pixel)
     }
 }
 
-void draw_dot(t_meta *meta, t_coord pos, int radius)
+void draw_dot(t_meta *meta, t_point point, int radius)
 {
-    int         x = radius;
-    int         y = 0;
+    int         X = radius;
+    int         Y = 0;
     int         xChange = 1 - (radius << 1);
     int         yChange = 0;
     int         radiusError = 0;
     t_coord     pixel;
 
-    pixel.color = pos.color;
-    while (x >= y)
+    pixel.color = point.color;
+    while (X >= Y)
     {
-        for (int i = pos.X - x; i <= pos.X + x; i++)
+        for (int i = point.axis[x] - X; i <= point.axis[x] + X; i++)
         {
             pixel.X = i;
-            pixel.Y = pos.Y + y;
+            pixel.Y = point.axis[y] + Y;
             my_putpixel(meta, pixel);
             pixel.X = i;
-            pixel.Y = pos.Y - y;
+            pixel.Y = point.axis[y] - Y;
             my_putpixel(meta, pixel);  
         }
-        for (int i = pos.X - y; i <= pos.X + y; i++)
+        for (int i = point.axis[x] - Y; i <= point.axis[x] + Y; i++)
         {
             pixel.X = i;
-            pixel.Y = pos.Y + x;
+            pixel.Y = point.axis[y] + X;
             my_putpixel(meta, pixel);
             pixel.X = i;
-            pixel.Y = pos.Y - x;
+            pixel.Y = point.axis[y] - X;
             my_putpixel(meta, pixel);    
         }
-        y++;
+        Y++;
         radiusError += yChange;
         yChange += 2;
         if (((radiusError << 1) + xChange) > 0)
         {
-            x--;
+            X--;
             radiusError += xChange;
             xChange += 2;
         }
@@ -130,19 +130,19 @@ int gradient(int startcolor, int endcolor, int len, int pix)
 }
 void generate_background(t_meta *meta, int color)
 {
-    int x;
-    int y;
+    int X;
+    int Y;
     int pixel;
 
     if (meta->bitmap.bitxpixel != 32)
         color = mlx_get_color_value(meta->vars.mlx, color);
-    x = 0;
-    y = 0;
-    while (y < meta->vars.winY)
+    X = 0;
+    Y = 0;
+    while (Y < meta->vars.winY)
     {
-        while(x < meta->vars.winX)
+        while(X < meta->vars.winX)
         {
-            pixel = (y * meta->bitmap.lines) + (x * 4);
+            pixel = (Y * meta->bitmap.lines) + (X * 4);
             if (meta->bitmap.endian == 1)        // Most significant (Alpha) byte first
             {
                 meta->bitmap.buffer[pixel + 0] = (color >> 24);
@@ -157,10 +157,79 @@ void generate_background(t_meta *meta, int color)
                 meta->bitmap.buffer[pixel + 2] = (color >> 16) & 0xFF;
                 meta->bitmap.buffer[pixel + 3] = (color >> 24);
             }
-            x++;
+            X++;
         }
-        y++;
-        x = 0;
+        Y++;
+        X = 0;
         //if (y%3 == 0) color++;
     }
+}
+
+
+// function to multiply two matrices
+void multiply_matrix(float first[][10], float second[][10], float result[][10],
+                      int r1, int c1, int r2, int c2) {
+
+   // Initializing elements of matrix mult to 0.
+   for (int i = 0; i < r1; ++i) {
+      for (int j = 0; j < c2; ++j) {
+         result[i][j] = 0;
+      }
+   }
+
+   // Multiplying first and second matrices and storing it in result
+   for (int i = 0; i < r1; ++i) {
+      for (int j = 0; j < c2; ++j) {
+         for (int k = 0; k < c1; ++k) {
+            result[i][j] += first[i][k] * second[k][j];
+         }
+      }
+   }
+}
+ 
+
+void mul_mat(float mat1[2][3], float mat2[3][1], float rslt[2][1]) 
+{
+ 
+    printf("Multiplication of given two matrices is:\n\n");
+ 
+    for (int i = 0; i < 2; i++) {
+        for (int j = 0; j < 1; j++) {
+            rslt[i][j] = 0;
+ 
+            for (int k = 0; k < 3; k++) {
+                rslt[i][j] += mat1[i][k] * mat2[k][j];
+            }
+ 
+            printf("%f\t", rslt[i][j]);
+        }
+ 
+        printf("\n");
+    }
+}
+
+
+int orto_proyection(t_point *points, t_point *proyection, int len)
+{
+    int     i;
+    float   proyect[2][3] = {
+        {1, 0, 0},
+        {0, 1, 0}
+    };
+    float   point[3][1];
+    float   proyected[2][1];
+
+    i = 0;
+    while (i < len)
+    {
+        point[0][0] = points[i].axis[x];
+        point[1][0] = points[i].axis[y];
+        point[2][0] = points[i].axis[z];
+        mul_mat(proyect, point, proyected);
+        proyection[i].axis[x] =  proyected[0][0];
+        proyection[i].axis[y] =  proyected[1][0];
+        proyection[i].axis[z] =  0;
+        i++;
+    }
+
 }
