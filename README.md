@@ -19,8 +19,14 @@ https://www.youtube.com/watch?v=p4Iz0XJY-Qk
 
 https://github.com/pbondoer/42-FdF
 
+
+
+Ortographic Pryection 
+
+http://learnwebgl.brown37.net/08_projections/projections_ortho.html
 http://learnwebgl.brown37.net/08_projections/projections_ortho.html
 
 
 3D Matrix simulator
+
 https://keisan.casio.com/exec/system/15362817755710
