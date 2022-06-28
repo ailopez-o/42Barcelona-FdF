@@ -6,11 +6,14 @@ void draw_bitmap(t_meta *meta, int x0, int y0)
     mlx_put_image_to_window(meta->vars.mlx, meta->vars.win, meta->bitmap.img, x0, y0);
 }
 
-void my_putpixel(t_meta *meta, t_point pixel)
+int my_putpixel(t_meta *meta, t_point pixel)
 {
     int mypixel;
+
+    if(pixel.axis[x] > WINX || pixel.axis[y] > WINY || pixel.axis[x] < 0 || pixel.axis[y] < 0)
+        return (-1);
     //Calculo la posicion en el buffer;
-    mypixel = ((int)pixel.axis[y] * meta->vars.winX * 4) + ((int)pixel.axis[x] * 4);
+    mypixel = ((int)pixel.axis[y] * WINX * 4) + ((int)pixel.axis[x] * 4);
     if (meta->bitmap.bitxpixel != 32)
         pixel.color = mlx_get_color_value(meta->vars.mlx, pixel.color);
     //Generamos el color
@@ -28,6 +31,7 @@ void my_putpixel(t_meta *meta, t_point pixel)
         meta->bitmap.buffer[mypixel + 2] = (pixel.color >> 16) & 0xFF;
         meta->bitmap.buffer[mypixel + 3] = (pixel.color >> 24);
     }
+    return(0);
 }
 
 void draw_dot(t_meta *meta, t_point point, int radius)
@@ -137,9 +141,9 @@ void generate_background(t_meta *meta, int color)
         color = mlx_get_color_value(meta->vars.mlx, color);
     X = 0;
     Y = 0;
-    while (Y < meta->vars.winY)
+    while (Y < WINY)
     {
-        while(X < meta->vars.winX)
+        while(X < WINX)
         {
             pixel = (Y * meta->bitmap.lines) + (X * 4);
             if (meta->bitmap.endian == 1)        // Most significant (Alpha) byte first

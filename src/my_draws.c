@@ -50,48 +50,6 @@ void load_cube(t_point *cube)
 	cube[7].axis[z] = 10;	
 }
 
-void	my_map(t_meta *meta)
-{
-	for (int i = 0; i<8; i++)
-		meta->map.points[i].color= FUCSIA;
-
-	cube[0].axis[x] = -10;
-	cube[0].axis[y] = -10;
-	cube[0].axis[z] = -10;
-
-	cube[1].axis[x] = 10;
-	cube[1].axis[y] = -10;
-	cube[1].axis[z] = -10;
-
-	cube[2].axis[x] = 10;
-	cube[2].axis[y] = 10;
-	cube[2].axis[z] = -10;
-
-	cube[3].axis[x] = -10;
-	cube[3].axis[y] = 10;
-	cube[3].axis[z] = -10;
-
-	cube[4].axis[x] = -10;
-	cube[4].axis[y] = -10;
-	cube[4].axis[z] = 10;	
-
-	cube[5].axis[x] = 10;
-	cube[5].axis[y] = -10;
-	cube[5].axis[z] = 10;
-
-	cube[6].axis[x] = 10;
-	cube[6].axis[y] = 10;
-	cube[6].axis[z] = 10;
-
-	cube[7].axis[x] = -10;
-	cube[7].axis[y] = 10;
-	cube[7].axis[z] = 10;	
-
-
-
-}
-
-
 void	my_cube(t_meta *meta)
 {
 	int			i;

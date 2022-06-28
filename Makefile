@@ -12,13 +12,13 @@
 # **************************************************************************** #
 #Variables
 
-NAME		= a.out
-INCLUDE		= inc
+NAME		= fdf
+INCLUDE		= inc/
 LIB			= lib
 SRC_DIR		= src/
 OBJ_DIR		= obj/
 CC			= gcc
-CFLAGS		= -Wall -Werror -Wextra -MMD -I
+CFLAGS		= -Wall -Werror -Wextra -MMD
 NOFLAGS		= -g
 RM			= rm -f
 MLX		= 	miniliblx/minilibx_macos
@@ -38,11 +38,12 @@ WHITE = \033[0;97m
 #Sources
 
 SRC_FILES	=	main events my_draws utils matrix geometry map
+INC_FILES	= 	fdf keycodes
 
 SRC 		= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ 		= 	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 DEPS 		= 	$(addprefix $(OBJ_DIR), $(addsuffix .d, $(SRC_FILES)))
-
+INCS		= 	$(addprefix $(INCLUDE), $(addsuffix .h, $(INC_FILES)))
 ###
 
 OBJF		=	.cache_exists
@@ -54,15 +55,15 @@ makelibs:
 			@$(MAKE) -C $(LIB)/$(MLX)
 			
 -include 	${DEPS}
-$(NAME):	$(OBJ) $(INCLUDE)/fdf.h
+$(NAME):	$(OBJ) $(INCS)
 			@$(CC)  ${NOFLAGS} $(OBJ) -I minilibx -L $(LIB)/$(MLX) -lmlx -framework OpenGL -framework AppKit -o $@			
 			@echo "$(MAGENTA)$(CC)  ${NOFLAGS} $(OBJ) -I minilibx -L $(LIB)/$(MLX) -lmlx -framework OpenGL -framework AppKit -o $@	$(DEF_COLOR)"
-			@echo "$(GREEN)Ffd compiled!$(DEF_COLOR)"
+			@echo "$(GREEN)FDF compiled!$(DEF_COLOR)"
 
 bonus:		
 			@$(MAKE) all
 			
-$(OBJ_DIR)%.o: $(SRC_DIR)%.c | $(OBJF)
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c $(INCS) | $(OBJF)
 			@echo "$(YELLOW)Compiling: $< $(DEF_COLOR)"
 			$(CC) $(NOFLAGS) -c $< -o $@
 
