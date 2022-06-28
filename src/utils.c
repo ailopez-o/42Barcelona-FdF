@@ -6,11 +6,11 @@ void draw_bitmap(t_meta *meta, int x0, int y0)
     mlx_put_image_to_window(meta->vars.mlx, meta->vars.win, meta->bitmap.img, x0, y0);
 }
 
-void my_putpixel(t_meta *meta, t_coord pixel)
+void my_putpixel(t_meta *meta, t_point pixel)
 {
     int mypixel;
     //Calculo la posicion en el buffer;
-    mypixel = (pixel.Y * meta->vars.winX * 4) + (pixel.X * 4);
+    mypixel = ((int)pixel.axis[y] * meta->vars.winX * 4) + ((int)pixel.axis[x] * 4);
     if (meta->bitmap.bitxpixel != 32)
         pixel.color = mlx_get_color_value(meta->vars.mlx, pixel.color);
     //Generamos el color
@@ -37,27 +37,27 @@ void draw_dot(t_meta *meta, t_point point, int radius)
     int         xChange = 1 - (radius << 1);
     int         yChange = 0;
     int         radiusError = 0;
-    t_coord     pixel;
+    t_point     pixel;
 
     pixel.color = point.color;
     while (X >= Y)
     {
         for (int i = point.axis[x] - X; i <= point.axis[x] + X; i++)
         {
-            pixel.X = i;
-            pixel.Y = point.axis[y] + Y;
+            pixel.axis[x] = i;
+            pixel.axis[y] = (int)point.axis[y] + Y;
             my_putpixel(meta, pixel);
-            pixel.X = i;
-            pixel.Y = point.axis[y] - Y;
+            pixel.axis[x] = i;
+            pixel.axis[y] = (int)point.axis[y] - Y;
             my_putpixel(meta, pixel);  
         }
         for (int i = point.axis[x] - Y; i <= point.axis[x] + Y; i++)
         {
-            pixel.X = i;
-            pixel.Y = point.axis[y] + X;
+            pixel.axis[x] = i;
+            pixel.axis[y] = (int)point.axis[y] + X;
             my_putpixel(meta, pixel);
-            pixel.X = i;
-            pixel.Y = point.axis[y] - X;
+            pixel.axis[x]= i;
+            pixel.axis[y] = (int)point.axis[y] - X;
             my_putpixel(meta, pixel);    
         }
         Y++;
@@ -73,32 +73,56 @@ void draw_dot(t_meta *meta, t_point point, int radius)
 }
 
 
-int draw_line(t_meta *meta, t_line line)
-{
-    t_coord     pixeldraw;
-    t_pcoord    delta;
-    t_pcoord    pixel;
-	int     pixels;
 
-    delta.X = line.end.X - line.start.X;
-    delta.Y = line.end.Y - line.start.Y;
-    pixels = sqrt((delta.X * delta.X) + (delta.Y * delta.Y));
-	delta.X /= pixels; 
-	delta.Y /= pixels; 
-	pixel.X = line.start.X;
-	pixel.Y = line.start.Y;
+int draw_line(t_meta *meta, t_point start, t_point end)
+{
+    t_point     delta;
+    t_point     pixel;
+	int         pixels;
+
+    delta.axis[x] = end.axis[x] - start.axis[x];
+    delta.axis[y] = end.axis[y] - start.axis[y];
+    pixels = sqrt((delta.axis[x] * delta.axis[x]) + (delta.axis[y] * delta.axis[y]));
+	delta.axis[x] /= pixels; 
+	delta.axis[y] /= pixels; 
+	pixel.axis[x] = start.axis[x];
+	pixel.axis[y] = start.axis[y];
+    pixel.color = start.color;
 	while (pixels)
 	{
-        pixeldraw.X = (int)pixel.X;
-        pixeldraw.Y = (int)pixel.Y;
-        pixeldraw.color = line.start.color;
-    	my_putpixel(meta, pixeldraw);
-    	pixel.X += delta.X;
-    	pixel.Y += delta.Y;
+    	my_putpixel(meta, pixel);
+    	pixel.axis[x] += delta.axis[x];
+    	pixel.axis[y] += delta.axis[y];
     	--pixels;
 	}
 	return(1);
 }
+
+/*
+int draw_line(t_meta *meta, t_line line)
+{
+    t_point     delta;
+    t_point     pixel;
+	int         pixels;
+
+    delta.axis[x] = line.end.axis[x] - line.start.axis[x];
+    delta.axis[y] = line.end.axis[y] - line.start.axis[y];
+    pixels = sqrt((delta.axis[x] * delta.axis[x]) + (delta.axis[y] * delta.axis[y]));
+	delta.axis[x] /= pixels; 
+	delta.axis[y] /= pixels; 
+	pixel.axis[x] = line.start.axis[x];
+	pixel.axis[y] = line.start.axis[y];
+    pixel.color = line.start.color;
+	while (pixels)
+	{
+    	my_putpixel(meta, pixel);
+    	pixel.axis[x] += delta.axis[x];
+    	pixel.axis[y] += delta.axis[y];
+    	--pixels;
+	}
+	return(1);
+}
+*/
 
 int	ft_round(double num)
 {
@@ -167,7 +191,7 @@ void generate_background(t_meta *meta, int color)
 
 
 // Esta funcion multiplica una coordenada por la correspondiente matriz
-t_point mul_mat(t_point point, float matrix[3][3]) 
+t_point mul_mat(float matrix[3][3], t_point point) 
 {
     int i;
     int k;
@@ -181,7 +205,7 @@ t_point mul_mat(t_point point, float matrix[3][3])
         k = 0;
         while (k < 3)
         {
-            result.axis[i] += matrix[i][k] * point.axis[i];
+            result.axis[i] += matrix[i][k] * point.axis[k];
             k++;
         }
     i++;
@@ -193,16 +217,18 @@ t_point mul_mat(t_point point, float matrix[3][3])
 void rotate_x(t_point *points, t_point *proyection, float ang, int len)
 {
     int     i;
+    float   rad;
+    rad = (ang * 3.14159) / 180;
     float   proyect_matrix[3][3] = {
         {1, 0, 0},
-        {0, cos(ang), -(sin(ang))},
-        {0, sin(ang), cos(ang)}
+        {0, cos(rad), -sin(rad)},
+        {0, sin(rad), cos(rad)}
     };
 
     i = 0;
     while (i < len)
     {
-        proyection[i] = mul_mat(points[i], proyect_matrix);
+        proyection[i] = mul_mat(proyect_matrix, points[i]);
         i++;
     }
 }
@@ -210,16 +236,36 @@ void rotate_x(t_point *points, t_point *proyection, float ang, int len)
 void rotate_y(t_point *points, t_point *proyection, float ang, int len)
 {
     int     i;
+    float   rad;
+    rad = (ang * 3.14159) / 180;
     float   proyect_matrix[3][3] = {
-        {cos(ang), 0, sin(ang)},
+        {cos(rad), 0, sin(rad)},
         {0, 1, 0},
-        {-(sin(ang)), 0, cos(ang)}
+        {-(sin(rad)), 0, cos(rad)}
     };
 
     i = 0;
     while (i < len)
     {
-        proyection[i] = mul_mat(points[i], proyect_matrix);
+        proyection[i] = mul_mat(proyect_matrix, points[i]);
+        i++;
+    }
+}
+
+void rotate_z(t_point *points, t_point *proyection, float ang, int len)
+{
+    int     i;
+    float   rad;
+    rad = (ang * 3.14159) / 180;
+    float   proyect_matrix[3][3] = {
+        {cos(rad), -sin(rad), 0},
+        {sin (rad), cos(rad), 0},
+        {0, 0, 1}
+    };
+    i = 0;
+    while (i < len)
+    {
+        proyection[i] = mul_mat(proyect_matrix, points[i]);
         i++;
     }
 }
@@ -236,19 +282,14 @@ void traslate(t_point *points, t_point move, int len)
     }
 }
 
-void rotate_z(t_point *points, t_point *proyection, float ang, int len)
+void scale(t_point *points, int scale, int len)
 {
     int     i;
-    float   proyect_matrix[3][3] = {
-        {cos(ang), -(sin(ang)), 0},
-        {sin (ang), cos(ang), 0},
-        {0, 0, 1}
-    };
-
     i = 0;
     while (i < len)
     {
-        proyection[i] = mul_mat(points[i], proyect_matrix);
+        points[i].axis[x] = points[i].axis[x] * scale;
+        points[i].axis[y] = points[i].axis[y] * scale;
         i++;
     }
 }
@@ -265,7 +306,7 @@ void orto_proyection(t_point *points, t_point *proyection, int len)
     i = 0;
     while (i < len)
     {
-        proyection[i] = mul_mat(points[i], proyect_matrix);
+        proyection[i] = mul_mat(proyect_matrix, points[i]);
         i++;
     }
 }

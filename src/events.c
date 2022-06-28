@@ -19,8 +19,9 @@ int	mouse_hook(int value, t_meta *meta)
 
 int	keyrelease(int keycode, t_meta *meta)
 {
-	t_line		line;
 	t_point		dot;
+	t_point		start;
+	t_point		end;
 
 	printf("Keycode Press [%d]\n", keycode);
 	if (keycode == 53)
@@ -29,29 +30,29 @@ int	keyrelease(int keycode, t_meta *meta)
 		generate_background(meta, 0x000000);
 	if (keycode == 19)
 	{
-		line.start.X = 0;
-		line.start.Y = 0;
-		line.start.color = 0x005500;
-		line.end.X = meta->vars.winX;
-		line.end.Y = meta->vars.winY;
-		while (line.end.X > 0)
+		start.axis[x] = 0;
+		start.axis[y] = 0;
+		start.color = 0x005500;
+		end.axis[x] = meta->vars.winX;
+		end.axis[y] = meta->vars.winY;
+		while (end.axis[x] > 0)
 		{
-			draw_line(meta, line);
-			line.end.X -= 20;
+			draw_line(meta, start, end);
+			end.axis[x] -= 20;
 		}
 	}
 	if (keycode == 20)
 	{
-		line.start.X = meta->vars.winX;
-		line.start.Y = 0;
-		line.start.color = 0xFF5500;
-		line.end.X = 0;
-		line.end.Y = meta->vars.winY;
+		start.axis[x] = meta->vars.winX;
+		start.axis[y] = 0;
+		start.color = 0xFF5500;
+		end.axis[x] = 0;
+		end.axis[y]= meta->vars.winY;
 
-		while (line.end.X < meta->vars.winX)
+		while (end.axis[x] < meta->vars.winX)
 		{
-			draw_line(meta, line);
-			line.end.X += 20;
+			draw_line(meta, start, end);
+			end.axis[x] += 20;
 		}
 	}
 	if (keycode == 21)

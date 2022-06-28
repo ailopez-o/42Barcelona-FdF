@@ -55,43 +55,23 @@ typedef struct	s_meta {
 	t_bitmap	bitmap;
 }				t_meta;
 
-typedef struct	s_coord {
-	float		X;
-	float 		Y;	
-	float	 	Z;
-	int 	color;
-}				t_coord;
-
-
 typedef struct	s_point {
 	float		axis[3];
 	int 		color;
 }				t_point;
 
-typedef struct	s_pcoord {
-	double		X;
-	double 		Y;
-	double		Z;	
-	int 		color;
-}				t_pcoord;
-
-typedef struct	s_line {
-	t_coord		start;
-	t_coord 	end;
-}				t_line;
-
 typedef struct	s_dot {
 	int			rad;
 	int			color;
-	t_coord 	pos;
+	t_point 	pos;
 }				t_dot;
 
 int		keyrelease(int keycode, t_meta *meta);
-int 	draw_line(t_meta *meta, t_line line);
+int 	draw_line(t_meta *meta, t_point start, t_point end);
 void 	generate_background(t_meta *meta, int color);
 void 	draw_bitmap(t_meta *meta, int x0, int y0);
 int		mouse_hook(int value, t_meta *meta);
-void 	my_putpixel(t_meta *meta, t_coord pixel);
+void 	my_putpixel(t_meta *meta, t_point pixel);
 void	draw_dot(t_meta *meta, t_point point, int radius);
 void	orto_proyection(t_point *points, t_point *proyection, int len);
 void	rotate_x(t_point *points, t_point *proyection, float ang, int len);
@@ -99,4 +79,5 @@ void	rotate_y(t_point *points, t_point *proyection, float ang, int len);
 void	rotate_z(t_point *points, t_point *proyection, float ang, int len);
 void	my_cube(t_meta *meta);
 void	traslate(t_point *points, t_point move, int len);
+void 	scale(t_point *points, int scale, int len);
 #endif
