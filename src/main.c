@@ -14,7 +14,11 @@
 int main()
 {
 	t_meta 		meta;
+	t_map		map;
 
+	// Cargamos el mapa
+	if (load_map(&map) == 0)
+		return (0);
 	// Creo una instancia MLX
     meta.vars.mlx = mlx_init();
 	meta.vars.winX = WINX;
@@ -32,5 +36,6 @@ int main()
 	mlx_mouse_hook(meta.vars.win, mouse_hook, &meta);
 	// Loop esperando eventos
     mlx_loop(meta.vars.mlx);
+	free (map.points);
 	return(0);
 }

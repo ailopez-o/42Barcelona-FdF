@@ -50,21 +50,31 @@ typedef struct	s_vars {
 	int		winY;
 }				t_vars;
 
-typedef struct	s_meta {
-	t_vars		vars;
-	t_bitmap	bitmap;
-}				t_meta;
-
 typedef struct	s_point {
 	float		axis[3];
 	int 		color;
 }				t_point;
+
+typedef struct	m_map {
+	t_point		*points;
+	t_point		maxs;
+	int			len;
+}				t_map;
+
+typedef struct	s_meta {
+	t_vars		vars;
+	t_bitmap	bitmap;
+	t_map		map;
+}				t_meta;
+
+
 
 typedef struct	s_dot {
 	int			rad;
 	int			color;
 	t_point 	pos;
 }				t_dot;
+
 
 int		keyrelease(int keycode, t_meta *meta);
 int 	draw_line(t_meta *meta, t_point start, t_point end);
@@ -81,4 +91,6 @@ void	my_cube(t_meta *meta);
 void	traslate(t_point *points, t_point move, int len);
 void 	scale(t_point *points, int scale, int len);
 void 	isometric(t_point *points, t_point *proyection, int len);
+void	center(t_point *points, int len);
+int		load_map(t_map *map);
 #endif

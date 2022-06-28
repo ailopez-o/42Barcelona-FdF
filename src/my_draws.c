@@ -50,6 +50,48 @@ void load_cube(t_point *cube)
 	cube[7].axis[z] = 10;	
 }
 
+void	my_map(t_meta *meta)
+{
+	for (int i = 0; i<8; i++)
+		meta->map.points[i].color= FUCSIA;
+
+	cube[0].axis[x] = -10;
+	cube[0].axis[y] = -10;
+	cube[0].axis[z] = -10;
+
+	cube[1].axis[x] = 10;
+	cube[1].axis[y] = -10;
+	cube[1].axis[z] = -10;
+
+	cube[2].axis[x] = 10;
+	cube[2].axis[y] = 10;
+	cube[2].axis[z] = -10;
+
+	cube[3].axis[x] = -10;
+	cube[3].axis[y] = 10;
+	cube[3].axis[z] = -10;
+
+	cube[4].axis[x] = -10;
+	cube[4].axis[y] = -10;
+	cube[4].axis[z] = 10;	
+
+	cube[5].axis[x] = 10;
+	cube[5].axis[y] = -10;
+	cube[5].axis[z] = 10;
+
+	cube[6].axis[x] = 10;
+	cube[6].axis[y] = 10;
+	cube[6].axis[z] = 10;
+
+	cube[7].axis[x] = -10;
+	cube[7].axis[y] = 10;
+	cube[7].axis[z] = 10;	
+
+
+
+}
+
+
 void	my_cube(t_meta *meta)
 {
 	int			i;
@@ -62,15 +104,16 @@ void	my_cube(t_meta *meta)
 	
 	load_cube(cube);
 	ang += 10;
-	//rotate_x(cube, rotated3D, ang, 8);
-	//rotate_y(rotated3D, rotated3D, ang, 8);
+	rotate_x(cube, rotated3D, ang, 8);
+	rotate_y(rotated3D, rotated3D, ang, 8);
 	//rotate_z(rotated3D, rotated3D, ang, 8);
-	isometric(cube,rotated3D, 8);
+	//isometric(cube,rotated3D, 8);
 	orto_proyection (rotated3D, proyection2D, 8);
 	scale (proyection2D, 7, 8);
-	move.axis[x] = 300;
-	move.axis[y] = 300;
-	traslate(proyection2D, move, 8);
+	//move.axis[x] = 300;
+	//move.axis[y] = 300;
+	//traslate(proyection2D, move, 8);
+	center(proyection2D,8);
 	generate_background(meta, 0x000000);
 	i = 0;
 	while (i < 8)

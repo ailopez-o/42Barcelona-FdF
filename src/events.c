@@ -25,7 +25,10 @@ int	keyrelease(int keycode, t_meta *meta)
 
 	printf("Keycode Press [%d]\n", keycode);
 	if (keycode == 53)
+	{
 		exit(0);
+		free(meta->map.points);
+	}
 	if (keycode == 18)
 		generate_background(meta, 0x000000);
 	if (keycode == 19)
@@ -67,7 +70,10 @@ int	keyrelease(int keycode, t_meta *meta)
 	{
 		my_cube(meta);
 	}
-
+	if (keycode == 23)
+	{
+		my_map(meta);
+	}
 	if (meta->bitmap.img)
 		draw_bitmap(meta, 0, 0);	
 	return(0);
