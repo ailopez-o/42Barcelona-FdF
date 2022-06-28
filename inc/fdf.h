@@ -18,7 +18,7 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <math.h>
+# include <string.h>
 
 # define WINX 800
 # define WINY 600
@@ -26,6 +26,14 @@
 # define x 0
 # define y 1
 # define z 2
+
+# define ON_KEYDOWN		2
+# define ON_KEYUP		3
+# define ON_MOUSEDOWN	4
+# define ON_MOUSEUP		5
+# define ON_MOUSEMOVE	6
+# define ON_EXPOSE		12
+# define ON_DESTROY		17
 
 # define ROJO 				0xc1272d
 # define VERDE				0x33cc55
@@ -71,13 +79,13 @@ typedef struct	m_map {
 	float		ang[3];
 	float 		scale;
 	int			len;
+	int			renders;
 }				t_map;
 
 typedef struct	s_meta {
 	t_vars		vars;
 	t_bitmap	bitmap;
 	t_map		map;
-	int			renders;
 }				t_meta;
 
 
@@ -89,11 +97,13 @@ typedef struct	s_dot {
 }				t_dot;
 
 
-int		keyrelease(int keycode, t_meta *meta);
+int		key_press(int key, void *param);
+int		mouse_move(int X, int Y, void *param);
+int		mouse_release(int button, int X, int Y, void *param);
+int		mouse_press(int button, int X, int Y, void *param);
 int 	draw_line(t_meta *meta, t_point start, t_point end);
 void 	generate_background(t_meta *meta, int color);
 void 	draw_bitmap(t_meta *meta, int x0, int y0);
-int		mouse_hook(int value, t_meta *meta);
 int 	my_putpixel(t_meta *meta, t_point pixel);
 void	draw_dot(t_meta *meta, t_point point, int radius);
 void	orto_proyection(t_point *points, t_point *proyection, int len);

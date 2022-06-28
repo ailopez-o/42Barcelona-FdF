@@ -12,7 +12,7 @@
 # **************************************************************************** #
 #Variables
 
-NAME		= fdf
+NAME		= a.out
 INCLUDE		= inc/
 LIB			= lib
 SRC_DIR		= src/

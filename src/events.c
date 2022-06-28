@@ -11,35 +11,63 @@
 /* ************************************************************************** */
 #include "../inc/fdf.h"
 
-int	mouse_hook(int value, t_meta *meta)
+int	mouse_move(int X, int Y, void *param)
 {
-	printf("Mouse Press [%d]\n", value);
+	t_meta	*meta;
 
-	if (value == 4)
-	{
-		// Zoom IN
-		//meta->map.scale = meta->map.scale + 1;
-		//draw_map(meta);
-	}
-	if (value == 5)
-	{
-		// Zoom OUT
-		//meta->map.scale = meta->map.scale - 1;
-		//draw_map(meta);
-	}
+	meta = (t_meta *)param;
 
-	return (0);
+	if (X > WINX || X < 0 || Y > WINY || Y < 0)
+		return(0);
+	printf("Mouse Press [%d][%d]\n", X,Y);
+	return(0);
 }
 
-int	keyrelease(int keycode, t_meta *meta)
+int	mouse_release(int button, int X, int Y, void *param)
+{
+	t_meta	*meta;
+
+	meta = (t_meta *)param;
+	printf("Mouse Release[%d] - [%d][%d]\n", button, X,Y);
+	return(0);
+}
+
+int	mouse_press(int button, int X, int Y, void *param)
+{
+	t_meta	*meta;
+
+	meta = (t_meta *)param;
+	printf("Mouse Press[%d] - [%d][%d]\n", button, X,Y);
+
+	if (button == 4)
+	{
+		// Zoom IN
+		meta->map.scale = meta->map.scale + 1;
+		draw_map(meta);
+	}
+	if (button == 5)
+	{
+		// Zoom OUT
+		if (meta->map.scale > 1)
+			meta->map.scale = meta->map.scale - 1;
+		draw_map(meta);
+	}
+	return (0);
+
+}
+//int	key_hook(int keycode, t_meta *meta)
+
+int	key_press(int key, void *param)
 {
 	t_point		dot;
 	t_point		start;
 	t_point		end;
 	int 		i;
+	t_meta	*meta;
 
-	printf("Keycode Press [%d]\n", keycode);	
-	if (keycode == KEY_ESC)
+	meta = (t_meta *)param;
+	printf("Keycode Press [%d]\n", key);	
+	if (key == KEY_ESC)
 	{
 
 		mlx_destroy_window(meta->vars.mlx, meta->vars.win);
@@ -48,9 +76,12 @@ int	keyrelease(int keycode, t_meta *meta)
 		free(meta->map.proyect2D);
 		exit(0);	
 	}
-	if (keycode == KEY_1)
+	if (key == KEY_1)
+	{
 		generate_background(meta, 0x000000);
-	if (keycode == KEY_2)
+		draw_bitmap(meta, 0, 0);
+	}
+	if (key == KEY_2)
 	{
 		start.axis[x] = 0;
 		start.axis[y] = 0;
@@ -62,8 +93,9 @@ int	keyrelease(int keycode, t_meta *meta)
 			draw_line(meta, start, end);
 			end.axis[x] -= 20;
 		}
+		draw_bitmap(meta, 0, 0);
 	}
-	if (keycode == KEY_3)
+	if (key == KEY_3)
 	{
 		start.axis[x] = WINX;
 		start.axis[y] = 0;
@@ -76,43 +108,42 @@ int	keyrelease(int keycode, t_meta *meta)
 			draw_line(meta, start, end);
 			end.axis[x] += 20;
 		}
+		draw_bitmap(meta, 0, 0);
 	}
-	if (keycode == KEY_4)
+	if (key == KEY_4)
 	{	
 		dot.axis[x] = 300;
 		dot.axis[y] = 150;
 		dot.color = VERDE;
 		draw_dot(meta, dot, 10);
-	
+		draw_bitmap(meta, 0, 0);
 	}
-	if (keycode == KEY_5)
+	if (key == KEY_5)
 	{
 		my_cube(meta);
+		draw_bitmap(meta, 0, 0);
 	}
-	if (keycode == KEY_6)
+	if (key == KEY_6)
 	{
 		static int ang;
-		ang += 10;
+		ang += 1;
 		meta->map.ang[x] = ang;
 		meta->map.ang[y] = ang;
 		meta->map.ang[z] = 0;
 		draw_map(meta);
 	}
-
-	if (keycode == KEY_SUM)
+	if (key == KEY_SUM)
 	{
 		// Zoom IN
 		meta->map.scale = meta->map.scale + 1;
 		draw_map(meta);
 	}
-	if (keycode == KEY_RES)
+	if (key == KEY_RES)
 	{
 		// Zoom OUT
 		if (meta->map.scale > 1)
 			meta->map.scale = meta->map.scale - 1;
 		draw_map(meta);
 	}
-	if (meta->bitmap.img)
-		draw_bitmap(meta, 0, 0);	
 	return(0);
 }

@@ -27,11 +27,17 @@ int main()
 	// Creo un buffer bitmap	
     meta.bitmap.buffer = mlx_get_data_addr(meta.bitmap.img , \
 		&meta.bitmap.bitxpixel, &meta.bitmap.lines, &meta.bitmap.endian);
- 	//mlx_string_put(meta.vars.mlx, meta.vars.win, 10, 10, 0x321109, "Hello World");
-	// Capturamos eventos del ratóm
-	mlx_mouse_hook(meta.vars.win, mouse_hook, &meta);		
-	// Capturamos los eventos del teclado
-	mlx_hook(meta.vars.win, 2, 1L<<0, keyrelease, &meta);
+ 	
+	//mlx_string_put(meta.vars.mlx, meta.vars.win, 10, 10, 0x321109, "Hello World");
+	
+	// Capturamos eventos
+	mlx_hook(meta.vars.win, 2, 0, key_press, &meta);
+	//mlx_hook(meta.vars.win, 17, 0, close, &meta);
+	mlx_hook(meta.vars.win, 4, 0, mouse_press, &meta);
+	mlx_hook(meta.vars.win, 5, 0, mouse_release, &meta);
+	mlx_hook(meta.vars.win, 6, 0, mouse_move, &meta);	
+	
+
 	// Loop esperando eventos
     mlx_loop(meta.vars.mlx);
 	free (meta.map.points);
