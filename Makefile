@@ -37,7 +37,7 @@ WHITE = \033[0;97m
 
 #Sources
 
-SRC_FILES	=	main events my_draws utils
+SRC_FILES	=	main events my_draws utils matrix geometry
 
 SRC 		= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ 		= 	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))

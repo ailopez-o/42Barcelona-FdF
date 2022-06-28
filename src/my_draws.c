@@ -62,9 +62,10 @@ void	my_cube(t_meta *meta)
 	
 	load_cube(cube);
 	ang += 10;
-	rotate_x(cube, rotated3D, ang, 8);
-	rotate_y(rotated3D, rotated3D, ang, 8);
+	//rotate_x(cube, rotated3D, ang, 8);
+	//rotate_y(rotated3D, rotated3D, ang, 8);
 	//rotate_z(rotated3D, rotated3D, ang, 8);
+	isometric(cube,rotated3D, 8);
 	orto_proyection (rotated3D, proyection2D, 8);
 	scale (proyection2D, 7, 8);
 	move.axis[x] = 300;
