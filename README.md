@@ -6,7 +6,8 @@
 	<b><i>A simplified 3D graphic representation of a relief landscape.</i></b><br>
 </p>
 <p align="center">
-	<img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/ogonzi/fdf?color=lightblue" />
+	<img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/aitorlopez42/42Barcelona-FdF
+?color=lightblue" />
 	<img alt="Number of lines of code" src="https://img.shields.io/tokei/lines/github/ogonzi/fdf?color=critical" />
 	<img alt="Code language count" src="https://img.shields.io/github/languages/count/ogonzi/fdf?color=yellow" />
 	<img alt="GitHub top language" src="https://img.shields.io/github/languages/top/ogonzi/fdf?color=blue" />
