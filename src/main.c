@@ -19,10 +19,11 @@ int main(int argv, char **argc)
 	if(argv != 2)
 		return(-1);
 	fd = open(argc[1], O_RDONLY);
-	if (fd < 2)
-		return (-1);
+	//if (fd < 2)
+	//	return (-1);
+	
 	// Cargamos el mapa
-	if (load_map(&meta.map, fd) == 0)
+	if (load_map(&meta.map, 0) == 0)
 	{
 		close(fd);
 		return(-1);

@@ -56,8 +56,6 @@ void	my_cube(t_meta *meta)
 	t_point		cube[8];
 	t_point		proyection2D[8];
 	t_point		rotated3D[8];
-	t_point		traslated[8];
-	static 		t_point		move;
 	static 		float	ang;
 	
 	load_cube(cube);

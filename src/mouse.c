@@ -14,7 +14,6 @@
 int	mouse_move(int X, int Y, void *param)
 {
 	t_meta	*meta;
-	t_point	move;
 
 	meta = (t_meta *)param;
 
@@ -24,8 +23,8 @@ int	mouse_move(int X, int Y, void *param)
 	if (meta->b_mouseL)
 	{
 		printf("LastClickL [%d][%d] - Currect Click [%d][%d] - Increment [%d][%d]\n", (int)meta->last_clickL.axis[x], (int)meta->last_clickL.axis[y], X,Y, (int)(meta->last_clickL.axis[x] - X)/4, (int)(meta->last_clickL.axis[y] - X)/4);
-		meta->map.ang[x] += ((int)meta->last_clickL.axis[y] - Y)/50;
-		meta->map.ang[y] += ((int)meta->last_clickL.axis[x] - X)/50;
+		meta->map.ang[x] += ((int)meta->last_clickL.axis[y] - Y);
+		meta->map.ang[y] += ((int)meta->last_clickL.axis[x] - X);
 		if (meta->map.ang[x] < 0)
 			meta->map.ang[x] = 360 + meta->map.ang[x];
 		if (meta->map.ang[x] > 360)
@@ -34,15 +33,19 @@ int	mouse_move(int X, int Y, void *param)
 			meta->map.ang[y] = 360 + meta->map.ang[y];
 		if (meta->map.ang[y] > 360)
 			meta->map.ang[y] = meta->map.ang[y] - 360;	
+		meta->last_clickL.axis[x] = X;
+		meta->last_clickL.axis[y] = Y;			
 		draw_map(meta);
 	}
 	if (meta->b_mouseR)
 	{
 		printf("LastClickR [%d][%d] - Currect Click [%d][%d] - Increment [%d][%d]\n", (int)meta->last_clickR.axis[x], (int)meta->last_clickR.axis[y], X,Y, (int)(meta->last_clickR.axis[x] - X)/50, (int)(meta->last_clickR.axis[y] - X)/50);	
-		meta->map.source.axis[x] -= ((int)meta->last_clickR.axis[x] - X)/50;
-		meta->map.source.axis[y] -= ((int)meta->last_clickR.axis[y] - Y)/50;
+		meta->map.source.axis[x] -= ((int)meta->last_clickR.axis[x] - X);
+		meta->map.source.axis[y] -= ((int)meta->last_clickR.axis[y] - Y);
 		meta->map.source.axis[z] = 0;
-		traslate(meta->map.proyect3D, move, meta->map.len);
+		traslate(meta->map.proyect3D, meta->map.source, meta->map.len);
+		meta->last_clickR.axis[x] = X;
+		meta->last_clickR.axis[y] = Y;
 		draw_map(meta);
 	}
 	return(0);

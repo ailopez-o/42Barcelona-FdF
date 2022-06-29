@@ -10,22 +10,27 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/fdf.h"
-
+/*
 void load_line(char *line, t_map *map)
 {
 
 }
+*/
 
 int load_map(t_map *map, int fd)
 {
 	char	*line;
-
+/*
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
 		load_line(line, map);
 		line = get_next_line(fd);
 	}
+*/
+
+	line = NULL;
+	fd = 0;
 
     map->points = malloc(12*sizeof(t_point));
     if (map->points == NULL)
