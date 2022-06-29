@@ -131,6 +131,19 @@ int gradient(int startcolor, int endcolor, int len, int pix)
 
     return (newcolor);
 }
+
+t_point set_point(float X, float Y, float Z, int color)
+{
+    t_point     point;
+
+    point.color = color;
+	point.axis[x] = X;
+	point.axis[y] = Y;
+	point.axis[z] = Z;
+    return (point);
+}
+
+
 void generate_background(t_meta *meta, int color)
 {
     int X;

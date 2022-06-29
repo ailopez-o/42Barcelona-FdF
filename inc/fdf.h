@@ -105,6 +105,7 @@ int 	draw_line(t_meta *meta, t_point start, t_point end);
 void 	generate_background(t_meta *meta, int color);
 void 	draw_bitmap(t_meta *meta, int x0, int y0);
 int 	my_putpixel(t_meta *meta, t_point pixel);
+t_point set_point(float X, float Y, float Z, int color);
 void	draw_dot(t_meta *meta, t_point point, int radius);
 void	orto_proyection(t_point *points, t_point *proyection, int len);
 void	rotate_x(t_point *points, t_point *proyection, float ang, int len);

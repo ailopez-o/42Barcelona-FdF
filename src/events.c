@@ -145,5 +145,47 @@ int	key_press(int key, void *param)
 			meta->map.scale = meta->map.scale - 1;
 		draw_map(meta);
 	}
+	if (key == KEY_DOWN)
+	{
+		if (meta->map.ang[x] == 360)
+			meta->map.ang[x] = 0;
+		meta->map.ang[x] = meta->map.ang[x] + 1;	
+		draw_map(meta);
+	}	
+	if (key == KEY_UP)
+	{
+		if (meta->map.ang[x] == 0)
+			meta->map.ang[x] = 360;
+		meta->map.ang[x] = meta->map.ang[x] - 1;	
+		draw_map(meta);
+	}		
+	if (key == KEY_LEFT)
+	{
+		if (meta->map.ang[y] == 360)
+			meta->map.ang[y] = 0;
+		meta->map.ang[y] = meta->map.ang[y] + 1;	
+		draw_map(meta);
+	}	
+	if (key == KEY_RIGHT)
+	{
+		if (meta->map.ang[y] == 0)
+			meta->map.ang[y] = 360;
+		meta->map.ang[y] = meta->map.ang[y] - 1;	
+		draw_map(meta);
+	}	
+	if (key == KEY_Q)
+	{
+		if (meta->map.ang[z] == 360)
+			meta->map.ang[z] = 0;
+		meta->map.ang[z] = meta->map.ang[z] + 1;	
+		draw_map(meta);
+	}		
+	if (key == KEY_W)
+	{
+		if (meta->map.ang[z] == 0)
+			meta->map.ang[z] = 360;
+		meta->map.ang[z] = meta->map.ang[z] - 1;	
+		draw_map(meta);
+	}			
 	return(0);
 }
