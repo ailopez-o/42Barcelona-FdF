@@ -55,7 +55,6 @@ int	mouse_press(int button, int X, int Y, void *param)
 	return (0);
 
 }
-//int	key_hook(int keycode, t_meta *meta)
 
 int	key_press(int key, void *param)
 {
@@ -185,6 +184,11 @@ int	key_press(int key, void *param)
 		if (meta->map.ang[z] == 0)
 			meta->map.ang[z] = 360;
 		meta->map.ang[z] = meta->map.ang[z] - 1;	
+		draw_map(meta);
+	}	
+	if (key == KEY_I)
+	{
+		isometric(&meta->map);
 		draw_map(meta);
 	}			
 	return(0);

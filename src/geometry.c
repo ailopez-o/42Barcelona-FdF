@@ -40,8 +40,8 @@ void scale(t_point *points, int scale, int len)
     }
 }
 
-void isometric(t_point *points, t_point *proyection, int len)
+void isometric(t_map *map)
 {
-    rotate_y(points, proyection, 45, len);
-    rotate_x(proyection, proyection, 30, len);
+    map->ang[x] = 45;
+    map->ang[y] = 30;
 }

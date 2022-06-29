@@ -114,7 +114,7 @@ void	rotate_z(t_point *points, t_point *proyection, float ang, int len);
 void	my_cube(t_meta *meta);
 void	traslate(t_point *points, t_point move, int len);
 void 	scale(t_point *points, int scale, int len);
-void 	isometric(t_point *points, t_point *proyection, int len);
+void 	isometric(t_map *map);
 void	center(t_point *points, int len);
 int		load_map(t_map *map);
 void 	draw_map(t_meta *meta);
