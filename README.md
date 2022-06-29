@@ -1,4 +1,27 @@
-# 42Barcelona-FdF
+<h1 align="center">
+	FDF
+</h1>
+
+<p align="center">
+	<b><i>A simplified 3D graphic representation of a relief landscape.</i></b><br>
+</p>
+<p align="center">
+	<img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/ogonzi/fdf?color=lightblue" />
+	<img alt="Number of lines of code" src="https://img.shields.io/tokei/lines/github/ogonzi/fdf?color=critical" />
+	<img alt="Code language count" src="https://img.shields.io/github/languages/count/ogonzi/fdf?color=yellow" />
+	<img alt="GitHub top language" src="https://img.shields.io/github/languages/top/ogonzi/fdf?color=blue" />
+	<img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/ogonzi/fdf?color=green" />
+</p>
+
+<h3 align="center">
+	<a href="#about">About</a>
+	<span> · </span>
+	<a href="#features">Features</a>
+	<span> · </span>
+	<a href="#usage">Usage</a>
+</h3>
+
+---
 
 
 Documentation:
