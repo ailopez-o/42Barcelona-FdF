@@ -13,7 +13,7 @@ int load_map(t_map *map)
         return (0);
 
 	map->renders = 0;
-	map->len = 12;
+	map->len = 8;
 	map->scale = 1;
 	for (int i = 0; i < map->len; i++)
 		map->points[i].color= FUCSIA;
@@ -21,6 +21,7 @@ int load_map(t_map *map)
 	map->points[0].axis[x] = -10;
 	map->points[0].axis[y] = -10;
 	map->points[0].axis[z] = -10;
+	map->points[0].color = VERDE;
 
 	map->points[1].axis[x] = 10;
 	map->points[1].axis[y] = -10;
@@ -33,6 +34,7 @@ int load_map(t_map *map)
 	map->points[3].axis[x] = -10;
 	map->points[3].axis[y] = 10;
 	map->points[3].axis[z] = -10;
+	map->points[3].color = COLOR_DISCO;
 
 	map->points[4].axis[x] = -10;
 	map->points[4].axis[y] = -10;
@@ -41,6 +43,7 @@ int load_map(t_map *map)
 	map->points[5].axis[x] = 10;
 	map->points[5].axis[y] = -10;
 	map->points[5].axis[z] = 10;
+	map->points[5].color = COLOR_SAFFRON;
 
 	map->points[6].axis[x] = 10;
 	map->points[6].axis[y] = 10;
@@ -51,6 +54,7 @@ int load_map(t_map *map)
 	map->points[7].axis[z] = 10;	
 
 	// EJE DE COORDENADAS
+	/*
 	map->points[8].axis[x] = 0;
 	map->points[8].axis[y] = 0;
 	map->points[8].axis[z] = 0;	
@@ -70,7 +74,7 @@ int load_map(t_map *map)
 	map->points[11].axis[z] = 20;	
 	map->points[11].color = FUCSIA;
 
-
+*/
     return (1);
 }
 

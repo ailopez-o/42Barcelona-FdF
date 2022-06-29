@@ -76,33 +76,6 @@ void draw_dot(t_meta *meta, t_point point, int radius)
     }
 }
 
-
-
-int draw_line(t_meta *meta, t_point start, t_point end)
-{
-    t_point     delta;
-    t_point     pixel;
-	int         pixels;
-
-    delta.axis[x] = end.axis[x] - start.axis[x];
-    delta.axis[y] = end.axis[y] - start.axis[y];
-    pixels = sqrt((delta.axis[x] * delta.axis[x]) + (delta.axis[y] * delta.axis[y]));
-	delta.axis[x] /= pixels; 
-	delta.axis[y] /= pixels; 
-	pixel.axis[x] = start.axis[x];
-	pixel.axis[y] = start.axis[y];
-    pixel.color = start.color;
-	while (pixels)
-	{
-    	my_putpixel(meta, pixel);
-    	pixel.axis[x] += delta.axis[x];
-    	pixel.axis[y] += delta.axis[y];
-    	--pixels;
-	}
-	return(1);
-}
-
-
 int	ft_round(double num)
 {
 	int rounded;
@@ -131,6 +104,36 @@ int gradient(int startcolor, int endcolor, int len, int pix)
 
     return (newcolor);
 }
+
+
+int draw_line(t_meta *meta, t_point start, t_point end)
+{
+    t_point     delta;
+    t_point     pixel;
+	int         pixels;
+    int         len;
+
+    delta.axis[x] = end.axis[x] - start.axis[x];
+    delta.axis[y] = end.axis[y] - start.axis[y];
+    pixels = sqrt((delta.axis[x] * delta.axis[x]) + (delta.axis[y] * delta.axis[y]));
+    len = pixels;
+	delta.axis[x] /= pixels; 
+	delta.axis[y] /= pixels; 
+	pixel.axis[x] = start.axis[x];
+	pixel.axis[y] = start.axis[y];
+    pixel.color = start.color;
+	while (pixels)
+	{
+        pixel.color = gradient(start.color, end.color, len, len - pixels);
+    	my_putpixel(meta, pixel);
+    	pixel.axis[x] += delta.axis[x];
+    	pixel.axis[y] += delta.axis[y];
+    	--pixels;
+	}
+	return(1);
+}
+
+
 
 t_point set_point(float X, float Y, float Z, int color)
 {
