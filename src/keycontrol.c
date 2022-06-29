@@ -94,8 +94,8 @@ int	key_press(int key, void *param)
 	{
 		mlx_destroy_window(meta->vars.mlx, meta->vars.win);
 		free(meta->map.points);
-		free(meta->map.proyect3D);
-		free(meta->map.proyect2D);
+		//free(meta->map.proyect3D);
+		//free(meta->map.proyect2D);
 		exit(0);	
 	}
 	

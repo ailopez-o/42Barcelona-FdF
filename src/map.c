@@ -10,35 +10,101 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/fdf.h"
-/*
+
 void load_line(char *line, t_map *map)
 {
 
-}
-*/
+	char	**splited;
+	char	**color;
+	int		i;
 
-int load_map(t_map *map, int fd)
+	splited = ft_split(line, ' ');
+	i = 0;
+	while (splited[i])
+	{
+		map->points[map->len].axis[z] = ft_atoi(&splited[i][0]);
+		map->points[map->len].axis[x] = i;
+		map->points[map->len].axis[y] = map->limits.axis[y];
+		map->points[map->len].color = COLOR_DEAFULT;
+		if (ft_strchr(splited[i], ',') != 0)
+		{
+			color = ft_split(splited[i], ',');
+			map->points[map->len].color = COLOR_HIGH;
+		}
+		map->len++;
+		i++;
+	}
+	map->limits.axis[x] = i; 
+}
+
+int	line_size(char *line)
+{
+	int		i;
+	char	**split;
+
+	split = ft_split(line, ' ');
+	i = 0;
+	while (split[i])
+		i++;
+	return(i);
+}
+
+int	map_size(int fd)
 {
 	char	*line;
-/*
+	int 	size;
+
+	size = 0;
+
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
+		size += line_size(line);
+		line = get_next_line(fd);
+	}
+	return (size);
+}
+
+int load_map(t_map *map, char *path)
+{	
+
+
+	int		fd;
+	int		mapsize;
+	char	*line;
+
+	fd = open(path, O_RDONLY);
+	if (fd < 2)
+		return (-1);
+	mapsize = map_size(fd);
+	map->points = malloc (mapsize * sizeof(t_point));
+	close (fd);
+	fd = open(path, O_RDONLY);
+	if (fd < 2)
+		return (-1);
+	map->limits.axis[y] = 0;
+	map->len = 0;
+	line = get_next_line(fd);
+	while (line != NULL)
+	{
+		map->limits.axis[y]++;
 		load_line(line, map);
 		line = get_next_line(fd);
 	}
-*/
 
-	line = NULL;
-	fd = 0;
+	map->renders = 0;
+	map->scale = 1;	
+	map->source.axis[x] = WINX/2;
+	map->source.axis[y] = WINY/2;	
+	map->source.axis[z] = 0;
+	map->ang[x] = 0;
+	map->ang[y] = 0;
+	map->ang[z] = 0;	
+	return(1);
+/*
+
 
     map->points = malloc(12*sizeof(t_point));
-    if (map->points == NULL)
-        return (0);
-	map->proyect3D = malloc(12*sizeof(t_point));
-    if (map->points == NULL)
-        return (0);
-	map->proyect2D = malloc(12*sizeof(t_point));
     if (map->points == NULL)
         return (0);
 
@@ -88,7 +154,7 @@ int load_map(t_map *map, int fd)
 	map->points[7].axis[z] = 10;	
 
 	// EJE DE COORDENADAS
-	/*
+
 	map->points[8].axis[x] = 0;
 	map->points[8].axis[y] = 0;
 	map->points[8].axis[z] = 0;	
@@ -136,24 +202,46 @@ void draw_menu(t_meta *meta)
 
 void draw_map(t_meta *meta)
 {
+		int i;
+		t_point		*proyect;
+
+		proyect = malloc (meta->map.len * sizeof(t_point));
+		//Proteger Malloc
 		meta->map.renders = meta->map.renders + 1;
 		
 		generate_background(meta, 0x000000);
-		rotate_x(meta->map.points, meta->map.proyect3D, meta->map.ang[x], meta->map.len);
-		rotate_y(meta->map.proyect3D, meta->map.proyect3D, meta->map.ang[y], meta->map.len);
-		rotate_z(meta->map.proyect3D, meta->map.proyect3D, meta->map.ang[z], meta->map.len);	
-		orto_proyection (meta->map.proyect3D, meta->map.proyect2D, meta->map.len);
-		scale (meta->map.proyect2D, meta->map.scale, meta->map.len);
-		traslate(meta->map.proyect2D, meta->map.source, meta->map.len);
-		/*
+		rotate_x(meta->map.points, proyect, meta->map.ang[x], meta->map.len);
+		rotate_y(proyect, proyect, meta->map.ang[y], meta->map.len);
+		rotate_z(proyect, proyect, meta->map.ang[z], meta->map.len);	
+		orto_proyection (proyect, proyect, meta->map.len);
+		scale (proyect, meta->map.scale, meta->map.len);
+		traslate(proyect, meta->map.source, meta->map.len);
+		
+
 		i = 0;
-		while (i < 8)
+		while (i < meta->map.len)
 		{
-			meta->map.proyect2D[i].color = FUCSIA;
-			draw_dot(meta, meta->map.proyect2D[i], 1);
+			//proyect[i].color = FUCSIA;
+			draw_dot(meta, proyect[i], 1);
 			i++;
 		}
-		*/
+		
+
+/*
+		draw_line(meta, proyect[0], proyect[1]);
+		draw_line(meta, proyect[1], proyect[2]);
+		draw_line(meta, proyect[2], proyect[3]);
+		draw_line(meta, proyect[3], proyect[0]);
+
+		draw_line(meta, proyect[4], proyect[5]);
+		draw_line(meta, proyect[5], proyect[6]);	
+		draw_line(meta, proyect[6], proyect[7]);
+		draw_line(meta, proyect[7], proyect[4]);
+
+		draw_line(meta, proyect[0], proyect[4]);
+		draw_line(meta, proyect[1], proyect[5]);
+		draw_line(meta, proyect[2], proyect[6]);
+		draw_line(meta, proyect[3], proyect[7]);
 
 		draw_line(meta, meta->map.proyect2D[0], meta->map.proyect2D[1]);
 		draw_line(meta, meta->map.proyect2D[1], meta->map.proyect2D[2]);
@@ -174,7 +262,8 @@ void draw_map(t_meta *meta)
 		//draw_line(meta, meta->map.proyect2D[9], meta->map.proyect2D[8]);
 		//draw_line(meta, meta->map.proyect2D[10], meta->map.proyect2D[8]);
 		//draw_line(meta, meta->map.proyect2D[11], meta->map.proyect2D[8]);
-		
+	*/
 		draw_bitmap(meta, 0, 0);	
 		draw_menu(meta);
+		free (proyect);
 }

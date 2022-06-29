@@ -43,7 +43,7 @@ int	mouse_move(int X, int Y, void *param)
 		meta->map.source.axis[x] -= ((int)meta->last_clickR.axis[x] - X);
 		meta->map.source.axis[y] -= ((int)meta->last_clickR.axis[y] - Y);
 		meta->map.source.axis[z] = 0;
-		traslate(meta->map.proyect3D, meta->map.source, meta->map.len);
+		//traslate(meta->map.proyect3D, meta->map.source, meta->map.len);
 		meta->last_clickR.axis[x] = X;
 		meta->last_clickR.axis[y] = Y;
 		draw_map(meta);

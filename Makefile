@@ -18,7 +18,7 @@ LIB			= lib
 SRC_DIR		= src/
 OBJ_DIR		= obj/
 CC			= gcc
-CFLAGS		= -Wall -Werror -Wextra -MMD -D BUFFER_SIZE=10
+CFLAGS		= -g -Wall -Werror -Wextra -MMD 
 NOFLAGS		= -g
 RM			= rm -f
 MLX		= 	miniliblx/minilibx_macos
@@ -58,7 +58,7 @@ makelibs:
 -include 	${DEPS}
 $(NAME):	$(OBJ) $(INCS)
 			@$(CC)  ${CFLAGS} $(OBJ) $(LIB)/libft/libft.a -I minilibx -L $(LIB)/$(MLX) -lmlx -framework OpenGL -framework AppKit -o $@			
-			@echo "$(MAGENTA)$(CC) ${NOFLAGS} $(OBJ) $(LIB)/libft/libft.a -I minilibx -L $(LIB)/$(MLX) -lmlx -framework OpenGL -framework AppKit -o $@	$(DEF_COLOR)"
+			@echo "$(MAGENTA)$(CC) ${CFLAGS} $(OBJ) $(LIB)/libft/libft.a -I minilibx -L $(LIB)/$(MLX) -lmlx -framework OpenGL -framework AppKit -o $@	$(DEF_COLOR)"
 			@echo "$(GREEN)FDF compiled!$(DEF_COLOR)"
 
 bonus:		

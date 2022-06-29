@@ -24,8 +24,8 @@
 # include <string.h>
 # include <fcntl.h>
 
-# define WINX 800
-# define WINY 600
+# define WINX 1920
+# define WINY 1080
 
 # define x 0
 # define y 1
@@ -45,6 +45,9 @@
 # define TEXT_COLOR			0xEAEAEA
 # define BACKGROUND			0x222222
 # define MENU_BACKGROUND	0x1E1E1E
+
+# define COLOR_DEAFULT		0xEC4B27
+# define COLOR_HIGH			0xF3AF3D
 
 # define COLOR_DISCO		0x9A1F6A
 # define COLOR_BRICK_RED	0xC2294E
@@ -77,8 +80,8 @@ typedef struct	s_point {
 
 typedef struct	m_map {
 	t_point		*points;
-	t_point		*proyect3D;
-	t_point		*proyect2D;
+	//t_point		*proyect3D;
+	//t_point		*proyect2D;
 	t_point		limits;
 	float		ang[3];
 	float 		scale;
@@ -125,6 +128,6 @@ void	traslate(t_point *points, t_point move, int len);
 void 	scale(t_point *points, int scale, int len);
 void 	isometric(t_map *map);
 void	center(t_point *points, int len);
-int 	load_map(t_map *map, int fd);
+int 	load_map(t_map *map, char *path);
 void 	draw_map(t_meta *meta);
 #endif

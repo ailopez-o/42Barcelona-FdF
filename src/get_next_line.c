@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 #include "../inc/get_next_line.h"
 
+#define BUFFER_SIZE 100
+
 int	ft_linelen(char *s)
 {
 	size_t	i;
