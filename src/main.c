@@ -6,18 +6,27 @@
 /*   By: ailopez- <ailopez-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 14:36:55 by ailopez-          #+#    #+#             */
-/*   Updated: 2022/06/21 14:36:59 by ailopez-         ###   ########.fr       */
+/*   Updated: 2022/06/29 16:01:37 by ailopez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/fdf.h"
 
-int main()
+int main(int argv, char **argc)
 {
 	t_meta 		meta;
+	int 		fd;
 
+	if(argv != 2)
+		return(-1);
+	fd = open(argc[1], O_RDONLY);
+	if (fd < 2)
+		return (-1);
 	// Cargamos el mapa
-	if (load_map(&meta.map) == 0)
-		return (0);
+	if (load_map(&meta.map, fd) == 0)
+	{
+		close(fd);
+		return(-1);
+	}	
 	// Creo una instancia MLX
     meta.vars.mlx = mlx_init();
 	// Creo una nueva ventana

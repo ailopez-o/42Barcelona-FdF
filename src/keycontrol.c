@@ -1,81 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   events.c                                           :+:      :+:    :+:   */
+/*   keycontrol.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ailopez- <ailopez-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/22 13:51:19 by ailopez-          #+#    #+#             */
-/*   Updated: 2022/06/22 13:51:24 by ailopez-         ###   ########.fr       */
+/*   Created: 2022/06/29 16:01:24 by ailopez-          #+#    #+#             */
+/*   Updated: 2022/06/29 16:01:28 by ailopez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/fdf.h"
 
-int	mouse_move(int X, int Y, void *param)
-{
-	t_meta	*meta;
-
-	meta = (t_meta *)param;
-
-	if (X > WINX || X < 0 || Y > WINY || Y < 0)
-		return(0);
-	printf("Mouse Press [%d][%d]\n", X,Y);
-	return(0);
-}
-
-int	mouse_release(int button, int X, int Y, void *param)
-{
-	t_meta	*meta;
-
-	meta = (t_meta *)param;
-	printf("Mouse Release[%d] - [%d][%d]\n", button, X,Y);
-	return(0);
-}
-
-int	mouse_press(int button, int X, int Y, void *param)
-{
-	t_meta	*meta;
-
-	meta = (t_meta *)param;
-	printf("Mouse Press[%d] - [%d][%d]\n", button, X,Y);
-
-	if (button == 4)
-	{
-		// Zoom IN
-		meta->map.scale = meta->map.scale + 1;
-		draw_map(meta);
-	}
-	if (button == 5)
-	{
-		// Zoom OUT
-		if (meta->map.scale > 1)
-			meta->map.scale = meta->map.scale - 1;
-		draw_map(meta);
-	}
-	return (0);
-
-}
-
-int	key_press(int key, void *param)
+int working_keys(int key, t_meta *meta)
 {
 	t_point		dot;
 	t_point		start;
 	t_point		end;
-	int 		i;
-	t_meta	*meta;
 
-	meta = (t_meta *)param;
-	printf("Keycode Press [%d]\n", key);	
-	if (key == KEY_ESC)
-	{
-
-		mlx_destroy_window(meta->vars.mlx, meta->vars.win);
-		free(meta->map.points);
-		free(meta->map.proyect3D);
-		free(meta->map.proyect2D);
-		exit(0);	
-	}
-	if (key == KEY_1)
+    if (key == KEY_1)
 	{
 		generate_background(meta, 0x000000);
 		draw_bitmap(meta, 0, 0);
@@ -131,6 +73,32 @@ int	key_press(int key, void *param)
 		meta->map.ang[z] = 0;
 		draw_map(meta);
 	}
+	if (key == KEY_R)
+	{
+		meta->map.ang[x] = 0;
+		meta->map.ang[y] = 0;
+		meta->map.ang[z] = 0;
+		draw_map(meta);
+	}	
+    return(0);
+}
+
+int	key_press(int key, void *param)
+{
+	t_meta	*meta;
+
+	meta = (t_meta *)param;
+	printf("Keycode Press [%d]\n", key);	
+    working_keys(key, meta);
+    if (key == KEY_ESC)
+	{
+		mlx_destroy_window(meta->vars.mlx, meta->vars.win);
+		free(meta->map.points);
+		free(meta->map.proyect3D);
+		free(meta->map.proyect2D);
+		exit(0);	
+	}
+	
 	if (key == KEY_SUM)
 	{
 		// Zoom IN

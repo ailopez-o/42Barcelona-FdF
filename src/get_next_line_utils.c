@@ -9,7 +9,7 @@
 /*   Updated: 2022/06/14 13:52:01 by ailopez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "get_next_line.h"
+#include "../inc/get_next_line.h"
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {

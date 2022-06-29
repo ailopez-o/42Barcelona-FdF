@@ -18,7 +18,7 @@ LIB			= lib
 SRC_DIR		= src/
 OBJ_DIR		= obj/
 CC			= gcc
-CFLAGS		= -Wall -Werror -Wextra -MMD
+CFLAGS		= -Wall -Werror -Wextra -MMD -D BUFFER_SIZE=10
 NOFLAGS		= -g
 RM			= rm -f
 MLX		= 	miniliblx/minilibx_macos
@@ -37,7 +37,7 @@ WHITE = \033[0;97m
 
 #Sources
 
-SRC_FILES	=	main events my_draws utils matrix geometry map
+SRC_FILES	=	main keycontrol mouse my_draws utils matrix geometry map get_next_line get_next_line_utils
 INC_FILES	= 	fdf keycodes
 
 SRC 		= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
@@ -53,11 +53,12 @@ all:	makelibs
 
 makelibs:	
 			@$(MAKE) -C $(LIB)/$(MLX)
+			@$(MAKE) -C $(LIB)/libft
 			
 -include 	${DEPS}
 $(NAME):	$(OBJ) $(INCS)
-			@$(CC)  ${NOFLAGS} $(OBJ) -I minilibx -L $(LIB)/$(MLX) -lmlx -framework OpenGL -framework AppKit -o $@			
-			@echo "$(MAGENTA)$(CC)  ${NOFLAGS} $(OBJ) -I minilibx -L $(LIB)/$(MLX) -lmlx -framework OpenGL -framework AppKit -o $@	$(DEF_COLOR)"
+			@$(CC)  ${CFLAGS} $(OBJ) $(LIB)/libft/libft.a -I minilibx -L $(LIB)/$(MLX) -lmlx -framework OpenGL -framework AppKit -o $@			
+			@echo "$(MAGENTA)$(CC) ${NOFLAGS} $(OBJ) $(LIB)/libft/libft.a -I minilibx -L $(LIB)/$(MLX) -lmlx -framework OpenGL -framework AppKit -o $@	$(DEF_COLOR)"
 			@echo "$(GREEN)FDF compiled!$(DEF_COLOR)"
 
 bonus:		
@@ -65,7 +66,7 @@ bonus:
 			
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c $(INCS) | $(OBJF)
 			@echo "$(YELLOW)Compiling: $< $(DEF_COLOR)"
-			$(CC) $(NOFLAGS) -c $< -o $@
+			$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJF):
 			@mkdir -p $(OBJ_DIR)

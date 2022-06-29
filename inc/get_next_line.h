@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <stdio.h>
 
+
 char	*get_next_line(int fd);
 int		ft_linelen(char *s);
 char	*ft_strchr(const char *s, int c);

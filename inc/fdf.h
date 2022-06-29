@@ -13,12 +13,16 @@
 # define FDF_H
 
 # include "../lib/miniliblx/minilibx_macos/mlx.h"
+# include "../lib/libft/libft.h"
+# include "../inc/get_next_line.h"
 # include "keycodes.h"
+# include <stdbool.h>
 # include <math.h>
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
+# include <fcntl.h>
 
 # define WINX 800
 # define WINY 600
@@ -78,6 +82,7 @@ typedef struct	m_map {
 	t_point		limits;
 	float		ang[3];
 	float 		scale;
+	t_point		source;
 	int			len;
 	int			renders;
 }				t_map;
@@ -86,6 +91,10 @@ typedef struct	s_meta {
 	t_vars		vars;
 	t_bitmap	bitmap;
 	t_map		map;
+	bool		b_mouseL;
+	bool		b_mouseR;
+	t_point		last_clickL;
+	t_point		last_clickR;
 }				t_meta;
 
 
@@ -116,6 +125,6 @@ void	traslate(t_point *points, t_point move, int len);
 void 	scale(t_point *points, int scale, int len);
 void 	isometric(t_map *map);
 void	center(t_point *points, int len);
-int		load_map(t_map *map);
+int 	load_map(t_map *map, int fd);
 void 	draw_map(t_meta *meta);
 #endif

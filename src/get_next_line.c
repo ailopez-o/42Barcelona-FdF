@@ -9,7 +9,7 @@
 /*   Updated: 2022/06/16 11:06:59 by aitorlope        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "get_next_line.h"
+#include "../inc/get_next_line.h"
 
 int	ft_linelen(char *s)
 {
