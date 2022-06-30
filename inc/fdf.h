@@ -80,9 +80,8 @@ typedef struct	s_point {
 
 typedef struct	m_map {
 	t_point		*points;
-	//t_point		*proyect3D;
-	//t_point		*proyect2D;
 	t_point		limits;
+	int			zmin;
 	float		ang[3];
 	float 		scale;
 	t_point		source;

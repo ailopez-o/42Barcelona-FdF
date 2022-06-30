@@ -19,7 +19,7 @@ int	mouse_move(int X, int Y, void *param)
 
 	if (X > WINX || X < 0 || Y > WINY || Y < 0)
 		return(0);
-	printf("Mouse Press [%d][%d]\n", X,Y);
+	//printf("Mouse Press [%d][%d]\n", X,Y);
 	if (meta->b_mouseL)
 	{
 		printf("LastClickL [%d][%d] - Currect Click [%d][%d] - Increment [%d][%d]\n", (int)meta->last_clickL.axis[x], (int)meta->last_clickL.axis[y], X,Y, (int)(meta->last_clickL.axis[x] - X)/4, (int)(meta->last_clickL.axis[y] - X)/4);

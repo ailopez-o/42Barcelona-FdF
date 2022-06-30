@@ -11,7 +11,22 @@
 /* ************************************************************************** */
 #include "../inc/fdf.h"
 
-void load_line(char *line, t_map *map)
+void	print_points(t_map *map)
+{
+	int i;
+
+	i = 0;
+	printf("Mapa Leido [%d][%d][%d] - SIZE[%d] \n", (int)map->limits.axis[x], (int)map->limits.axis[y], (int)map->limits.axis[z], map->len);	
+	while (i < map->len)
+	{
+		printf(" POINT(%d) [%d][%d][%d] - COLOR [%x]\n", i,(int)map->points[i].axis[x], (int)map->points[i].axis[y], (int)map->points[i].axis[z],map->points[i].color);
+		i++;
+	}
+}
+
+
+
+void load_points(char *line, t_map *map, int numline)
 {
 
 	char	**splited;
@@ -23,18 +38,19 @@ void load_line(char *line, t_map *map)
 	while (splited[i])
 	{
 		map->points[map->len].axis[z] = ft_atoi(&splited[i][0]);
-		map->points[map->len].axis[x] = i;
-		map->points[map->len].axis[y] = map->limits.axis[y];
+		if (map->limits.axis[z] < map->points[map->len].axis[z])
+			map->limits.axis[z] = map->points[map->len].axis[z];
+		map->points[map->len].axis[x] = i - map->limits.axis[x]/2;
+		map->points[map->len].axis[y] = numline - map->limits.axis[y]/2;
 		map->points[map->len].color = COLOR_DEAFULT;
 		if (ft_strchr(splited[i], ',') != 0)
 		{
 			color = ft_split(splited[i], ',');
 			map->points[map->len].color = COLOR_HIGH;
 		}
-		map->len++;
 		i++;
+		map->len++;
 	}
-	map->limits.axis[x] = i; 
 }
 
 int	line_size(char *line)
@@ -49,49 +65,46 @@ int	line_size(char *line)
 	return(i);
 }
 
-int	map_size(int fd)
+void	map_size(int fd, t_map *map)
 {
 	char	*line;
-	int 	size;
 
-	size = 0;
-
+	map->len = 0;
+	map->limits.axis[y] = 0;
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
-		size += line_size(line);
+		map->limits.axis[x] = line_size(line);
+		map->len += map->limits.axis[x];
+		map->limits.axis[y]++;
 		line = get_next_line(fd);
 	}
-	return (size);
 }
 
 int load_map(t_map *map, char *path)
 {	
-
-
 	int		fd;
-	int		mapsize;
 	char	*line;
+	int 	numline;
 
 	fd = open(path, O_RDONLY);
 	if (fd < 2)
 		return (-1);
-	mapsize = map_size(fd);
-	map->points = malloc (mapsize * sizeof(t_point));
+	map_size(fd, map);
+	map->points = malloc (map->len * sizeof(t_point));
 	close (fd);
 	fd = open(path, O_RDONLY);
 	if (fd < 2)
 		return (-1);
-	map->limits.axis[y] = 0;
+	numline = 0;
 	map->len = 0;
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
-		map->limits.axis[y]++;
-		load_line(line, map);
+		numline++;
+		load_points(line, map, numline);
 		line = get_next_line(fd);
 	}
-
 	map->renders = 0;
 	map->scale = 1;	
 	map->source.axis[x] = WINX/2;
