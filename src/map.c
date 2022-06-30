@@ -30,7 +30,6 @@ void	colorize(t_map *map)
 	printf("Mapa Leido [%d][%d][%d][%d] - SIZE[%d] \n", (int)map->limits.axis[x], (int)map->limits.axis[y], (int)map->limits.axis[z],map->zmin, map->len);	
 }
 
-
 void	load_points(char *line, t_map *map, int numline)
 {
 
@@ -227,6 +226,19 @@ void draw_menu(t_meta *meta)
 	mlx_string_put(meta->vars.mlx, meta->vars.win, 100, 150, TEXT_COLOR, str);	
 	free(str);
 }
+void	wired(t_meta *meta, t_point *wire)
+{
+	int i;
+
+	i = 0;
+	while (i < meta->map.len)
+	{
+		//if (i%(int)meta->map.limits.axis[x] != 0)
+		draw_line(meta, wire[i], wire[i + 1]);
+		draw_line(meta, wire[i], wire[i + (int)meta->map.limits.axis[x]]);
+		i++;
+	}
+}
 
 void draw_map(t_meta *meta)
 {
@@ -246,6 +258,7 @@ void draw_map(t_meta *meta)
 		traslate(proyect, meta->map.source, meta->map.len);
 		
 
+
 		i = 0;
 		while (i < meta->map.len)
 		{
@@ -254,6 +267,7 @@ void draw_map(t_meta *meta)
 			i++;
 		}
 		
+//		wired(meta, proyect);
 
 /*
 		draw_line(meta, proyect[0], proyect[1]);
