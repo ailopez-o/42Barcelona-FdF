@@ -24,9 +24,14 @@ void	print_points(t_map *map)
 	}
 }
 
+void	colorize(t_map *map)
+{
+
+	printf("Mapa Leido [%d][%d][%d][%d] - SIZE[%d] \n", (int)map->limits.axis[x], (int)map->limits.axis[y], (int)map->limits.axis[z],map->zmin, map->len);	
+}
 
 
-void load_points(char *line, t_map *map, int numline)
+void	load_points(char *line, t_map *map, int numline)
 {
 
 	char	**splited;
@@ -40,13 +45,22 @@ void load_points(char *line, t_map *map, int numline)
 		map->points[map->len].axis[z] = ft_atoi(&splited[i][0]);
 		if (map->limits.axis[z] < map->points[map->len].axis[z])
 			map->limits.axis[z] = map->points[map->len].axis[z];
+		if (map->zmin > map->points[map->len].axis[z])
+			map->zmin = map->points[map->len].axis[z];		
 		map->points[map->len].axis[x] = i - map->limits.axis[x]/2;
 		map->points[map->len].axis[y] = numline - map->limits.axis[y]/2;
-		map->points[map->len].color = COLOR_DEAFULT;
+		map->points[map->len].color = DEFAULT_COLOR;	
+		if (map->points[map->len].axis[z] == map->limits.axis[z])
+			map->points[map->len].color = TOP_COLOR;
+		if (map->points[map->len].axis[z] == 0)
+			map->points[map->len].color = GROUND_COLOR;			
+		if (map->points[map->len].axis[z] == map->zmin)
+			map->points[map->len].color = GROUND_COLOR;				
 		if (ft_strchr(splited[i], ',') != 0)
 		{
 			color = ft_split(splited[i], ',');
-			map->points[map->len].color = COLOR_HIGH;
+			map->points[map->len].color  = strtol(color[1] + 2, NULL, 16);
+			//ap->points[map->len].color = TOP_COLOR;
 		}
 		i++;
 		map->len++;
@@ -105,6 +119,7 @@ int load_map(t_map *map, char *path)
 		load_points(line, map, numline);
 		line = get_next_line(fd);
 	}
+	colorize(map);
 	map->renders = 0;
 	map->scale = 1;	
 	map->source.axis[x] = WINX/2;
