@@ -226,6 +226,7 @@ void draw_menu(t_meta *meta)
 	mlx_string_put(meta->vars.mlx, meta->vars.win, 100, 150, TEXT_COLOR, str);	
 	free(str);
 }
+
 void	wired(t_meta *meta, t_point *wire)
 {
 	int i;
@@ -233,79 +234,43 @@ void	wired(t_meta *meta, t_point *wire)
 	i = 0;
 	while (i < meta->map.len)
 	{
-		//if (i%(int)meta->map.limits.axis[x] != 0)
-		draw_line(meta, wire[i], wire[i + 1]);
-		draw_line(meta, wire[i], wire[i + (int)meta->map.limits.axis[x]]);
+		if ((i + 1)%(int)meta->map.limits.axis[x] != 0)
+			draw_line(meta, wire[i], wire[i + 1]);
+		if ((i/(int)meta->map.limits.axis[x]) != (meta->map.limits.axis[y] - 1))
+			draw_line(meta, wire[i], wire[i + (int)meta->map.limits.axis[x]]);
+		i++;
+	}
+}
+
+void	doted(t_meta *meta, t_point *proyect)
+{
+	int	i;
+	
+	i = 0;
+	while (i < meta->map.len)
+	{
+		draw_dot(meta, proyect[i], 1);
 		i++;
 	}
 }
 
 void draw_map(t_meta *meta)
 {
-		int i;
-		t_point		*proyect;
+	t_point		*proyect;
 
-		proyect = malloc (meta->map.len * sizeof(t_point));
-		//Proteger Malloc
-		meta->map.renders = meta->map.renders + 1;
-		
-		generate_background(meta, 0x000000);
-		rotate_x(meta->map.points, proyect, meta->map.ang[x], meta->map.len);
-		rotate_y(proyect, proyect, meta->map.ang[y], meta->map.len);
-		rotate_z(proyect, proyect, meta->map.ang[z], meta->map.len);	
-		orto_proyection (proyect, proyect, meta->map.len);
-		scale (proyect, meta->map.scale, meta->map.len);
-		traslate(proyect, meta->map.source, meta->map.len);
-		
-
-
-		i = 0;
-		while (i < meta->map.len)
-		{
-			//proyect[i].color = FUCSIA;
-			draw_dot(meta, proyect[i], 1);
-			i++;
-		}
-		
-//		wired(meta, proyect);
-
-/*
-		draw_line(meta, proyect[0], proyect[1]);
-		draw_line(meta, proyect[1], proyect[2]);
-		draw_line(meta, proyect[2], proyect[3]);
-		draw_line(meta, proyect[3], proyect[0]);
-
-		draw_line(meta, proyect[4], proyect[5]);
-		draw_line(meta, proyect[5], proyect[6]);	
-		draw_line(meta, proyect[6], proyect[7]);
-		draw_line(meta, proyect[7], proyect[4]);
-
-		draw_line(meta, proyect[0], proyect[4]);
-		draw_line(meta, proyect[1], proyect[5]);
-		draw_line(meta, proyect[2], proyect[6]);
-		draw_line(meta, proyect[3], proyect[7]);
-
-		draw_line(meta, meta->map.proyect2D[0], meta->map.proyect2D[1]);
-		draw_line(meta, meta->map.proyect2D[1], meta->map.proyect2D[2]);
-		draw_line(meta, meta->map.proyect2D[2], meta->map.proyect2D[3]);
-		draw_line(meta, meta->map.proyect2D[3], meta->map.proyect2D[0]);
-
-		draw_line(meta, meta->map.proyect2D[4], meta->map.proyect2D[5]);
-		draw_line(meta, meta->map.proyect2D[5], meta->map.proyect2D[6]);	
-		draw_line(meta, meta->map.proyect2D[6], meta->map.proyect2D[7]);
-		draw_line(meta, meta->map.proyect2D[7], meta->map.proyect2D[4]);
-
-		draw_line(meta, meta->map.proyect2D[0], meta->map.proyect2D[4]);
-		draw_line(meta, meta->map.proyect2D[1], meta->map.proyect2D[5]);
-		draw_line(meta, meta->map.proyect2D[2], meta->map.proyect2D[6]);
-		draw_line(meta, meta->map.proyect2D[3], meta->map.proyect2D[7]);
-
-		// EJE DE COORDENADAS
-		//draw_line(meta, meta->map.proyect2D[9], meta->map.proyect2D[8]);
-		//draw_line(meta, meta->map.proyect2D[10], meta->map.proyect2D[8]);
-		//draw_line(meta, meta->map.proyect2D[11], meta->map.proyect2D[8]);
-	*/
-		draw_bitmap(meta, 0, 0);	
-		draw_menu(meta);
-		free (proyect);
+	proyect = malloc (meta->map.len * sizeof(t_point));
+	//Proteger Malloc
+	meta->map.renders = meta->map.renders + 1;
+	generate_background(meta, 0x000000);
+	rotate_x(meta->map.points, proyect, meta->map.ang[x], meta->map.len);
+	rotate_y(proyect, proyect, meta->map.ang[y], meta->map.len);
+	rotate_z(proyect, proyect, meta->map.ang[z], meta->map.len);	
+	orto_proyection (proyect, proyect, meta->map.len);
+	scale (proyect, meta->map.scale, meta->map.len);
+	traslate(proyect, meta->map.source, meta->map.len);		
+	wired(meta, proyect);
+//	doted(meta,proyect);
+	draw_bitmap(meta, 0, 0);	
+	draw_menu(meta);
+	free (proyect);
 }
