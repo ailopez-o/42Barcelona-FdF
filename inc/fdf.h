@@ -130,6 +130,7 @@ void 	scale(t_point *points, int scale, int len);
 void 	isometric(t_map *map);
 void	center(t_point *points, int len);
 int 	load_map(t_map *map, char *path);
-void 	draw_map(t_meta *meta);
+int 	draw_map(t_meta *meta);
 int		gradient(int startcolor, int endcolor, int len, int pix);
+void	terminate(void);
 #endif

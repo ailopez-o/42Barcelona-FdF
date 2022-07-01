@@ -16,10 +16,10 @@ int main(int argv, char **argc)
 	t_meta 		meta;
 
 	if(argv != 2)
-		return(-1);
+		terminate();
 	// Cargamos el mapa
 	if (load_map(&meta.map, argc[1]) < 0)
-		return(-1);
+		terminate();
 	// Creo una instancia MLX
     meta.vars.mlx = mlx_init();
 	// Creo una nueva ventana
@@ -30,17 +30,15 @@ int main(int argv, char **argc)
     meta.bitmap.buffer = mlx_get_data_addr(meta.bitmap.img , \
 		&meta.bitmap.bitxpixel, &meta.bitmap.lines, &meta.bitmap.endian);
  	// Pintamos el mapa
-	draw_map(&meta);	
+	if (draw_map(&meta) < 0)
+		terminate();	
 	// Capturamos eventos
 	mlx_hook(meta.vars.win, 2, 0, key_press, &meta);
-	//mlx_hook(meta.vars.win, 17, 0, close, &meta);
 	mlx_hook(meta.vars.win, 4, 0, mouse_press, &meta);
 	mlx_hook(meta.vars.win, 5, 0, mouse_release, &meta);
 	mlx_hook(meta.vars.win, 6, 0, mouse_move, &meta);	
 	// Loop esperando eventos
     mlx_loop(meta.vars.mlx);
-	free (meta.map.points);
-	//free (meta.map.proyect3D);
-	//free (meta.map.proyect2D);	
+	free (meta.map.points);	
 	return(0);
 }

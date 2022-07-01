@@ -11,19 +11,6 @@
 /* ************************************************************************** */
 #include "../inc/fdf.h"
 
-void	print_points(t_map *map)
-{
-	int i;
-
-	i = 0;
-	printf("Mapa Leido [%d][%d][%d] - SIZE[%d] \n", (int)map->limits.axis[x], (int)map->limits.axis[y], (int)map->limits.axis[z], map->len);	
-	while (i < map->len)
-	{
-		printf(" POINT(%d) [%d][%d][%d] - COLOR [%x]\n", i,(int)map->points[i].axis[x], (int)map->points[i].axis[y], (int)map->points[i].axis[z],map->points[i].color);
-		i++;
-	}
-}
-
 void	show_info(t_map *map)
 {
 	printf("\nMapa Leido [%d][%d][%d][%d] - SIZE[%d] \n", (int)map->limits.axis[x], (int)map->limits.axis[y], (int)map->limits.axis[z],map->zmin, map->len);	
@@ -204,12 +191,13 @@ void	doted(t_meta *meta, t_point *proyect)
 	}
 }
 
-void draw_map(t_meta *meta)
+int draw_map(t_meta *meta)
 {
 	t_point		*proyect;
 
 	proyect = malloc (meta->map.len * sizeof(t_point));
-	//Proteger Malloc
+	if (proyect == NULL)
+		return (-1);
 	meta->map.renders = meta->map.renders + 1;
 	generate_background(meta, 0x151515);
 	rotate_x(meta->map.points, proyect, meta->map.ang[x], meta->map.len);
@@ -223,4 +211,5 @@ void draw_map(t_meta *meta)
 	draw_bitmap(meta, 0, 0);	
 	draw_menu(meta);
 	free (proyect);
+	return(1);
 }
