@@ -35,13 +35,14 @@ void	load_color (int max, int min, t_point *point)
 	point->color = DEFAULT_COLOR;
 	if (point->axis[z] == max)
 		point->color = TOP_COLOR;
-	if (point->axis[z] == 0)
+	else if (point->axis[z] == 0)
 		point->color = GROUND_COLOR;
-	if (point->axis[z] == min && min !=0)
+	else if (point->axis[z] == min && min !=0)
 		point->color = BOTTOM_COLOR;
-
-
-	//point->color = gradient(TOP_COLOR,GROUND_COLOR, max, point->axis[z]);
+	else if (point->axis[z] > 0)
+		point->color = gradient(GROUND_COLOR, TOP_COLOR, max, point->axis[z]);
+	else
+		point->color = gradient(BOTTOM_COLOR, GROUND_COLOR, -min, - (min - point->axis[z]));
 
 }
 
