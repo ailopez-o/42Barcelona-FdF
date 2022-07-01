@@ -40,6 +40,8 @@ Minilbx
 
 https://gontjarow.github.io/MiniLibX/mlx-tutorial-create-image.html
 
+https://harm-smits.github.io/42docs/
+
 Color gradients
 
 https://dev.to/freerangepixels/a-probably-terrible-way-to-render-gradients-1p3n
