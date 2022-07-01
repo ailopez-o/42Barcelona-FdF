@@ -16,9 +16,10 @@
 
 ---
 
-<img alt="FDF example" src="[https://img.shields.io/github/last-commit/aitorlopez42/42Barcelona-FdF?color=green](https://raw.githubusercontent.com/aitorlopez42/42Barcelona-FdF/90e15d662849efdf7442c7f4c0ff6470192ed41c/fdf.png)" />
 
-
+<p align="center">
+	<img src="https://raw.githubusercontent.com/aitorlopez42/42Barcelona-FdF/90e15d662849efdf7442c7f4c0ff6470192ed41c/fdf.png" />
+</p>
 
 
 Documentation:
