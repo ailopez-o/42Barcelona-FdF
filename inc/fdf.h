@@ -46,10 +46,10 @@
 # define BACKGROUND			0x222222
 # define MENU_BACKGROUND	0x1E1E1E
 
-# define DEFAULT_COLOR		COLOR_DISCO
-# define BOTTOM_COLOR		FUCSIA
-# define TOP_COLOR			COLOR_SAFFRON
-# define GROUND_COLOR		COLOR_FLAMINGO
+# define DEFAULT_COLOR		COLOR_JAFFA
+# define BOTTOM_COLOR		COLOR_DISCO
+# define TOP_COLOR			ROJO
+# define GROUND_COLOR		VERDE
 
 # define COLOR_DISCO		0x9A1F6A
 # define COLOR_BRICK_RED	0xC2294E
@@ -131,4 +131,5 @@ void 	isometric(t_map *map);
 void	center(t_point *points, int len);
 int 	load_map(t_map *map, char *path);
 void 	draw_map(t_meta *meta);
+int		gradient(int startcolor, int endcolor, int len, int pix);
 #endif

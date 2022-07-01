@@ -24,12 +24,26 @@ void	print_points(t_map *map)
 	}
 }
 
-void	colorize(t_map *map)
+void	show_info(t_map *map)
 {
-
-	printf("Mapa Leido [%d][%d][%d][%d] - SIZE[%d] \n", (int)map->limits.axis[x], (int)map->limits.axis[y], (int)map->limits.axis[z],map->zmin, map->len);	
+	printf("\nMapa Leido [%d][%d][%d][%d] - SIZE[%d] \n", (int)map->limits.axis[x], (int)map->limits.axis[y], (int)map->limits.axis[z],map->zmin, map->len);	
 }
 
+void	load_color (int max, int min, t_point *point)
+{
+
+	point->color = DEFAULT_COLOR;
+	if (point->axis[z] == max)
+		point->color = TOP_COLOR;
+	if (point->axis[z] == 0)
+		point->color = GROUND_COLOR;
+	if (point->axis[z] == min && min !=0)
+		point->color = BOTTOM_COLOR;
+
+
+	//point->color = gradient(TOP_COLOR,GROUND_COLOR, max, point->axis[z]);
+
+}
 
 void	load_points(char *line, t_map *map, int numline)
 {
@@ -38,29 +52,19 @@ void	load_points(char *line, t_map *map, int numline)
 	char	**color;
 	int		i;
 
+	write(1,".",1);
 	splited = ft_split(line, ' ');
 	i = 0;
 	while (splited[i])
 	{
 		map->points[map->len].axis[z] = ft_atoi(&splited[i][0]);
-		if (map->limits.axis[z] < map->points[map->len].axis[z])
-			map->limits.axis[z] = map->points[map->len].axis[z];
-		if (map->zmin > map->points[map->len].axis[z])
-			map->zmin = map->points[map->len].axis[z];		
 		map->points[map->len].axis[x] = i - map->limits.axis[x]/2;
 		map->points[map->len].axis[y] = numline - map->limits.axis[y]/2;
-		map->points[map->len].color = DEFAULT_COLOR;	
-		if (map->points[map->len].axis[z] == map->limits.axis[z])
-			map->points[map->len].color = TOP_COLOR;
-		if (map->points[map->len].axis[z] == 0)
-			map->points[map->len].color = GROUND_COLOR;			
-		if (map->points[map->len].axis[z] == map->zmin)
-			map->points[map->len].color = BOTTOM_COLOR;				
+		load_color((int)map->limits.axis[z], map->zmin, &map->points[map->len]);	
 		if (ft_strchr(splited[i], ',') != 0)
 		{
 			color = ft_split(splited[i], ',');
 			map->points[map->len].color  = strtol(color[1] + 2, NULL, 16);
-			//ap->points[map->len].color = TOP_COLOR;
 		}
 		i++;
 		map->len++;
@@ -82,12 +86,29 @@ int	line_size(char *line)
 void	map_size(int fd, t_map *map)
 {
 	char	*line;
+	int		i;
+	char 	**splited;
+	int		valor;
 
 	map->len = 0;
 	map->limits.axis[y] = 0;
+	map->limits.axis[z] = 0;
+	map->zmin = 0;
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
+		write(1,"*",1);
+		splited = ft_split(line, ' ');
+		i = 0;
+		while (splited[i])
+		{
+			valor = ft_atoi(&splited[i][0]);
+			if (map->limits.axis[z] < valor)
+				map->limits.axis[z] = valor;
+			if (map->zmin > valor)
+				map->zmin = valor;	
+			i++;
+		}
 		map->limits.axis[x] = line_size(line);
 		map->len += map->limits.axis[x];
 		map->limits.axis[y]++;
@@ -121,7 +142,7 @@ int load_map(t_map *map, char *path)
 		load_points(line, map, numline);
 		line = get_next_line(fd);
 	}
-	colorize(map);
+	show_info(map);
 	map->renders = 0;
 	map->scale = 1;	
 	map->source.axis[x] = WINX/2;
@@ -131,81 +152,6 @@ int load_map(t_map *map, char *path)
 	map->ang[y] = 0;
 	map->ang[z] = 0;	
 	return(1);
-/*
-
-
-    map->points = malloc(12*sizeof(t_point));
-    if (map->points == NULL)
-        return (0);
-
-	map->renders = 0;
-	map->len = 8;
-	map->scale = 1;
-	map->source.axis[x] = WINX/2;
-	map->source.axis[y] = WINY/2;	
-	map->source.axis[z] = 0;
-
-	for (int i = 0; i < map->len; i++)
-		map->points[i].color= FUCSIA;
-
-	map->points[0].axis[x] = -10;
-	map->points[0].axis[y] = -10;
-	map->points[0].axis[z] = -10;
-	map->points[0].color = VERDE;
-
-	map->points[1].axis[x] = 10;
-	map->points[1].axis[y] = -10;
-	map->points[1].axis[z] = -10;
-
-	map->points[2].axis[x] = 10;
-	map->points[2].axis[y] = 10;
-	map->points[2].axis[z] = -10;
-
-	map->points[3].axis[x] = -10;
-	map->points[3].axis[y] = 10;
-	map->points[3].axis[z] = -10;
-	map->points[3].color = COLOR_DISCO;
-
-	map->points[4].axis[x] = -10;
-	map->points[4].axis[y] = -10;
-	map->points[4].axis[z] = 10;	
-
-	map->points[5].axis[x] = 10;
-	map->points[5].axis[y] = -10;
-	map->points[5].axis[z] = 10;
-	map->points[5].color = COLOR_SAFFRON;
-
-	map->points[6].axis[x] = 10;
-	map->points[6].axis[y] = 10;
-	map->points[6].axis[z] = 10;
-
-	map->points[7].axis[x] = -10;
-	map->points[7].axis[y] = 10;
-	map->points[7].axis[z] = 10;	
-
-	// EJE DE COORDENADAS
-
-	map->points[8].axis[x] = 0;
-	map->points[8].axis[y] = 0;
-	map->points[8].axis[z] = 0;	
-
-	map->points[9].axis[x] = 20;
-	map->points[9].axis[y] = 0;
-	map->points[9].axis[z] = 0;		
-	map->points[9].color = ROJO;
-
-	map->points[10].axis[x] = 0;
-	map->points[10].axis[y] = 20;
-	map->points[10].axis[z] = 0;
-	map->points[10].color = VERDE;
-
-	map->points[11].axis[x] = 0;
-	map->points[11].axis[y] = 0;
-	map->points[11].axis[z] = 20;	
-	map->points[11].color = FUCSIA;
-
-*/
-    return (1);
 }
 
 void draw_menu(t_meta *meta)
