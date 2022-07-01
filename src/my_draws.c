@@ -11,6 +11,17 @@
 /* ************************************************************************** */
 #include "../inc/fdf.h"
 
+
+void line_elem(char **line)
+{
+	int i;
+
+	i = 0;
+	while (line[i])
+		i++;
+	printf("Line elem[%D]\n",i);
+}
+
 void load_cube(t_point *cube)
 {
 

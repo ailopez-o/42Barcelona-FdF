@@ -30,6 +30,7 @@ void	colorize(t_map *map)
 	printf("Mapa Leido [%d][%d][%d][%d] - SIZE[%d] \n", (int)map->limits.axis[x], (int)map->limits.axis[y], (int)map->limits.axis[z],map->zmin, map->len);	
 }
 
+
 void	load_points(char *line, t_map *map, int numline)
 {
 
@@ -94,6 +95,8 @@ void	map_size(int fd, t_map *map)
 	}
 }
 
+
+
 int load_map(t_map *map, char *path)
 {	
 	int		fd;
@@ -104,7 +107,7 @@ int load_map(t_map *map, char *path)
 	if (fd < 2)
 		return (-1);
 	map_size(fd, map);
-	map->points = malloc (map->len * sizeof(t_point));
+	map->points = ft_calloc (map->len, sizeof(t_point));
 	close (fd);
 	fd = open(path, O_RDONLY);
 	if (fd < 2)
