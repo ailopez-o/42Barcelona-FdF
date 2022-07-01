@@ -22,7 +22,7 @@ int	mouse_move(int X, int Y, void *param)
 	//printf("Mouse Press [%d][%d]\n", X,Y);
 	if (meta->b_mouseL)
 	{
-		printf("LastClickL [%d][%d] - Currect Click [%d][%d] - Increment [%d][%d]\n", (int)meta->last_clickL.axis[x], (int)meta->last_clickL.axis[y], X,Y, (int)(meta->last_clickL.axis[x] - X)/4, (int)(meta->last_clickL.axis[y] - X)/4);
+		//printf("LastClickL [%d][%d] - Currect Click [%d][%d] - Increment [%d][%d]\n", (int)meta->last_clickL.axis[x], (int)meta->last_clickL.axis[y], X,Y, (int)(meta->last_clickL.axis[x] - X)/4, (int)(meta->last_clickL.axis[y] - X)/4);
 		meta->map.ang[x] += ((int)meta->last_clickL.axis[y] - Y);
 		meta->map.ang[y] += ((int)meta->last_clickL.axis[x] - X);
 		if (meta->map.ang[x] < 0)
@@ -55,8 +55,10 @@ int	mouse_release(int button, int X, int Y, void *param)
 {
 	t_meta	*meta;
 
+	X++;
+	Y++;
 	meta = (t_meta *)param;
-	printf("Mouse Release[%d] - [%d][%d]\n", button, X,Y);
+	//printf("Mouse Release[%d] - [%d][%d]\n", button, X,Y);
 	if (button == 1)
 		meta->b_mouseL = 0;
 	if (button == 2)
@@ -69,7 +71,7 @@ int	mouse_press(int button, int X, int Y, void *param)
 	t_meta	*meta;
 
 	meta = (t_meta *)param;
-	printf("Mouse Press[%d] - [%d][%d]\n", button, X,Y);
+	//printf("Mouse Press[%d] - [%d][%d]\n", button, X,Y);
 
 	if (button == 1)
 	{

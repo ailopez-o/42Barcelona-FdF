@@ -54,7 +54,7 @@ void	load_points(char *line, t_map *map, int numline)
 		if (map->points[map->len].axis[z] == 0)
 			map->points[map->len].color = GROUND_COLOR;			
 		if (map->points[map->len].axis[z] == map->zmin)
-			map->points[map->len].color = GROUND_COLOR;				
+			map->points[map->len].color = BOTTOM_COLOR;				
 		if (ft_strchr(splited[i], ',') != 0)
 		{
 			color = ft_split(splited[i], ',');
@@ -210,20 +210,20 @@ void draw_menu(t_meta *meta)
 	char	*str;
 
 	str = ft_itoa(meta->map.renders);
-	mlx_string_put(meta->vars.mlx, meta->vars.win, 10, 10, TEXT_COLOR, "Reenders:");
-	mlx_string_put(meta->vars.mlx, meta->vars.win, 110, 10, TEXT_COLOR, str);
+	mlx_string_put(meta->vars.mlx, meta->vars.win, 30, 10, TEXT_COLOR, "Reenders:");
+	mlx_string_put(meta->vars.mlx, meta->vars.win, 120, 10, TEXT_COLOR, str);
 	str = ft_itoa(meta->map.ang[x]);
-	mlx_string_put(meta->vars.mlx, meta->vars.win, 10, 60, TEXT_COLOR, "X Axis:");
-	mlx_string_put(meta->vars.mlx, meta->vars.win, 100, 60, TEXT_COLOR, str);
+	mlx_string_put(meta->vars.mlx, meta->vars.win, 30, 60, TEXT_COLOR, "X Axis:");
+	mlx_string_put(meta->vars.mlx, meta->vars.win, 110, 60, TEXT_COLOR, str);
 	str = ft_itoa(meta->map.ang[y]);
-	mlx_string_put(meta->vars.mlx, meta->vars.win, 10, 90, TEXT_COLOR, "Y Axix:");
-	mlx_string_put(meta->vars.mlx, meta->vars.win, 100, 90, TEXT_COLOR, str);
+	mlx_string_put(meta->vars.mlx, meta->vars.win, 30, 80, TEXT_COLOR, "Y Axix:");
+	mlx_string_put(meta->vars.mlx, meta->vars.win, 110, 80, TEXT_COLOR, str);
 	str = ft_itoa(meta->map.ang[z]);
-	mlx_string_put(meta->vars.mlx, meta->vars.win, 10, 120, TEXT_COLOR, "Z Axix:");
-	mlx_string_put(meta->vars.mlx, meta->vars.win, 100, 120, TEXT_COLOR, str);
+	mlx_string_put(meta->vars.mlx, meta->vars.win, 30, 100, TEXT_COLOR, "Z Axix:");
+	mlx_string_put(meta->vars.mlx, meta->vars.win, 110, 100, TEXT_COLOR, str);
 	str = ft_itoa(meta->map.scale);
-	mlx_string_put(meta->vars.mlx, meta->vars.win, 10, 150, TEXT_COLOR, "Zoom:");
-	mlx_string_put(meta->vars.mlx, meta->vars.win, 100, 150, TEXT_COLOR, str);	
+	mlx_string_put(meta->vars.mlx, meta->vars.win, 30, 120, TEXT_COLOR, "Zoom:");
+	mlx_string_put(meta->vars.mlx, meta->vars.win, 110, 120, TEXT_COLOR, str);	
 	free(str);
 }
 
@@ -261,7 +261,7 @@ void draw_map(t_meta *meta)
 	proyect = malloc (meta->map.len * sizeof(t_point));
 	//Proteger Malloc
 	meta->map.renders = meta->map.renders + 1;
-	generate_background(meta, 0x000000);
+	generate_background(meta, 0x151515);
 	rotate_x(meta->map.points, proyect, meta->map.ang[x], meta->map.len);
 	rotate_y(proyect, proyect, meta->map.ang[y], meta->map.len);
 	rotate_z(proyect, proyect, meta->map.ang[z], meta->map.len);	

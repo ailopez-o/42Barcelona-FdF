@@ -20,7 +20,7 @@ int my_putpixel(t_meta *meta, t_point pixel)
 {
     int mypixel;
 
-    if(pixel.axis[x] > WINX || pixel.axis[y] > WINY || pixel.axis[x] < 0 || pixel.axis[y] < 0)
+    if(pixel.axis[x] >= WINX || pixel.axis[y] >= WINY || pixel.axis[x] < (WINX/8) || pixel.axis[y] < 0)
         return (-1);
     //Calculo la posicion en el buffer;
     mypixel = ((int)pixel.axis[y] * WINX * 4) + ((int)pixel.axis[x] * 4);
