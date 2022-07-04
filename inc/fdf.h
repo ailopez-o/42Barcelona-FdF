@@ -42,20 +42,21 @@
 # define ROJO 				0xc1272d
 # define VERDE				0x33cc55
 # define FUCSIA 			0xff255c
-# define TEXT_COLOR			0xEAEAEA
-# define BACKGROUND			0x222222
-# define MENU_BACKGROUND	0x1E1E1E
-
-# define DEFAULT_COLOR		COLOR_JAFFA
-# define BOTTOM_COLOR		COLOR_DISCO
-# define TOP_COLOR			COLOR_BRICK_RED
-# define GROUND_COLOR		COLOR_SAFFRON
-
 # define COLOR_DISCO		0x9A1F6A
 # define COLOR_BRICK_RED	0xC2294E
 # define COLOR_FLAMINGO		0xEC4B27
 # define COLOR_JAFFA		0xEF8633
 # define COLOR_SAFFRON		0xF3AF3D
+
+# define DEFAULT_COLOR		COLOR_JAFFA
+# define BOTTOM_COLOR		COLOR_DISCO
+# define TOP_COLOR			COLOR_BRICK_RED
+# define GROUND_COLOR		COLOR_SAFFRON
+# define TEXT_COLOR			0xEAEAEA
+# define BACK_COLOR			0x151515
+# define MENU_COLOR			0x202020
+
+#define	MENU_MIN_WIDTH		200
 
 # define R(a) (a) >> 16
 # define G(a) ((a) >> 8) & 0xFF
@@ -80,16 +81,27 @@ typedef struct	s_point {
 	int 		color;
 }				t_point;
 
+typedef struct	m_colors {
+	int			topcolor;
+	int			groundcolor;
+	int			bottomcolor;
+	int			backcolor;
+	int 		menucolor;	
+}	t_colors;
+
 typedef struct	m_map {
 	t_point		*points;
 	t_point		limits;
+	t_point		source;	
+	t_colors	colors;	
 	int			zmin;
 	float		ang[3];
 	float 		scale;
-	t_point		source;
 	int			len;
 	int			renders;
 }				t_map;
+
+
 
 typedef struct	s_meta {
 	t_vars		vars;
@@ -115,7 +127,7 @@ int		mouse_move(int X, int Y, void *param);
 int		mouse_release(int button, int X, int Y, void *param);
 int		mouse_press(int button, int X, int Y, void *param);
 int 	draw_line(t_meta *meta, t_point start, t_point end);
-void 	generate_background(t_meta *meta, int color);
+void 	generate_background(t_meta *meta, int backcolor, int menucolor);
 void 	draw_bitmap(t_meta *meta, int x0, int y0);
 int 	my_putpixel(t_meta *meta, t_point pixel);
 t_point set_point(float X, float Y, float Z, int color);

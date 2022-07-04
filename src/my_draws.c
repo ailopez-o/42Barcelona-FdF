@@ -81,7 +81,7 @@ void	my_cube(t_meta *meta)
 	//move.axis[y] = 300;
 	//traslate(proyection2D, move, 8);
 	center(proyection2D,8);
-	generate_background(meta, 0x000000);
+	generate_background(meta, 0x000000, 0x000000);
 	i = 0;
 	while (i < 8)
 	{

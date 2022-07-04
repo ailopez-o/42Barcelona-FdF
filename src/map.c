@@ -16,20 +16,20 @@ void	show_info(t_map *map)
 	printf("\nMapa Leido [%d][%d][%d][%d] - SIZE[%d] \n", (int)map->limits.axis[x], (int)map->limits.axis[y], (int)map->limits.axis[z],map->zmin, map->len);	
 }
 
-void	load_color (int max, int min, t_point *point)
+void	load_color (int max, int min, t_point *point, t_colors	colors)
 {
 
 	point->color = DEFAULT_COLOR;
 	if (point->axis[z] == max)
-		point->color = TOP_COLOR;
+		point->color = colors.topcolor;
 	else if (point->axis[z] == 0)
-		point->color = GROUND_COLOR;
+		point->color = colors.groundcolor;
 	else if (point->axis[z] == min && min !=0)
-		point->color = BOTTOM_COLOR;
+		point->color = colors.bottomcolor;
 	else if (point->axis[z] > 0)
-		point->color = gradient(GROUND_COLOR, TOP_COLOR, max, point->axis[z]);
+		point->color = gradient(colors.groundcolor, colors.topcolor, max, point->axis[z]);
 	else
-		point->color = gradient(BOTTOM_COLOR, GROUND_COLOR, -min, - (min - point->axis[z]));
+		point->color = gradient(colors.bottomcolor, colors.groundcolor, -min, - (min - point->axis[z]));
 
 }
 
@@ -48,7 +48,7 @@ void	load_points(char *line, t_map *map, int numline)
 		map->points[map->len].axis[z] = ft_atoi(&splited[i][0]);
 		map->points[map->len].axis[x] = i - map->limits.axis[x]/2;
 		map->points[map->len].axis[y] = numline - map->limits.axis[y]/2;
-		load_color((int)map->limits.axis[z], map->zmin, &map->points[map->len]);	
+		load_color((int)map->limits.axis[z], map->zmin, &map->points[map->len], map->colors);	
 		if (ft_strchr(splited[i], ',') != 0)
 		{
 			color = ft_split(splited[i], ',');
@@ -100,11 +100,27 @@ void	map_size(int fd, t_map *map)
 		map->limits.axis[x] = line_size(line);
 		map->len += map->limits.axis[x];
 		map->limits.axis[y]++;
+		free(line);
 		line = get_next_line(fd);
 	}
 }
 
-
+void	map_ini(t_map *map)
+{
+	map->renders = 0;
+	map->scale = 1;	
+	map->source.axis[x] = WINX/2;
+	map->source.axis[y] = WINY/2;	
+	map->source.axis[z] = 0;
+	map->ang[x] = 0;
+	map->ang[y] = 0;
+	map->ang[z] = 0;	
+	map->colors.backcolor = BACK_COLOR;
+	map->colors.menucolor = MENU_COLOR;
+	map->colors.bottomcolor = BOTTOM_COLOR;
+	map->colors.groundcolor = GROUND_COLOR;
+	map->colors.topcolor = TOP_COLOR;
+}
 
 int load_map(t_map *map, char *path)
 {	
@@ -112,6 +128,7 @@ int load_map(t_map *map, char *path)
 	char	*line;
 	int 	numline;
 
+	map_ini(map);
 	fd = open(path, O_RDONLY);
 	if (fd < 2)
 		return (-1);
@@ -128,17 +145,11 @@ int load_map(t_map *map, char *path)
 	{
 		numline++;
 		load_points(line, map, numline);
+		free(line);
 		line = get_next_line(fd);
 	}
 	show_info(map);
-	map->renders = 0;
-	map->scale = 1;	
-	map->source.axis[x] = WINX/2;
-	map->source.axis[y] = WINY/2;	
-	map->source.axis[z] = 0;
-	map->ang[x] = 0;
-	map->ang[y] = 0;
-	map->ang[z] = 0;	
+
 	return(1);
 }
 
@@ -199,7 +210,7 @@ int draw_map(t_meta *meta)
 	if (proyect == NULL)
 		return (-1);
 	meta->map.renders = meta->map.renders + 1;
-	generate_background(meta, 0x151515);
+	generate_background(meta, meta->map.colors.backcolor, meta->map.colors.menucolor);
 	rotate_x(meta->map.points, proyect, meta->map.ang[x], meta->map.len);
 	rotate_y(proyect, proyect, meta->map.ang[y], meta->map.len);
 	rotate_z(proyect, proyect, meta->map.ang[z], meta->map.len);	

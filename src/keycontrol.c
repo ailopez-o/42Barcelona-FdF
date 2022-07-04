@@ -19,7 +19,7 @@ int working_keys(int key, t_meta *meta)
 
     if (key == KEY_1)
 	{
-		generate_background(meta, 0x000000);
+		generate_background(meta, meta->map.colors.backcolor, meta->map.colors.menucolor);
 		draw_bitmap(meta, 0, 0);
 	}
 	if (key == KEY_2)

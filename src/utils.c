@@ -22,7 +22,7 @@ int my_putpixel(t_meta *meta, t_point pixel)
     int alpha;
 
     alpha = 0;   
-    if (pixel.axis[x] < (WINX/8) || pixel.axis[x] < 200)
+    if (pixel.axis[x] < (WINX/8) || pixel.axis[x] < MENU_MIN_WIDTH)
         alpha = -10;  
     if(pixel.axis[x] >= WINX || pixel.axis[y] >= WINY || pixel.axis[x] < 0 || pixel.axis[y] < 0)
         return (-1);
@@ -160,20 +160,28 @@ t_point set_point(float X, float Y, float Z, int color)
 }
 
 
-void generate_background(t_meta *meta, int color)
+void generate_background(t_meta *meta, int backcolor, int menucolor)
 {
     int X;
     int Y;
     int pixel;
+    int color;
 
     if (meta->bitmap.bitxpixel != 32)
-        color = mlx_get_color_value(meta->vars.mlx, color);
+        backcolor = mlx_get_color_value(meta->vars.mlx, backcolor);
+    if (meta->bitmap.bitxpixel != 32)
+        menucolor = mlx_get_color_value(meta->vars.mlx, menucolor);       
     X = 0;
     Y = 0;
     while (Y < WINY)
     {
-        while(X < WINX)
+        while(X < WINX )
         {
+            if (X < WINX/8 || X < MENU_MIN_WIDTH)
+                color = menucolor;
+            else    
+                color = backcolor;
+
             pixel = (Y * meta->bitmap.lines) + (X * 4);
             if (meta->bitmap.endian == 1)        // Most significant (Alpha) byte first
             {

@@ -88,14 +88,14 @@ int	mouse_press(int button, int X, int Y, void *param)
 	if (button == 4)
 	{
 		// Zoom IN
-		meta->map.scale = meta->map.scale + 1;
+		meta->map.scale = meta->map.scale * 1.1;
 		draw_map(meta);
 	}
 	if (button == 5)
 	{
 		// Zoom OUT
 		if (meta->map.scale > 1)
-			meta->map.scale = meta->map.scale - 1;
+			meta->map.scale = meta->map.scale / 1.1;
 		draw_map(meta);
 	}
 	return (0);
