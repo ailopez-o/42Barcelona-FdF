@@ -19,8 +19,12 @@ void draw_bitmap(t_meta *meta, int x0, int y0)
 int my_putpixel(t_meta *meta, t_point pixel)
 {
     int mypixel;
+    int alpha;
 
-    if(pixel.axis[x] >= WINX || pixel.axis[y] >= WINY || pixel.axis[x] < (WINX/8) || pixel.axis[y] < 0)
+    alpha = 0;   
+    if (pixel.axis[x] < (WINX/8) || pixel.axis[x] < 200)
+        alpha = -10;  
+    if(pixel.axis[x] >= WINX || pixel.axis[y] >= WINY || pixel.axis[x] < 0 || pixel.axis[y] < 0)
         return (-1);
     //Calculo la posicion en el buffer;
     mypixel = ((int)pixel.axis[y] * WINX * 4) + ((int)pixel.axis[x] * 4);
@@ -29,7 +33,8 @@ int my_putpixel(t_meta *meta, t_point pixel)
     //Generamos el color
     if (meta->bitmap.endian == 1)        // Most significant (Alpha) byte first
         {
-        meta->bitmap.buffer[mypixel + 0] = (pixel.color >> 24);
+        //meta->bitmap.buffer[mypixel + 0] = (pixel.color >> 24);
+        meta->bitmap.buffer[mypixel + 0] = alpha;
         meta->bitmap.buffer[mypixel + 1] = (pixel.color >> 16) & 0xFF;
         meta->bitmap.buffer[mypixel + 2] = (pixel.color >> 8) & 0xFF;
         meta->bitmap.buffer[mypixel + 3] = (pixel.color) & 0xFF;
@@ -39,7 +44,8 @@ int my_putpixel(t_meta *meta, t_point pixel)
         meta->bitmap.buffer[mypixel + 0] = (pixel.color) & 0xFF;
         meta->bitmap.buffer[mypixel + 1] = (pixel.color >> 8) & 0xFF;
         meta->bitmap.buffer[mypixel + 2] = (pixel.color >> 16) & 0xFF;
-        meta->bitmap.buffer[mypixel + 3] = (pixel.color >> 24);
+        //meta->bitmap.buffer[mypixel + 3] = (pixel.color >> 24);
+        meta->bitmap.buffer[mypixel + 3] = alpha;
     }
     return(0);
 }

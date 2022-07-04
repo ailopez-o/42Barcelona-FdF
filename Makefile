@@ -80,6 +80,7 @@ fclean:		clean
 			$(RM) -f $(NAME)
 			@echo "$(CYAN)Fdf executable files cleaned!$(DEF_COLOR)"
 			$(RM) -f $(LIB)/$(MLX)/libmlx.a
+			$(RM) -f $(LIB)/libft/libft.a
 			@echo "$(CYAN)libmlx.a lib cleaned!$(DEF_COLOR)"
 
 re:			fclean 

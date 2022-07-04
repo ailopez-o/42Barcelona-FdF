@@ -24,8 +24,8 @@
 # include <string.h>
 # include <fcntl.h>
 
-# define WINX 800
-# define WINY 600
+# define WINX 1920	
+# define WINY 1080
 
 # define x 0
 # define y 1
