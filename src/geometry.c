@@ -90,5 +90,8 @@ int fit(t_map *map)
 void isometric(t_map *map)
 {
     map->ang[x] = 30;
-    map->ang[y] = 30;
+    map->ang[y] = 330;
+    map->ang[z] = 30;    
+    map->source.axis[x] = WINX/2;
+    map->source.axis[y] = WINY/2;
 }
