@@ -56,7 +56,13 @@
 # define BACK_COLOR			0x151515
 # define MENU_COLOR			0x202020
 
-#define	MENU_MIN_WIDTH		200
+# define MENU_MIN_WIDTH		350
+# define FIT_MARGIN			50
+# define CONTROL_BOX		300
+# define DRAWINFO_BOX		40
+# define MAPINFO_BOX		550
+# define LINE_SIZE			30			
+# define MENU_TAB			30
 
 # define R(a) (a) >> 16
 # define G(a) ((a) >> 8) & 0xFF
@@ -99,7 +105,18 @@ typedef struct	m_map {
 	float 		scale;
 	int			len;
 	int			renders;
+	bool		b_lines;
+	bool		b_dots;
 }				t_map;
+
+
+typedef struct	s_keys {
+	bool		b_mouseL;
+	bool		b_mouseR;
+	bool		b_keyctrl;
+	t_point		last_clickL;
+	t_point		last_clickR;
+}			t_keys;
 
 
 
@@ -107,10 +124,7 @@ typedef struct	s_meta {
 	t_vars		vars;
 	t_bitmap	bitmap;
 	t_map		map;
-	bool		b_mouseL;
-	bool		b_mouseR;
-	t_point		last_clickL;
-	t_point		last_clickR;
+	t_keys		keys;
 }				t_meta;
 
 
@@ -123,6 +137,7 @@ typedef struct	s_dot {
 
 
 int		key_press(int key, void *param);
+int		key_release(int key, void *param);
 int		mouse_move(int X, int Y, void *param);
 int		mouse_release(int button, int X, int Y, void *param);
 int		mouse_press(int button, int X, int Y, void *param);
@@ -145,4 +160,5 @@ int 	load_map(t_map *map, char *path);
 int 	draw_map(t_meta *meta);
 int		gradient(int startcolor, int endcolor, int len, int pix);
 void	terminate(void);
+int		fit(t_map *map);
 #endif

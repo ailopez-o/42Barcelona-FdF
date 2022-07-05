@@ -13,57 +13,6 @@
 
 int working_keys(int key, t_meta *meta)
 {
-	t_point		dot;
-	t_point		start;
-	t_point		end;
-
-    if (key == KEY_1)
-	{
-		generate_background(meta, meta->map.colors.backcolor, meta->map.colors.menucolor);
-		draw_bitmap(meta, 0, 0);
-	}
-	if (key == KEY_2)
-	{
-		start.axis[x] = 0;
-		start.axis[y] = 0;
-		start.color = 0x005500;
-		end.axis[x] = WINX;
-		end.axis[y] = WINY;
-		while (end.axis[x] > 0)
-		{
-			draw_line(meta, start, end);
-			end.axis[x] -= 20;
-		}
-		draw_bitmap(meta, 0, 0);
-	}
-	if (key == KEY_3)
-	{
-		start.axis[x] = WINX;
-		start.axis[y] = 0;
-		start.color = 0xFF5500;
-		end.axis[x] = 0;
-		end.axis[y]= WINY;
-
-		while (end.axis[x] < WINX)
-		{
-			draw_line(meta, start, end);
-			end.axis[x] += 20;
-		}
-		draw_bitmap(meta, 0, 0);
-	}
-	if (key == KEY_4)
-	{	
-		dot.axis[x] = 300;
-		dot.axis[y] = 150;
-		dot.color = VERDE;
-		draw_dot(meta, dot, 10);
-		draw_bitmap(meta, 0, 0);
-	}
-	if (key == KEY_5)
-	{
-		my_cube(meta);
-		draw_bitmap(meta, 0, 0);
-	}
 	if (key == KEY_6)
 	{
 		static int ang;
@@ -78,9 +27,27 @@ int working_keys(int key, t_meta *meta)
 		meta->map.ang[x] = 0;
 		meta->map.ang[y] = 0;
 		meta->map.ang[z] = 0;
+		meta->map.source.axis[x] = WINX/2;
+		meta->map.source.axis[y] = WINY/2;
 		draw_map(meta);
 	}	
+	if (key == KEY_F)
+	{
+		fit(&meta->map);
+		printf("Escala [%d]\n", meta->map.len);
+		//draw_map(meta);
+	}		
     return(0);
+}
+int	key_release(int key, void *param)
+{
+	t_meta	*meta;
+
+	meta = (t_meta *)param;
+	printf("Keycode Release [%d]\n", key);
+	if (key == KEY_CMD)
+		meta->keys.b_keyctrl = 0;
+	return(0);
 }
 
 int	key_press(int key, void *param)
@@ -94,11 +61,8 @@ int	key_press(int key, void *param)
 	{
 		mlx_destroy_window(meta->vars.mlx, meta->vars.win);
 		free(meta->map.points);
-		//free(meta->map.proyect3D);
-		//free(meta->map.proyect2D);
 		exit(0);	
 	}
-	
 	if (key == KEY_SUM)
 	{
 		// Zoom IN
@@ -114,50 +78,86 @@ int	key_press(int key, void *param)
 	}
 	if (key == KEY_DOWN)
 	{
-		if (meta->map.ang[x] == 360)
-			meta->map.ang[x] = 0;
-		meta->map.ang[x] = meta->map.ang[x] + 1;	
+		if	(meta->keys.b_keyctrl)
+			meta->map.ang[x] = meta->map.ang[x] + 90;
+		else
+			meta->map.ang[x] = meta->map.ang[x] + 1;	
+		if (meta->map.ang[x] >= 360)
+			meta->map.ang[x] = meta->map.ang[x] - 360;
 		draw_map(meta);
 	}	
 	if (key == KEY_UP)
 	{
-		if (meta->map.ang[x] == 0)
-			meta->map.ang[x] = 360;
-		meta->map.ang[x] = meta->map.ang[x] - 1;	
+		if	(meta->keys.b_keyctrl)
+			meta->map.ang[x] = meta->map.ang[x] - 90;	
+		else
+			meta->map.ang[x] = meta->map.ang[x] - 1;	
+		if (meta->map.ang[x] < 0)
+			meta->map.ang[x] = 360 + meta->map.ang[x];
 		draw_map(meta);
 	}		
 	if (key == KEY_LEFT)
 	{
-		if (meta->map.ang[y] == 360)
-			meta->map.ang[y] = 0;
-		meta->map.ang[y] = meta->map.ang[y] + 1;	
+		if	(meta->keys.b_keyctrl)
+			meta->map.ang[y] = meta->map.ang[y] + 90;
+		else
+			meta->map.ang[y] = meta->map.ang[y] + 1;	
+		if (meta->map.ang[y] >= 360)
+			meta->map.ang[y] = meta->map.ang[y] - 360;
 		draw_map(meta);
 	}	
 	if (key == KEY_RIGHT)
 	{
-		if (meta->map.ang[y] == 0)
-			meta->map.ang[y] = 360;
-		meta->map.ang[y] = meta->map.ang[y] - 1;	
+		if	(meta->keys.b_keyctrl)
+			meta->map.ang[y] = meta->map.ang[y] - 90;
+		else
+			meta->map.ang[y] = meta->map.ang[y] - 1;	
+		if (meta->map.ang[y] < 0)
+			meta->map.ang[y] = 360 +  meta->map.ang[y];
 		draw_map(meta);
 	}	
 	if (key == KEY_Q)
 	{
-		if (meta->map.ang[z] == 360)
-			meta->map.ang[z] = 0;
-		meta->map.ang[z] = meta->map.ang[z] + 1;	
+		if	(meta->keys.b_keyctrl)
+			meta->map.ang[z] = meta->map.ang[z] + 90;
+		else		
+			meta->map.ang[z] = meta->map.ang[z] + 1;	
+		if (meta->map.ang[z] >= 360)
+			meta->map.ang[z] = meta->map.ang[z] - 360;
 		draw_map(meta);
 	}		
 	if (key == KEY_W)
 	{
-		if (meta->map.ang[z] == 0)
-			meta->map.ang[z] = 360;
-		meta->map.ang[z] = meta->map.ang[z] - 1;	
+		if	(meta->keys.b_keyctrl)
+			meta->map.ang[z] = meta->map.ang[z] - 90;
+		else				
+			meta->map.ang[z] = meta->map.ang[z] - 1;	
+		if (meta->map.ang[z] < 0)
+			meta->map.ang[z] = 360 +  meta->map.ang[z];			
 		draw_map(meta);
 	}	
+	if (key == KEY_C)
+	{
+		meta->map.source.axis[x] = WINX/2;
+		meta->map.source.axis[y] = WINY/2;
+		draw_map(meta);
+	}		
 	if (key == KEY_I)
 	{
 		isometric(&meta->map);
 		draw_map(meta);
 	}			
+	if (key == KEY_CMD)
+		meta->keys.b_keyctrl = 1;
+	if (key == KEY_D)
+	{
+		meta->map.b_dots = !meta->map.b_dots;	
+		draw_map(meta);
+	}
+	if (key == KEY_L)
+	{
+		meta->map.b_lines = !meta->map.b_lines;				
+		draw_map(meta);
+	}
 	return(0);
 }

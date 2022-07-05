@@ -41,3 +41,5 @@
 #define KEY_RIGHT   124
 #define KEY_DOWN    125
 #define KEY_UP      126
+#define KEY_CTRL    256
+#define KEY_CMD     259

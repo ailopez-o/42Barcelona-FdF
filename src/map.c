@@ -107,6 +107,8 @@ void	map_size(int fd, t_map *map)
 
 void	map_ini(t_map *map)
 {
+	map->b_lines = 1;
+	map->b_dots = 0;
 	map->renders = 0;
 	map->scale = 1;	
 	map->source.axis[x] = WINX/2;
@@ -153,26 +155,57 @@ int load_map(t_map *map, char *path)
 	return(1);
 }
 
+void	draw_controls(t_meta *meta)
+{
+	char	*str;
+
+	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, CONTROL_BOX, TEXT_COLOR, "//// CONTROLS ////");
+	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, CONTROL_BOX + LINE_SIZE * 2, TEXT_COLOR, "Scroll: Zom In/Out");
+	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, CONTROL_BOX + LINE_SIZE * 3, TEXT_COLOR, "Left Click: Rotate X/Y axis");
+	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, CONTROL_BOX + LINE_SIZE * 4, TEXT_COLOR, "Arrows: Rotate X/Y axis");
+	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, CONTROL_BOX + LINE_SIZE * 5, TEXT_COLOR, "Q/W: Rotate Z axis");	
+	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, CONTROL_BOX + LINE_SIZE * 6, TEXT_COLOR, "Right Click: Move");
+	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, MAPINFO_BOX, TEXT_COLOR, "//// MAP INFO ////");
+	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, MAPINFO_BOX + LINE_SIZE * 2, TEXT_COLOR, "Size:");	
+	str = ft_itoa(meta->map.len);
+	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB + 80, MAPINFO_BOX + LINE_SIZE * 2, TEXT_COLOR, str);		
+	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, MAPINFO_BOX + LINE_SIZE * 3, TEXT_COLOR, "X:");	
+	str = ft_itoa(meta->map.limits.axis[x]);
+	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB + 80, MAPINFO_BOX + LINE_SIZE * 3, TEXT_COLOR, str);
+	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, MAPINFO_BOX + LINE_SIZE * 4, TEXT_COLOR, "Y:");	
+	str = ft_itoa(meta->map.limits.axis[y]);
+	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB + 80, MAPINFO_BOX + LINE_SIZE * 4, TEXT_COLOR, str);	
+	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, MAPINFO_BOX + LINE_SIZE * 5, TEXT_COLOR, "Z:");	
+	str = ft_itoa(meta->map.limits.axis[z]);
+	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB + 80, MAPINFO_BOX + LINE_SIZE * 5, TEXT_COLOR, str);
+	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, MAPINFO_BOX + LINE_SIZE * 6, TEXT_COLOR, "Zmin:");
+	str = ft_itoa(meta->map.zmin);
+	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB + 78, MAPINFO_BOX + LINE_SIZE * 6, TEXT_COLOR, str);			
+	free(str);
+}
+
 void draw_menu(t_meta *meta)
 {
 	char	*str;
 
+	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, DRAWINFO_BOX, TEXT_COLOR, "//// DRAW INFO ////");
 	str = ft_itoa(meta->map.renders);
-	mlx_string_put(meta->vars.mlx, meta->vars.win, 30, 10, TEXT_COLOR, "Reenders:");
-	mlx_string_put(meta->vars.mlx, meta->vars.win, 120, 10, TEXT_COLOR, str);
+	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, DRAWINFO_BOX + LINE_SIZE * 2, TEXT_COLOR, "Reenders:");
+	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB + 100, DRAWINFO_BOX + LINE_SIZE * 2, TEXT_COLOR, str);
 	str = ft_itoa(meta->map.ang[x]);
-	mlx_string_put(meta->vars.mlx, meta->vars.win, 30, 60, TEXT_COLOR, "X Axis:");
-	mlx_string_put(meta->vars.mlx, meta->vars.win, 110, 60, TEXT_COLOR, str);
+	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, DRAWINFO_BOX + LINE_SIZE * 3, TEXT_COLOR, "X Axis:");
+	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB + 80, DRAWINFO_BOX + LINE_SIZE * 3, TEXT_COLOR, str);
 	str = ft_itoa(meta->map.ang[y]);
-	mlx_string_put(meta->vars.mlx, meta->vars.win, 30, 80, TEXT_COLOR, "Y Axix:");
-	mlx_string_put(meta->vars.mlx, meta->vars.win, 110, 80, TEXT_COLOR, str);
+	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, DRAWINFO_BOX + LINE_SIZE * 4, TEXT_COLOR, "Y Axix:");
+	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB + 80, DRAWINFO_BOX + LINE_SIZE * 4, TEXT_COLOR, str);
 	str = ft_itoa(meta->map.ang[z]);
-	mlx_string_put(meta->vars.mlx, meta->vars.win, 30, 100, TEXT_COLOR, "Z Axix:");
-	mlx_string_put(meta->vars.mlx, meta->vars.win, 110, 100, TEXT_COLOR, str);
+	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, DRAWINFO_BOX + LINE_SIZE * 5, TEXT_COLOR, "Z Axix:");
+	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB + 80, DRAWINFO_BOX + LINE_SIZE * 5, TEXT_COLOR, str);
 	str = ft_itoa(meta->map.scale);
-	mlx_string_put(meta->vars.mlx, meta->vars.win, 30, 120, TEXT_COLOR, "Zoom:");
-	mlx_string_put(meta->vars.mlx, meta->vars.win, 110, 120, TEXT_COLOR, str);	
+	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, DRAWINFO_BOX + LINE_SIZE * 6, TEXT_COLOR, "Zoom:");
+	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB + 80, DRAWINFO_BOX + LINE_SIZE * 6, TEXT_COLOR, str);	
 	free(str);
+	draw_controls(meta);
 }
 
 void	wired(t_meta *meta, t_point *wire)
@@ -217,8 +250,10 @@ int draw_map(t_meta *meta)
 	orto_proyection (proyect, proyect, meta->map.len);
 	scale (proyect, meta->map.scale, meta->map.len);
 	traslate(proyect, meta->map.source, meta->map.len);		
-	wired(meta, proyect);
-//	doted(meta,proyect);
+	if (meta->map.b_lines)
+		wired(meta, proyect);
+	if (meta->map.b_dots)
+		doted(meta,proyect);
 	draw_bitmap(meta, 0, 0);	
 	draw_menu(meta);
 	free (proyect);

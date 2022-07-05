@@ -34,6 +34,7 @@ int main(int argv, char **argc)
 		terminate();	
 	// Capturamos eventos
 	mlx_hook(meta.vars.win, 2, 0, key_press, &meta);
+	mlx_hook(meta.vars.win, 3, 0, key_release, &meta);
 	mlx_hook(meta.vars.win, 4, 0, mouse_press, &meta);
 	mlx_hook(meta.vars.win, 5, 0, mouse_release, &meta);
 	mlx_hook(meta.vars.win, 6, 0, mouse_move, &meta);	
