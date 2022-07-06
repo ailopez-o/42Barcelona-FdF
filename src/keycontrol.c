@@ -35,7 +35,7 @@ int working_keys(int key, t_meta *meta)
 	{
 		fit(&meta->map);
 		printf("Escala [%d]\n", meta->map.len);
-		//draw_map(meta);
+		draw_map(meta);
 	}		
     return(0);
 }

@@ -45,11 +45,11 @@ int	limits(t_point *points, int len)
 	i = 0;
 	while (i < len)
 	{
-		if (points[i].axis[x] < FIT_MARGIN || \
-			points[i].axis[x] > (WINX - FIT_MARGIN))
+		if (points[i].axis[x] < LIMIT_MINX || \
+			points[i].axis[x] > LIMIT_MAXX)
 			return (1);
-		if (points[i].axis[y] < FIT_MARGIN || \
-			points[i].axis[y] > (WINY - FIT_MARGIN))
+		if (points[i].axis[y] < LIMIT_MINY || \
+			points[i].axis[y] > LIMIT_MAXY)
 			return (1);
 		i++;
 	}
@@ -77,11 +77,11 @@ int	fit(t_map *map)
 	proyect = malloc (map->len * sizeof(t_point));
 	if (proyect == NULL)
 		return (-1);
-	rotate_y(proyect, proyect, map->ang[y], map->len);
+	rotate_y(map->points, proyect, map->ang[y], map->len);
 	rotate_z(proyect, proyect, map->ang[z], map->len);
 	orto_proyection (proyect, proyect, map->len);
 	scale (proyect, map->scale, map->len);
-	traslate(proyect, map->source, map->len);
+	//traslate(proyect, map->source, map->len);
 	while (!limits(proyect, map->len))
 	{
 		map->scale++;

@@ -57,12 +57,19 @@
 # define MENU_COLOR			0x202020
 
 # define MENU_MIN_WIDTH		350
-# define FIT_MARGIN			50
+
 # define CONTROL_BOX		300
 # define DRAWINFO_BOX		40
 # define MAPINFO_BOX		550
 # define LINE_SIZE			30			
 # define MENU_TAB			30
+
+# define LIMIT_MINX			-(WINX/2) + FIT_MARGIN
+# define LIMIT_MAXX			WINX/2 - FIT_MARGIN
+# define LIMIT_MINY			-(WINY/2) + FIT_MARGIN
+# define LIMIT_MAXY			WINY/2 - FIT_MARGIN
+
+# define FIT_MARGIN			50
 
 # define R(a) (a) >> 16
 # define G(a) ((a) >> 8) & 0xFF
