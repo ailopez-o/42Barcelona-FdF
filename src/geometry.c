@@ -80,8 +80,8 @@ int	fit(t_map *map)
 	rotate_y(map->points, proyect, map->ang[y], map->len);
 	rotate_z(proyect, proyect, map->ang[z], map->len);
 	orto_proyection (proyect, proyect, map->len);
-	scale (proyect, map->scale, map->len);
-	//traslate(proyect, map->source, map->len);
+	//scale (proyect, map->scale, map->len);
+	map->scale = 1;
 	while (!limits(proyect, map->len))
 	{
 		map->scale++;
