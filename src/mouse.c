@@ -64,6 +64,8 @@ int	mouse_press(int button, int X, int Y, void *param)
 {
 	t_meta	*meta;
 
+	printf("MousePress: %d\n", button);
+
 	meta = (t_meta *)param;
 	if (button == 1)
 	{
@@ -79,13 +81,14 @@ int	mouse_press(int button, int X, int Y, void *param)
 	}	
 	if (button == 4)
 	{
-		meta->map.scale = meta->map.scale * 1.1;
+		meta->map.scale = meta->map.scale * 1.5;
+		printf("Escala: %f\n", meta->map.scale);
 		draw_map(meta);
 	}
 	if (button == 5)
 	{
-		if (meta->map.scale > 1)
-			meta->map.scale = meta->map.scale / 1.1;
+		meta->map.scale = meta->map.scale / 1.5;
+		printf("Escala: %f\n", meta->map.scale);
 		draw_map(meta);
 	}
 	return (0);

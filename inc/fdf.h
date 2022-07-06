@@ -56,7 +56,7 @@
 # define BACK_COLOR			0x151515
 # define MENU_COLOR			0x202020
 
-# define MENU_MIN_WIDTH		350
+# define MENU_WIDTH			350
 
 # define CONTROL_BOX		300
 # define DRAWINFO_BOX		40
@@ -162,7 +162,6 @@ void	my_cube(t_meta *meta);
 void	traslate(t_point *points, t_point move, int len);
 void 	scale(t_point *points, int scale, int len);
 void 	isometric(t_map *map);
-void	center(t_point *points, int len);
 int 	load_map(t_map *map, char *path);
 int 	draw_map(t_meta *meta);
 int		gradient(int startcolor, int endcolor, int len, int pix);

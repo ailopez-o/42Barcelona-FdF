@@ -25,19 +25,6 @@ void	traslate(t_point *points, t_point move, int len)
 	}
 }
 
-void	center(t_point *points, int len)
-{
-	int	i;
-
-	i = 0;
-	while (i < len)
-	{
-		points[i].axis[x] = points[i].axis[x] + WINX / 2;
-		points[i].axis[y] = points[i].axis[y] + WINY / 2;
-		i++;
-	}
-}
-
 int	limits(t_point *points, int len)
 {
 	int	i;
@@ -96,6 +83,6 @@ void	isometric(t_map *map)
 	map->ang[x] = 30;
 	map->ang[y] = 330;
 	map->ang[z] = 30;
-	map->source.axis[x] = WINX / 2;
+	map->source.axis[x] = (((WINX - MENU_WIDTH) / 2) + MENU_WIDTH);
 	map->source.axis[y] = WINY / 2;
 }

@@ -27,8 +27,8 @@ int working_keys(int key, t_meta *meta)
 		meta->map.ang[x] = 0;
 		meta->map.ang[y] = 0;
 		meta->map.ang[z] = 0;
-		meta->map.source.axis[x] = WINX/2;
-		meta->map.source.axis[y] = WINY/2;
+		meta->map.source.axis[x] = (((WINX - MENU_WIDTH) / 2) + MENU_WIDTH);
+		meta->map.source.axis[y] = WINY/2;		
 		draw_map(meta);
 	}	
 	if (key == KEY_F)
@@ -44,7 +44,6 @@ int	key_release(int key, void *param)
 	t_meta	*meta;
 
 	meta = (t_meta *)param;
-	printf("Keycode Release [%d]\n", key);
 	if (key == KEY_CMD)
 		meta->keys.b_keyctrl = 0;
 	return(0);
@@ -54,8 +53,7 @@ int	key_press(int key, void *param)
 {
 	t_meta	*meta;
 
-	meta = (t_meta *)param;
-	printf("Keycode Press [%d]\n", key);	
+	meta = (t_meta *)param;	
     working_keys(key, meta);
     if (key == KEY_ESC)
 	{
@@ -65,13 +63,11 @@ int	key_press(int key, void *param)
 	}
 	if (key == KEY_SUM)
 	{
-		// Zoom IN
 		meta->map.scale = meta->map.scale + 1;
 		draw_map(meta);
 	}
 	if (key == KEY_RES)
 	{
-		// Zoom OUT
 		if (meta->map.scale > 1)
 			meta->map.scale = meta->map.scale - 1;
 		draw_map(meta);
@@ -138,7 +134,7 @@ int	key_press(int key, void *param)
 	}	
 	if (key == KEY_C)
 	{
-		meta->map.source.axis[x] = WINX/2;
+		meta->map.source.axis[x] = (((WINX - MENU_WIDTH) / 2) + MENU_WIDTH);
 		meta->map.source.axis[y] = WINY/2;
 		draw_map(meta);
 	}		

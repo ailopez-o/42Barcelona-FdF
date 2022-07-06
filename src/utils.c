@@ -22,7 +22,7 @@ int my_putpixel(t_meta *meta, t_point pixel)
     int alpha;
 
     alpha = 0;   
-    if (pixel.axis[x] < (WINX/8) || pixel.axis[x] < MENU_MIN_WIDTH)
+    if (pixel.axis[x] < MENU_WIDTH)
         alpha = -10;  
     if(pixel.axis[x] >= WINX || pixel.axis[y] >= WINY || pixel.axis[x] < 0 || pixel.axis[y] < 0)
         return (-1);
@@ -33,7 +33,6 @@ int my_putpixel(t_meta *meta, t_point pixel)
     //Generamos el color
     if (meta->bitmap.endian == 1)        // Most significant (Alpha) byte first
         {
-        //meta->bitmap.buffer[mypixel + 0] = (pixel.color >> 24);
         meta->bitmap.buffer[mypixel + 0] = alpha;
         meta->bitmap.buffer[mypixel + 1] = (pixel.color >> 16) & 0xFF;
         meta->bitmap.buffer[mypixel + 2] = (pixel.color >> 8) & 0xFF;
@@ -44,7 +43,6 @@ int my_putpixel(t_meta *meta, t_point pixel)
         meta->bitmap.buffer[mypixel + 0] = (pixel.color) & 0xFF;
         meta->bitmap.buffer[mypixel + 1] = (pixel.color >> 8) & 0xFF;
         meta->bitmap.buffer[mypixel + 2] = (pixel.color >> 16) & 0xFF;
-        //meta->bitmap.buffer[mypixel + 3] = (pixel.color >> 24);
         meta->bitmap.buffer[mypixel + 3] = alpha;
     }
     return(0);
@@ -177,7 +175,7 @@ void generate_background(t_meta *meta, int backcolor, int menucolor)
     {
         while(X < WINX )
         {
-            if (X < WINX/8 || X < MENU_MIN_WIDTH)
+            if (X < MENU_WIDTH)
                 color = menucolor;
             else    
                 color = backcolor;
