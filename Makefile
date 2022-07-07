@@ -19,6 +19,7 @@ SRC_DIR		= src/
 OBJ_DIR		= obj/
 CC			= gcc
 CFLAGS		= -g -Wall -Werror -Wextra -MMD 
+SFLAGS		= -fsanitize=address -static-libsan -g -Wall -Werror -Wextra -MMD 
 NOFLAGS		= -g
 RM			= rm -f
 MLX		= 	miniliblx/minilibx_macos

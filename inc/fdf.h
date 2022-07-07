@@ -167,4 +167,5 @@ int 	draw_map(t_meta *meta);
 int		gradient(int startcolor, int endcolor, int len, int pix);
 void	terminate(void);
 int		fit(t_map *map);
+void 	dbl_free(char **ptr);
 #endif

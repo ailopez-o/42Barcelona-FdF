@@ -202,6 +202,18 @@ void generate_background(t_meta *meta, int backcolor, int menucolor)
     }
 }
 
+void dbl_free(char **ptr)
+{
+    int i;
+
+    i = 0;
+    while(ptr[i])
+    {
+        free(ptr[i]);
+        i++;
+    }
+    free (ptr);
+}
 
 void	terminate(void)
 {

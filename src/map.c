@@ -51,12 +51,14 @@ void	load_points(char *line, t_map *map, int numline)
 		load_color((int)map->limits.axis[z], map->zmin, &map->points[map->len], map->colors);	
 		if (ft_strchr(splited[i], ',') != 0)
 		{
+			dbl_free(color);
 			color = ft_split(splited[i], ',');
 			map->points[map->len].color  = strtol(color[1] + 2, NULL, 16);
 		}
 		i++;
 		map->len++;
 	}
+	dbl_free(splited);
 }
 
 int	line_size(char *line)
@@ -68,6 +70,7 @@ int	line_size(char *line)
 	i = 0;
 	while (split[i])
 		i++;
+	dbl_free(split);
 	return(i);
 }
 
@@ -100,6 +103,7 @@ void	map_size(int fd, t_map *map)
 		map->limits.axis[x] = line_size(line);
 		map->len += map->limits.axis[x];
 		map->limits.axis[y]++;
+		dbl_free(splited);
 		free(line);
 		line = get_next_line(fd);
 	}
