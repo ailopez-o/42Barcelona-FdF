@@ -115,6 +115,7 @@ void	map_ini(t_map *map)
 	map->b_dots = 0;
 	map->renders = 0;
 	map->scale = 1;	
+	map->zdivisor = 1;
 	map->source.axis[x] = WINX/2;
 	map->source.axis[y] = WINY/2;	
 	map->source.axis[z] = 0;
@@ -238,6 +239,32 @@ void	doted(t_meta *meta, t_point *proyect)
 	}
 }
 
+void	copy_map(t_point *src, t_point *dst, int len)
+{
+	int	i;
+	
+	i = 0;
+	while (i < len)
+	{
+		dst[i] = src[i];
+		i++;
+	}
+}
+
+void	z_division(t_point *proyect, float divisor, int len)
+{
+	int	i;
+	
+	i = 0;
+	while (i < len)
+	{
+		proyect[i].axis[z] = proyect[i].axis[z] / divisor;
+		i++;
+	}
+
+}
+
+
 int draw_map(t_meta *meta)
 {
 	t_point		*proyect;
@@ -247,7 +274,9 @@ int draw_map(t_meta *meta)
 		return (-1);
 	meta->map.renders = meta->map.renders + 1;
 	generate_background(meta, meta->map.colors.backcolor, meta->map.colors.menucolor);
-	rotate_x(meta->map.points, proyect, meta->map.ang[x], meta->map.len);
+	copy_map(meta->map.points, proyect, meta->map.len);
+	z_division(proyect, meta->map.zdivisor, meta->map.len);
+	rotate_x(proyect, proyect, meta->map.ang[x], meta->map.len);
 	rotate_y(proyect, proyect, meta->map.ang[y], meta->map.len);
 	rotate_z(proyect, proyect, meta->map.ang[z], meta->map.len);	
 	orto_proyection (proyect, proyect, meta->map.len);

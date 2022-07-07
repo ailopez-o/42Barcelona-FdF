@@ -110,6 +110,7 @@ typedef struct	m_map {
 	t_colors	colors;	
 	int			zmin;
 	float		ang[3];
+	float		zdivisor;
 	float 		scale;
 	int			len;
 	int			renders;

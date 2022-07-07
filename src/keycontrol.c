@@ -61,6 +61,7 @@ int	key_press(int key, void *param)
 		free(meta->map.points);
 		exit(0);	
 	}
+	/*
 	if (key == KEY_SUM)
 	{
 		meta->map.scale = meta->map.scale + 1;
@@ -72,6 +73,7 @@ int	key_press(int key, void *param)
 			meta->map.scale = meta->map.scale - 1;
 		draw_map(meta);
 	}
+	*/
 	if (key == KEY_DOWN)
 	{
 		if	(meta->keys.b_keyctrl)
@@ -155,5 +157,19 @@ int	key_press(int key, void *param)
 		meta->map.b_lines = !meta->map.b_lines;				
 		draw_map(meta);
 	}
+	if (key == KEY_SUM)
+	{
+		if (meta->map.zdivisor > 1)
+			meta->map.zdivisor--;			
+		draw_map(meta);
+	}
+	if (key == KEY_RES)
+	{
+		meta->map.zdivisor++;				
+		draw_map(meta);
+	}	
+
+	printf("Zdivisor [%f]\n", meta->map.zdivisor);
+	
 	return(0);
 }

@@ -206,7 +206,10 @@ void dbl_free(char **ptr)
 {
     int i;
 
+    if (!ptr)
+        return;
     i = 0;
+    return;
     while(ptr[i])
     {
         free(ptr[i]);
