@@ -18,7 +18,6 @@
 
 
 <p align="center">
-	<img src="https://raw.githubusercontent.com/aitorlopez42/42Barcelona-FdF/90e15d662849efdf7442c7f4c0ff6470192ed41c/fdf.png" />
 	<img src="https://raw.githubusercontent.com/aitorlopez42/42Barcelona-FdF/main/map0.png" />
 	<img src="https://raw.githubusercontent.com/aitorlopez42/42Barcelona-FdF/main/map1.png" />		
 </p>
