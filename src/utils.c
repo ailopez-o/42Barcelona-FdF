@@ -144,8 +144,6 @@ int draw_line(t_meta *meta, t_point start, t_point end)
 	return(1);
 }
 
-
-
 t_point set_point(float X, float Y, float Z, int color)
 {
     t_point     point;
@@ -209,7 +207,6 @@ void dbl_free(char **ptr)
     if (!ptr)
         return;
     i = 0;
-    return;
     while(ptr[i])
     {
         free(ptr[i]);

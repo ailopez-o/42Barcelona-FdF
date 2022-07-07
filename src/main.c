@@ -30,7 +30,7 @@ int main(int argv, char **argc)
     meta.bitmap.buffer = mlx_get_data_addr(meta.bitmap.img , \
 		&meta.bitmap.bitxpixel, &meta.bitmap.lines, &meta.bitmap.endian);
  	// Pintamos el mapa
-	if (draw_map(&meta) < 0)
+	if (draw_map(&meta, FIT) < 0)
 		terminate();	
 	// Capturamos eventos
 	mlx_hook(meta.vars.win, 2, 0, key_press, &meta);

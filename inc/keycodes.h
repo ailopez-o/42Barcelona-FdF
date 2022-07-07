@@ -11,6 +11,8 @@
 #define KEY_0       29
 #define KEY_SUM     30
 #define KEY_RES     44
+#define KEY_SUM2    69
+#define KEY_RES2    78
 #define KEY_A       0
 #define KEY_S       1
 #define KEY_D       2

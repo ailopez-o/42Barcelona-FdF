@@ -65,12 +65,18 @@
 # define LINE_SIZE			30			
 # define MENU_TAB			30
 
-# define LIMIT_MINX			-(WINX/2) + FIT_MARGIN
-# define LIMIT_MAXX			WINX/2 - FIT_MARGIN
-# define LIMIT_MINY			-(WINY/2) + FIT_MARGIN
-# define LIMIT_MAXY			WINY/2 - FIT_MARGIN
+# define LIMIT_MINX			MENU_WIDTH + FIT_MARGIN
+# define LIMIT_MAXX			WINX - FIT_MARGIN
+# define LIMIT_MINY			FIT_MARGIN
+# define LIMIT_MAXY			WINY - FIT_MARGIN
+
+
+#define XCENTER				(((WINX - MENU_WIDTH) / 2) + MENU_WIDTH);
+#define YCENTER				WINY/2;
 
 # define FIT_MARGIN			50
+# define FIT				1
+# define FREE				0
 
 # define R(a) (a) >> 16
 # define G(a) ((a) >> 8) & 0xFF
@@ -165,9 +171,11 @@ void	traslate(t_point *points, t_point move, int len);
 void 	scale(t_point *points, int scale, int len);
 void 	isometric(t_map *map);
 int 	load_map(t_map *map, char *path);
-int 	draw_map(t_meta *meta);
+int 	draw_map(t_meta *meta, int fit);
 int		gradient(int startcolor, int endcolor, int len, int pix);
 void	terminate(void);
 int		fit(t_map *map);
 void 	dbl_free(char **ptr);
+void	copy_map(t_point *src, t_point *dst, int len);
+void	z_division(t_point *proyect, float divisor, int len);
 #endif

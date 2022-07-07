@@ -25,23 +25,7 @@ void	traslate(t_point *points, t_point move, int len)
 	}
 }
 
-int	limits(t_point *points, int len)
-{
-	int	i;
 
-	i = 0;
-	while (i < len)
-	{
-		if (points[i].axis[x] < LIMIT_MINX || \
-			points[i].axis[x] > LIMIT_MAXX)
-			return (1);
-		if (points[i].axis[y] < LIMIT_MINY || \
-			points[i].axis[y] > LIMIT_MAXY)
-			return (1);
-		i++;
-	}
-	return (0);
-}
 
 void	scale(t_point *points, int scale, int len)
 {
@@ -56,7 +40,7 @@ void	scale(t_point *points, int scale, int len)
 		i++;
 	}
 }
-
+/*
 int	fit(t_map *map)
 {
 	t_point		*proyect;
@@ -64,25 +48,43 @@ int	fit(t_map *map)
 	proyect = malloc (map->len * sizeof(t_point));
 	if (proyect == NULL)
 		return (-1);
-	rotate_y(map->points, proyect, map->ang[y], map->len);
-	rotate_z(proyect, proyect, map->ang[z], map->len);
-	orto_proyection (proyect, proyect, map->len);
-	//scale (proyect, map->scale, map->len);
-	map->scale = 1;
-	while (!limits(proyect, map->len))
+
+		copy_map(map->points, proyect, map->len);
+		z_division(proyect, map->zdivisor, map->len);
+		rotate_x(proyect, proyect, map->ang[x], map->len);
+		rotate_y(proyect, proyect, map->ang[y], map->len);
+		rotate_z(proyect, proyect, map->ang[z], map->len);	
+		orto_proyection (proyect, proyect, map->len);
+		map->source.axis[x] = XCENTER;
+		map->source.axis[y] = YCENTER;	
+		map->source.axis[z] = 0;
+		map->scale = 2;
+		scale (proyect, map->scale, map->len);
+		traslate(proyect, map->source, map->len);
+	while (!limits(proyect, map->len))	
 	{
+		copy_map(map->points, proyect, map->len);
+		z_division(proyect, map->zdivisor, map->len);
+		rotate_x(proyect, proyect, map->ang[x], map->len);
+		rotate_y(proyect, proyect, map->ang[y], map->len);
+		rotate_z(proyect, proyect, map->ang[z], map->len);	
+		orto_proyection (proyect, proyect, map->len);
+		map->source.axis[x] = XCENTER;
+		map->source.axis[y] = YCENTER;	
+		map->source.axis[z] = 0;
+		scale (proyect, map->scale, map->len);
+		traslate(proyect, map->source, map->len);
 		map->scale++;
-		scale(proyect, map->scale, map->len);
 	}
 	free (proyect);
 	return (1);
 }
-
+*/
 void	isometric(t_map *map)
 {
 	map->ang[x] = 30;
 	map->ang[y] = 330;
 	map->ang[z] = 30;
-	map->source.axis[x] = (((WINX - MENU_WIDTH) / 2) + MENU_WIDTH);
-	map->source.axis[y] = WINY / 2;
+	map->source.axis[x] = XCENTER;
+	map->source.axis[y] = YCENTER;
 }

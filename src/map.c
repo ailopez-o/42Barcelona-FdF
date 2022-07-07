@@ -51,9 +51,9 @@ void	load_points(char *line, t_map *map, int numline)
 		load_color((int)map->limits.axis[z], map->zmin, &map->points[map->len], map->colors);	
 		if (ft_strchr(splited[i], ',') != 0)
 		{
-			dbl_free(color);
 			color = ft_split(splited[i], ',');
 			map->points[map->len].color  = strtol(color[1] + 2, NULL, 16);
+			dbl_free(color);
 		}
 		i++;
 		map->len++;
@@ -116,8 +116,8 @@ void	map_ini(t_map *map)
 	map->renders = 0;
 	map->scale = 1;	
 	map->zdivisor = 1;
-	map->source.axis[x] = WINX/2;
-	map->source.axis[y] = WINY/2;	
+	map->source.axis[x] = XCENTER;
+	map->source.axis[y] = YCENTER;	
 	map->source.axis[z] = 0;
 	map->ang[x] = 0;
 	map->ang[y] = 0;
@@ -163,6 +163,8 @@ void	draw_controls(t_meta *meta)
 {
 	char	*str;
 
+	str = ft_calloc(10,1);
+
 	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, CONTROL_BOX, TEXT_COLOR, "//// CONTROLS ////");
 	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, CONTROL_BOX + LINE_SIZE * 2, TEXT_COLOR, "Scroll: Zom In/Out");
 	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, CONTROL_BOX + LINE_SIZE * 3, TEXT_COLOR, "Left Click: Rotate X/Y axis");
@@ -171,19 +173,19 @@ void	draw_controls(t_meta *meta)
 	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, CONTROL_BOX + LINE_SIZE * 6, TEXT_COLOR, "Right Click: Move");
 	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, MAPINFO_BOX, TEXT_COLOR, "//// MAP INFO ////");
 	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, MAPINFO_BOX + LINE_SIZE * 2, TEXT_COLOR, "Size:");	
-	str = ft_itoa(meta->map.len);
+	gcvt(meta->map.len, 5, str);
 	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB + 80, MAPINFO_BOX + LINE_SIZE * 2, TEXT_COLOR, str);		
 	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, MAPINFO_BOX + LINE_SIZE * 3, TEXT_COLOR, "X:");	
-	str = ft_itoa(meta->map.limits.axis[x]);
+	gcvt(meta->map.limits.axis[x], 5, str);
 	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB + 80, MAPINFO_BOX + LINE_SIZE * 3, TEXT_COLOR, str);
 	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, MAPINFO_BOX + LINE_SIZE * 4, TEXT_COLOR, "Y:");	
-	str = ft_itoa(meta->map.limits.axis[y]);
+	gcvt(meta->map.limits.axis[y], 5, str);
 	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB + 80, MAPINFO_BOX + LINE_SIZE * 4, TEXT_COLOR, str);	
 	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, MAPINFO_BOX + LINE_SIZE * 5, TEXT_COLOR, "Z:");	
-	str = ft_itoa(meta->map.limits.axis[z]);
+	gcvt(meta->map.limits.axis[z], 5, str);
 	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB + 80, MAPINFO_BOX + LINE_SIZE * 5, TEXT_COLOR, str);
 	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, MAPINFO_BOX + LINE_SIZE * 6, TEXT_COLOR, "Zmin:");
-	str = ft_itoa(meta->map.zmin);
+	gcvt(meta->map.zmin, 5, str);
 	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB + 78, MAPINFO_BOX + LINE_SIZE * 6, TEXT_COLOR, str);			
 	free(str);
 }
@@ -192,22 +194,27 @@ void draw_menu(t_meta *meta)
 {
 	char	*str;
 
-	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, DRAWINFO_BOX, TEXT_COLOR, "//// DRAW INFO ////");
-	str = ft_itoa(meta->map.renders);
+	str = ft_calloc(10,1);
+
+	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, DRAWINFO_BOX, TEXT_COLOR, "//// DRAW INFO ////");	
+	gcvt(meta->map.renders, 5, str);
 	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, DRAWINFO_BOX + LINE_SIZE * 2, TEXT_COLOR, "Reenders:");
-	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB + 100, DRAWINFO_BOX + LINE_SIZE * 2, TEXT_COLOR, str);
-	str = ft_itoa(meta->map.ang[x]);
+	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB + 120, DRAWINFO_BOX + LINE_SIZE * 2, TEXT_COLOR, str);
+	gcvt(meta->map.ang[x], 5, str);
 	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, DRAWINFO_BOX + LINE_SIZE * 3, TEXT_COLOR, "X Axis:");
-	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB + 80, DRAWINFO_BOX + LINE_SIZE * 3, TEXT_COLOR, str);
-	str = ft_itoa(meta->map.ang[y]);
+	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB + 120, DRAWINFO_BOX + LINE_SIZE * 3, TEXT_COLOR, str);
+	gcvt(meta->map.ang[y], 5, str);
 	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, DRAWINFO_BOX + LINE_SIZE * 4, TEXT_COLOR, "Y Axix:");
-	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB + 80, DRAWINFO_BOX + LINE_SIZE * 4, TEXT_COLOR, str);
-	str = ft_itoa(meta->map.ang[z]);
+	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB + 120, DRAWINFO_BOX + LINE_SIZE * 4, TEXT_COLOR, str);
+	gcvt(meta->map.ang[z], 5, str);
 	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, DRAWINFO_BOX + LINE_SIZE * 5, TEXT_COLOR, "Z Axix:");
-	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB + 80, DRAWINFO_BOX + LINE_SIZE * 5, TEXT_COLOR, str);
-	str = ft_itoa(meta->map.scale);
+	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB + 120, DRAWINFO_BOX + LINE_SIZE * 5, TEXT_COLOR, str);
+	gcvt(meta->map.scale, 5, str);
 	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, DRAWINFO_BOX + LINE_SIZE * 6, TEXT_COLOR, "Zoom:");
-	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB + 80, DRAWINFO_BOX + LINE_SIZE * 6, TEXT_COLOR, str);	
+	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB + 120, DRAWINFO_BOX + LINE_SIZE * 6, TEXT_COLOR, str);	
+	gcvt(meta->map.zdivisor, 5, str);
+	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, DRAWINFO_BOX + LINE_SIZE * 7, TEXT_COLOR, "Z Divisor:");
+	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB + 120, DRAWINFO_BOX + LINE_SIZE * 7, TEXT_COLOR, str);	
 	free(str);
 	draw_controls(meta);
 }
@@ -264,8 +271,38 @@ void	z_division(t_point *proyect, float divisor, int len)
 
 }
 
+int	limits(t_point *points, int len)
+{
+	int	i;
 
-int draw_map(t_meta *meta)
+	i = 0;
+	while (i < len)
+	{
+		if (points[i].axis[x] < LIMIT_MINX || \
+			points[i].axis[x] > LIMIT_MAXX)
+			return (1);
+		if (points[i].axis[y] < LIMIT_MINY || \
+			points[i].axis[y] > LIMIT_MAXY)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+void parse_map(t_meta *meta, t_point *proyect)
+{
+
+	z_division(proyect, meta->map.zdivisor, meta->map.len);
+	rotate_x(proyect, proyect, meta->map.ang[x], meta->map.len);
+	rotate_y(proyect, proyect, meta->map.ang[y], meta->map.len);
+	rotate_z(proyect, proyect, meta->map.ang[z], meta->map.len);	
+	orto_proyection (proyect, proyect, meta->map.len);
+	scale (proyect, meta->map.scale, meta->map.len);
+	traslate(proyect, meta->map.source, meta->map.len);	
+}
+
+
+int draw_map(t_meta *meta, int fit)
 {
 	t_point		*proyect;
 
@@ -275,13 +312,25 @@ int draw_map(t_meta *meta)
 	meta->map.renders = meta->map.renders + 1;
 	generate_background(meta, meta->map.colors.backcolor, meta->map.colors.menucolor);
 	copy_map(meta->map.points, proyect, meta->map.len);
-	z_division(proyect, meta->map.zdivisor, meta->map.len);
-	rotate_x(proyect, proyect, meta->map.ang[x], meta->map.len);
-	rotate_y(proyect, proyect, meta->map.ang[y], meta->map.len);
-	rotate_z(proyect, proyect, meta->map.ang[z], meta->map.len);	
-	orto_proyection (proyect, proyect, meta->map.len);
-	scale (proyect, meta->map.scale, meta->map.len);
-	traslate(proyect, meta->map.source, meta->map.len);		
+	parse_map(meta, proyect);	
+	if (fit)
+	{
+		meta->map.source.axis[x] = XCENTER;
+		meta->map.source.axis[y] = YCENTER;	
+		meta->map.source.axis[z] = 0;
+		meta->map.scale = 1;
+		copy_map(meta->map.points, proyect, meta->map.len);	
+		parse_map(meta, proyect);			
+		while (!(limits(proyect, meta->map.len)))
+		{
+			meta->map.source.axis[x] = XCENTER;
+			meta->map.source.axis[y] = YCENTER;	
+			meta->map.source.axis[z] = 0;
+			copy_map(meta->map.points, proyect, meta->map.len);	
+			parse_map(meta, proyect);	
+			meta->map.scale = meta->map.scale + 0.2;
+		}
+	}
 	if (meta->map.b_lines)
 		wired(meta, proyect);
 	if (meta->map.b_dots)
