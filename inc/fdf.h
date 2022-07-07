@@ -42,6 +42,7 @@
 # define ROJO 				0xc1272d
 # define VERDE				0x33cc55
 # define FUCSIA 			0xff255c
+# define AZUL				0x1B8EFA
 # define COLOR_DISCO		0x9A1F6A
 # define COLOR_BRICK_RED	0xC2294E
 # define COLOR_FLAMINGO		0xEC4B27
@@ -49,7 +50,7 @@
 # define COLOR_SAFFRON		0xF3AF3D
 
 # define DEFAULT_COLOR		COLOR_JAFFA
-# define BOTTOM_COLOR		COLOR_DISCO
+# define BOTTOM_COLOR		AZUL
 # define TOP_COLOR			COLOR_BRICK_RED
 # define GROUND_COLOR		COLOR_SAFFRON
 # define TEXT_COLOR			0xEAEAEA

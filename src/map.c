@@ -155,7 +155,6 @@ int load_map(t_map *map, char *path)
 		line = get_next_line(fd);
 	}
 	show_info(map);
-
 	return(1);
 }
 
