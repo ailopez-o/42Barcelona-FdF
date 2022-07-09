@@ -59,7 +59,7 @@ void	bending(t_point *points, int len, float range)
 	i = 0;
 	while (i < len)
 	{
-		vv = (points[i].axis[x] * points[i].axis[x]) * (range);
+		vv = ((points[i].axis[x] * points[i].axis[x]) * (range)) + (points[i].axis[y] * points[i].axis[y]) * (range);
 		points[i].axis[z] = points[i].axis[z] - vv;
 		i++;
 	}

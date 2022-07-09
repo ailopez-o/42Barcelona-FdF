@@ -43,9 +43,9 @@ void	control_keys(int key, t_meta *meta)
 	if (key == KEY_B)
 	{
 		if (meta->keys.b_keyctrl)
-			meta->map.brange -= 0.0005;	
+			meta->map.brange -= 0.00001;	
 		else
-			meta->map.brange += 0.0005;
+			meta->map.brange += 0.00001;
 	}
 		
 	if (key == KEY_L)
