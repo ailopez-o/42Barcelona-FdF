@@ -1,4 +1,11 @@
-#include "../inc/fdf.h"
+#include "../lib/miniliblx/minilibx_macos/mlx.h"
+#include "../inc/map.h"
+#include <math.h>
+
+# define R(a) (a) >> 16
+# define G(a) ((a) >> 8) & 0xFF
+# define B(a) (a) & 0xFF
+# define RGB(a, b, c) ((a) << 16) + ((b) << 8) + (c)
 
 int my_putpixel(t_meta *meta, t_point pixel)
 {

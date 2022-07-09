@@ -9,7 +9,13 @@
 /*   Updated: 2022/06/29 16:01:28 by ailopez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../inc/fdf.h"
+#include "../lib/miniliblx/minilibx_macos/mlx.h"
+#include "../inc/map.h"
+#include "../inc/keycodes.h"
+#include "../inc/geometry.h"
+#include "../inc/control_utils.h"
+#include <stdlib.h>
+
 
 void	control_keys(int key, t_meta *meta)
 {

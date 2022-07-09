@@ -9,7 +9,10 @@
 /*   Updated: 2022/07/09 12:38:50 by aitorlope        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../inc/fdf.h"
+#include "../lib/miniliblx/minilibx_macos/mlx.h"
+#include "../lib/libft/libft.h"
+#include "../inc/map.h"
+#include <stdlib.h>
 
 #define CONTROL_BOX			300
 #define DRAWINFO_BOX		40
@@ -17,6 +20,7 @@
 #define COLORSCHEME_BOX		800
 #define LINE_SIZE			30			
 #define MENU_TAB			30
+#define TEXT_COLOR			0xEAEAEA
 
 void	draw_colorscheme(t_meta *meta)
 {

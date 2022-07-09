@@ -9,9 +9,9 @@
 /*   Updated: 2022/06/16 11:06:59 by aitorlope        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../inc/get_next_line.h"
+# include "../lib/libft/libft.h"
 
-#define BUFFER_SIZE 100
+#define BUFFER_SIZE 1000
 
 int	ft_linelen(char *s)
 {

@@ -1,4 +1,6 @@
-#include "../inc/fdf.h"
+#include "../inc/map.h"
+#include "../inc/keycodes.h"
+#include "../inc/map.h"
 
 void	angle(float *ang, float value)
 {

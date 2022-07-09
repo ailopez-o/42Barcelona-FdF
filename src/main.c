@@ -9,7 +9,12 @@
 /*   Updated: 2022/06/29 16:01:37 by ailopez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../inc/fdf.h"
+#include "../lib/miniliblx/minilibx_macos/mlx.h"
+#include "../inc/map.h"
+#include "../inc/control_keys.h"
+#include "../inc/control_mouse.h"
+#include "../inc/errors.h"
+#include <stdlib.h>
 
 int main(int argv, char **argc)
 {
@@ -17,28 +22,20 @@ int main(int argv, char **argc)
 
 	if(argv != 2)
 		terminate();
-	// Cargamos el mapa
 	if (load_map(&meta.map, argc[1]) < 0)
 		terminate();
-	// Creo una instancia MLX
     meta.vars.mlx = mlx_init();
-	// Creo una nueva ventana
     meta.vars.win = mlx_new_window(meta.vars.mlx, WINX, WINY, "FDF - ailopez-");
-	// Creo una imagen
   	meta.bitmap.img = mlx_new_image(meta.vars.mlx, WINX, WINY);
-	// Creo un buffer bitmap	
     meta.bitmap.buffer = mlx_get_data_addr(meta.bitmap.img , \
 		&meta.bitmap.bitxpixel, &meta.bitmap.lines, &meta.bitmap.endian);
- 	// Pintamos el mapa
 	if (draw_map(&meta, FIT) < 0)
 		terminate();	
-	// Capturamos eventos
 	mlx_hook(meta.vars.win, 2, 0, key_press, &meta);
 	mlx_hook(meta.vars.win, 3, 0, key_release, &meta);
 	mlx_hook(meta.vars.win, 4, 0, mouse_press, &meta);
 	mlx_hook(meta.vars.win, 5, 0, mouse_release, &meta);
 	mlx_hook(meta.vars.win, 6, 0, mouse_move, &meta);	
-	// Loop esperando eventos
     mlx_loop(meta.vars.mlx);
 	free (meta.map.points);	
 	return(0);

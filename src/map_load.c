@@ -9,7 +9,13 @@
 /*   Updated: 2022/07/09 13:26:21 by aitorlope        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../inc/fdf.h"
+#include "../inc/get_next_line.h"
+#include "../lib/libft/libft.h"
+#include "../inc/map.h"
+#include "../inc/utils.h"
+#include "../inc/draw_utils.h"
+#include <stdio.h>
+#include <fcntl.h>
 
 void	show_info(t_map *map)
 {
@@ -38,21 +44,6 @@ void	load_color(int max, int min, t_point *point, t_colors	colors)
 		point->color = gradient(colors.bottomcolor, colors.groundcolor, -min, - (min - point->axis[z]));
 }
 
-/* 
-*	Colorize all the points of the map
-*/
-
-void	colorize(t_map *map)
-{
-	int	i;
-
-	i = 0;
-	while (i < map->len)
-	{
-		load_color((int)map->limits.axis[z], map->zmin, &map->points[i], map->colors);
-		i++;
-	}
-}
 
 /* 
 *	Splits the info of line to storage

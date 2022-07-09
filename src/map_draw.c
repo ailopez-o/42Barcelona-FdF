@@ -9,7 +9,11 @@
 /*   Updated: 2022/07/09 13:25:52 by aitorlope        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../inc/fdf.h"
+#include "../lib/miniliblx/minilibx_macos/mlx.h"
+#include "../inc/map.h"
+#include "../inc/matrix.h"
+#include "../inc/geometry.h"
+#include <stdlib.h>
 
 void parse_map(t_meta *meta, t_point *proyect)
 {
@@ -89,7 +93,7 @@ int	draw_map(t_meta *meta, int fit)
 		wired(meta, proyect);
 	if (meta->map.b_dots)
 		doted(meta,proyect);
-	draw_bitmap(meta, 0, 0);
+	mlx_put_image_to_window(meta->vars.mlx, meta->vars.win, meta->bitmap.img, 0, 0);	
 	draw_menu(meta);
 	free (proyect);
 	return (1);

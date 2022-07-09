@@ -9,7 +9,8 @@
 /*   Updated: 2022/07/09 13:26:30 by aitorlope        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../inc/fdf.h"
+#include "../inc/map.h"
+#include "../inc/draw_utils.h"
 
 /* 
 *	This function iterate all the points of the wire array and draw a line between:
@@ -28,6 +29,22 @@ void	wired(t_meta *meta, t_point *wire)
 			draw_line(meta, wire[i], wire[i + 1]);
 		if ((i / (int)meta->map.limits.axis[x]) != (meta->map.limits.axis[y] - 1))
 			draw_line(meta, wire[i], wire[i + (int)meta->map.limits.axis[x]]);
+		i++;
+	}
+}
+
+/* 
+*	Colorize all the points of the map
+*/
+
+void	colorize(t_map *map)
+{
+	int	i;
+
+	i = 0;
+	while (i < map->len)
+	{
+		load_color((int)map->limits.axis[z], map->zmin, &map->points[i], map->colors);
 		i++;
 	}
 }
