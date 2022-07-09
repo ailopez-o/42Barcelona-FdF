@@ -59,11 +59,7 @@
 
 # define MENU_WIDTH			350
 
-# define CONTROL_BOX		300
-# define DRAWINFO_BOX		40
-# define MAPINFO_BOX		550
-# define LINE_SIZE			30			
-# define MENU_TAB			30
+
 
 # define LIMIT_MINX			MENU_WIDTH + FIT_MARGIN
 # define LIMIT_MAXX			WINX - FIT_MARGIN
@@ -178,4 +174,5 @@ int		fit(t_map *map);
 void 	dbl_free(char **ptr);
 void	copy_map(t_point *src, t_point *dst, int len);
 void	z_division(t_point *proyect, float divisor, int len);
+void	draw_menu(t_meta *meta);
 #endif

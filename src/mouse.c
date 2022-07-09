@@ -81,7 +81,8 @@ int	mouse_press(int button, int X, int Y, void *param)
 	}	
 	if (button == 4)
 	{
-		meta->map.scale = meta->map.scale / 1.5;
+		if (meta->map.scale > 2)
+			meta->map.scale = meta->map.scale / 1.5;
 		printf("Escala: %f\n", meta->map.scale);
 		draw_map(meta, FREE);
 	}
