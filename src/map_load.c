@@ -17,7 +17,7 @@
 #include <stdio.h>
 #include <fcntl.h>
 
-void	show_info(t_map *map)
+static void	show_info(t_map *map)
 {
 	printf("\nMapa Leido [%d][%d][%d][%d] - SIZE[%d] \n", (int)map->limits.axis[x], (int)map->limits.axis[y], (int)map->limits.axis[z], map->zmin, map->len);
 }
@@ -51,7 +51,7 @@ void	load_color(int max, int min, t_point *point, t_colors	colors)
 *	Using map->len as index of the array
 */
 
-void	load_points(char *line, t_map *map, int numline)
+static void	load_points(char *line, t_map *map, int numline)
 {
 	char	**splited;
 	char	**color;
@@ -78,7 +78,7 @@ void	load_points(char *line, t_map *map, int numline)
 	dbl_free(splited);
 }
 
-int	line_elems(char *line)
+static int	line_elems(char *line)
 {
 	int		i;
 	char	**split;
@@ -91,7 +91,7 @@ int	line_elems(char *line)
 	return (i);
 }
 
-void	z_limits(char **splited, t_map *map)
+static void	z_limits(char **splited, t_map *map)
 {
 	int	i;
 	int valor;
@@ -113,7 +113,7 @@ void	z_limits(char **splited, t_map *map)
 *	and return -1 if the maps has different line sizes.
 */
 
-int	map_size(int fd, t_map *map)
+static int	map_size(int fd, t_map *map)
 {
 	char	*line;
 	char	**splited;

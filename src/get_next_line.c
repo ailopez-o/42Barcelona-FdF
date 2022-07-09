@@ -13,7 +13,7 @@
 
 #define BUFFER_SIZE 1000
 
-int	ft_linelen(char *s)
+static int	ft_linelen(char *s)
 {
 	size_t	i;
 
@@ -25,7 +25,7 @@ int	ft_linelen(char *s)
 	return (i + 1);
 }
 
-char	*ft_extract_line(char *buffer)
+static char	*ft_extract_line(char *buffer)
 {
 	char	*line;
 	int		size;
@@ -40,7 +40,7 @@ char	*ft_extract_line(char *buffer)
 	return (line);
 }
 
-char	*ft_read(int fd, char *buffer)
+static char	*ft_read(int fd, char *buffer)
 {
 	char	*new_buffer;
 	char	*reading;
@@ -65,7 +65,7 @@ char	*ft_read(int fd, char *buffer)
 	return (buffer);
 }
 
-char	*ft_remove_line(char *buffer)
+static char	*ft_remove_line(char *buffer)
 {
 	int		start;
 	char	*newbuffer;

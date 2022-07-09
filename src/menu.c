@@ -22,7 +22,7 @@
 #define MENU_TAB			30
 #define TEXT_COLOR			0xEAEAEA
 
-void	draw_colorscheme(t_meta *meta)
+static void	draw_colorscheme(t_meta *meta)
 {
 	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, COLORSCHEME_BOX, \
 	TEXT_COLOR, "//// COLORSCHEME ////");
@@ -38,7 +38,7 @@ void	draw_colorscheme(t_meta *meta)
 	LINE_SIZE * 6, TEXT_COLOR, "4: DISCO");
 }
 
-void	draw_mapinfo(t_meta *meta)
+static void	draw_mapinfo(t_meta *meta)
 {
 	char	*str;
 	char	*stritoa;
@@ -75,7 +75,7 @@ void	draw_mapinfo(t_meta *meta)
 	free(str);
 }
 
-void	draw_controls(t_meta *meta)
+static void	draw_controls(t_meta *meta)
 {
 	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, CONTROL_BOX, \
 	TEXT_COLOR, "//// CONTROLS ////");
@@ -91,7 +91,7 @@ void	draw_controls(t_meta *meta)
 	LINE_SIZE * 6, TEXT_COLOR, "Right Click: Move");
 }
 
-void	draw_info(t_meta *meta)
+static void	draw_info(t_meta *meta)
 {
 	char	*str;
 

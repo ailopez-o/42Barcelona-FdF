@@ -15,7 +15,7 @@
 #include "../inc/geometry.h"
 #include <stdlib.h>
 
-void parse_map(t_meta *meta, t_point *proyect)
+static void parse_map(t_meta *meta, t_point *proyect)
 {
 	z_division(proyect, meta->map.zdivisor, meta->map.len);
 	rotate_x(proyect, proyect, meta->map.ang[x], meta->map.len);
@@ -30,7 +30,7 @@ void parse_map(t_meta *meta, t_point *proyect)
 *	This function checks if any point is out of the limits of the screen
 */
 
-int	limits(t_point *points, int len)
+static int	limits(t_point *points, int len)
 {
 	int	i;
 
@@ -53,7 +53,7 @@ int	limits(t_point *points, int len)
 *	to fit the screen.
 */
 
-void	go_fit(t_meta *meta, t_point *proyect)
+static void	go_fit(t_meta *meta, t_point *proyect)
 {
 	meta->map.source.axis[x] = XCENTER;
 	meta->map.source.axis[y] = YCENTER;

@@ -1,5 +1,6 @@
 #include "../lib/miniliblx/minilibx_macos/mlx.h"
 #include "../inc/map.h"
+#include "../inc/utils.h"
 #include <math.h>
 
 # define R(a) (a) >> 16
@@ -7,7 +8,7 @@
 # define B(a) (a) & 0xFF
 # define RGB(a, b, c) ((a) << 16) + ((b) << 8) + (c)
 
-int my_putpixel(t_meta *meta, t_point pixel)
+static int my_putpixel(t_meta *meta, t_point pixel)
 {
     int mypixel;
     int alpha;
@@ -81,16 +82,6 @@ void draw_dot(t_meta *meta, t_point point, int radius)
     }
 }
 
-int	ft_round(double num)
-{
-	int rounded;
-
-	rounded = (int)num;
-	if (num - rounded >= .5)
-		rounded++;
-	return (rounded);
-}
-
 int gradient(int startcolor, int endcolor, int len, int pix)
 {
     double increment[3];
@@ -106,7 +97,6 @@ int gradient(int startcolor, int endcolor, int len, int pix)
     newcolor = RGB(new[0], new[1], new[2]);
     return (newcolor);
 }
-
 
 int draw_line(t_meta *meta, t_point start, t_point end)
 {
@@ -134,18 +124,6 @@ int draw_line(t_meta *meta, t_point start, t_point end)
 	}
 	return(1);
 }
-
-t_point set_point(float X, float Y, float Z, int color)
-{
-    t_point     point;
-
-    point.color = color;
-	point.axis[x] = X;
-	point.axis[y] = Y;
-	point.axis[z] = Z;
-    return (point);
-}
-
 
 void generate_background(t_meta *meta, int backcolor, int menucolor)
 {
