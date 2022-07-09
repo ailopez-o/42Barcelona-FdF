@@ -59,9 +59,6 @@ void	go_fit(t_meta *meta, t_point *proyect)
 	parse_map(meta, proyect);
 	while (!(limits(proyect, meta->map.len)))
 	{
-		meta->map.source.axis[x] = XCENTER;
-		meta->map.source.axis[y] = YCENTER;
-		meta->map.source.axis[z] = 0;
 		copy_map(meta->map.points, proyect, meta->map.len);
 		parse_map(meta, proyect);
 		meta->map.scale = meta->map.scale + 0.2;

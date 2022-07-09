@@ -59,6 +59,42 @@ int	key_press(int key, void *param)
 		free(meta->map.points);
 		exit(0);	
 	}
+	if (key == KEY_0)
+	{
+		meta->map.colors.backcolor = CARBON;
+		meta->map.colors.menucolor = MENU_COLOR;
+		meta->map.colors.bottomcolor = AZUL;
+		meta->map.colors.groundcolor = COLOR_SAFFRON;
+		meta->map.colors.topcolor = COLOR_BRICK_RED;
+		colorize(&meta->map);
+	}
+	if (key == KEY_1)
+	{
+		meta->map.colors.backcolor = CARBON;
+		meta->map.colors.menucolor = MENU_COLOR;
+		meta->map.colors.bottomcolor = AZUL;
+		meta->map.colors.groundcolor = VERDE;
+		meta->map.colors.topcolor = COLOR_BRICK_RED;
+		colorize(&meta->map);
+	}	
+	if (key == KEY_2)
+	{
+		meta->map.colors.backcolor = WHITE;
+		meta->map.colors.menucolor = MENU_COLOR;
+		meta->map.colors.bottomcolor = CARBON;
+		meta->map.colors.groundcolor = CARBON;
+		meta->map.colors.topcolor = CARBON;
+		colorize(&meta->map);
+	}
+	if (key == KEY_3)
+	{
+		meta->map.colors.backcolor = CARBON;
+		meta->map.colors.menucolor = MENU_COLOR;
+		meta->map.colors.bottomcolor = WHITE;
+		meta->map.colors.groundcolor = WHITE;
+		meta->map.colors.topcolor = WHITE;
+		colorize(&meta->map);
+	}	
 	if (key == KEY_DOWN)
 	{
 		if	(meta->keys.b_keyctrl)

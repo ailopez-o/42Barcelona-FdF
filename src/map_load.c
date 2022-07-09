@@ -16,6 +16,7 @@ void	show_info(t_map *map)
 	printf("\nMapa Leido [%d][%d][%d][%d] - SIZE[%d] \n", (int)map->limits.axis[x], (int)map->limits.axis[y], (int)map->limits.axis[z], map->zmin, map->len);
 }
 
+
 /* 
 *	Acording the z value of the point and de max and min values of the map
 *	this function set the color needed of the point received.
@@ -35,6 +36,22 @@ void	load_color(int max, int min, t_point *point, t_colors	colors)
 		point->color = gradient(colors.groundcolor, colors.topcolor, max, point->axis[z]);
 	else
 		point->color = gradient(colors.bottomcolor, colors.groundcolor, -min, - (min - point->axis[z]));
+}
+
+/* 
+*	Colorize all the points of the map
+*/
+
+void	colorize(t_map *map)
+{
+	int	i;
+
+	i = 0;
+	while (i < map->len)
+	{
+		load_color((int)map->limits.axis[z], map->zmin, &map->points[i], map->colors);
+		i++;
+	}
 }
 
 /* 

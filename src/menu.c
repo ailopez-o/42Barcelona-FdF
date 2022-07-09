@@ -49,17 +49,17 @@ void	draw_mapinfo(t_meta *meta)
 	LINE_SIZE * 2, TEXT_COLOR, stritoa);
 	free (stritoa);
 	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, MAPINFO_BOX + \
-	LINE_SIZE * 3, TEXT_COLOR, "X:");
+	LINE_SIZE * 3, TEXT_COLOR, "Xmax:");
 	gcvt(meta->map.limits.axis[x], 5, str);
 	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB + 80, MAPINFO_BOX + \
 	LINE_SIZE * 3, TEXT_COLOR, str);
 	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, MAPINFO_BOX + \
-	LINE_SIZE * 4, TEXT_COLOR, "Y:");
+	LINE_SIZE * 4, TEXT_COLOR, "Ymax:");
 	gcvt(meta->map.limits.axis[y], 5, str);
 	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB + 80, MAPINFO_BOX + \
 	LINE_SIZE * 4, TEXT_COLOR, str);
 	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, MAPINFO_BOX + \
-	LINE_SIZE * 5, TEXT_COLOR, "Z:");
+	LINE_SIZE * 5, TEXT_COLOR, "Zmax:");
 	gcvt(meta->map.limits.axis[z], 5, str);
 	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB + 80, MAPINFO_BOX + \
 	LINE_SIZE * 5, TEXT_COLOR, str);

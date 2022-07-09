@@ -43,6 +43,8 @@
 # define VERDE				0x33cc55
 # define FUCSIA 			0xff255c
 # define AZUL				0x1B8EFA
+# define CARBON				0x151515
+# define WHITE				0xBBBBBB
 # define COLOR_DISCO		0x9A1F6A
 # define COLOR_BRICK_RED	0xC2294E
 # define COLOR_FLAMINGO		0xEC4B27
@@ -180,5 +182,6 @@ void	doted(t_meta *meta, t_point *proyect);
 void	copy_map(t_point *src, t_point *dst, int len);
 void	z_division(t_point *proyect, float divisor, int len);
 void	map_ini(t_map *map);
+void	colorize(t_map *map);
 
 #endif
