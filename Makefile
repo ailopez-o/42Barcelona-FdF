@@ -12,17 +12,25 @@
 # **************************************************************************** #
 #Variables
 
-NAME		= a.out
-INCLUDE		= inc/
-LIB			= lib
-SRC_DIR		= src/
-OBJ_DIR		= obj/
-CC			= gcc
-CFLAGS		= -g -Wall -Werror -Wextra -MMD 
-SFLAGS		= -fsanitize=address -static-libsan -g -Wall -Werror -Wextra -MMD 
-NOFLAGS		= -g
-RM			= rm -f
-MLX		= 	miniliblx/minilibx_macos
+NAME		:= fdf
+
+SRC_DIR		:= src/
+OBJ_DIR		:= obj/
+CC			:= gcc
+CFLAGS		:= -g -Wall -Werror -Wextra
+FSANITIZE	:= -fsanitize=address -g3
+NOFLAGS		:= -g
+RM			:= rm -f
+
+INC		 		:= inc/
+LIB				:= lib/
+LIBFT_DIR		:= $(LIB)libft/
+LIBFT			:= $(LIBFT_DIR)libft.a
+MINILIBX_DIR	:= $(LIB)miniliblx/minilibx_macos/
+MINILIBX		:= $(MINILIBX_DIR)libmlx.a
+MINILIBXCC		:= -I mlx -L $(MINILIBX_DIR) -lmlx
+HEADER 			:= -I$(INC) -I$(LIBFT_DIR) -I$(MINILIBX_DIR)
+OPENGL			:= -framework OpenGL -framework AppKit
 
 # Colors
 
@@ -38,8 +46,8 @@ WHITE = \033[0;97m
 
 #Sources
 
-SRC_FILES	=	main control_keys control_mouse control_utils utils matrix geometry map_load map_draw get_next_line menu map_utils draw_utils errors
-#INC_FILES	= 	keycodes
+SRC_FILES	=	main control_keys control_mouse control_utils utils matrix geometry \
+				map_load map_draw get_next_line menu map_utils draw_utils errors
 
 SRC 		= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ 		= 	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
@@ -49,40 +57,50 @@ INCS		= 	$(addprefix $(INCLUDE), $(addsuffix .h, $(INC_FILES)))
 
 OBJF		=	.cache_exists
 
-all:	makelibs
-	@$(MAKE)	$(NAME)
-
-makelibs:	
-			@$(MAKE) -C $(LIB)/$(MLX)
-			@$(MAKE) -C $(LIB)/libft
+all:	$(NAME)
 			
 -include 	${DEPS}
-$(NAME):	$(OBJ) $(INCS)
-			@$(CC)  ${CFLAGS} $(OBJ) $(LIB)/libft/libft.a -I minilibx -L $(LIB)/$(MLX) -lmlx -framework OpenGL -framework AppKit -o $@			
-			@echo "$(MAGENTA)$(CC) ${CFLAGS} $(OBJ) $(LIB)/libft/libft.a -I minilibx -L $(LIB)/$(MLX) -lmlx -framework OpenGL -framework AppKit -o $@	$(DEF_COLOR)"
+$(NAME):	$(LIBFT) $(MINILIBX) $(OBJ)
+			@$(CC) $(CFLAGS) $(FSANITIZE) $(OBJ) $(LIBFT) $(MINILIBXCC) $(OPENGL) -o $(NAME)		
+			@echo "$(BLUE)$(CC) $(CFLAGS) $(FSANITIZE) $(OBJ) $(LIBFT) $(MINILIBXCC) $(OPENGL) -o $(NAME)$(DEF_COLOR)"
 			@echo "$(GREEN)FDF compiled!$(DEF_COLOR)"
+
+			
 
 bonus:		
 			@$(MAKE) all
 			
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c $(INCS) | $(OBJF)
 			@echo "$(YELLOW)Compiling: $< $(DEF_COLOR)"
-			$(CC) $(CFLAGS) -c $< -o $@
+			$(CC) $(CFLAGS) -MMD -O3 -c $< -o $@
 
 $(OBJF):
 			@mkdir -p $(OBJ_DIR)
 
+$(LIBFT):
+	@make -sC $(LIBFT_DIR)
+	@echo "$(GREEN)Libft compiled!$(DEF_COLOR)"	
+
+$(MINILIBX):
+	@make -sC $(MINILIBX_DIR)
+	@echo "$(GREEN)Minilibx compiled!$(DEF_COLOR)"			
+
 clean:
+			@make clean -sC $(LIBFT_DIR)
+			@echo "$(CYAN)Libft object and dependency files cleaned.$(DEF_COLOR)"
+			@make clean -C $(MINILIBX_DIR)
+			@echo "$(CYAN)Minilibx object files cleaned.$(DEF_COLOR)"	
 			$(RM) -rf $(OBJ_DIR)
-			@make clean -C $(LIB)/$(MLX)
 			@echo "$(CYAN)Fdf object files cleaned!$(DEF_COLOR)"
 
 fclean:		clean
 			$(RM) -f $(NAME)
 			@echo "$(CYAN)Fdf executable files cleaned!$(DEF_COLOR)"
-			$(RM) -f $(LIB)/$(MLX)/libmlx.a
-			$(RM) -f $(LIB)/libft/libft.a
-			@echo "$(CYAN)libmlx.a lib cleaned!$(DEF_COLOR)"
+			$(RM) -f $(MINILIBX_DIR)libmlx.a
+			@echo "$(CYAN)libmlx.a lib cleaned!$(DEF_COLOR)"			
+			$(RM) -f $(LIBFT_DIR)libft.a
+			@echo "$(CYAN)libft.a lib cleaned!$(DEF_COLOR)"
+
 
 re:			fclean 
 			@$(MAKE)	

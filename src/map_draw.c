@@ -13,6 +13,7 @@
 #include "../inc/map.h"
 #include "../inc/matrix.h"
 #include "../inc/geometry.h"
+#include "../inc/errors.h"
 #include <stdlib.h>
 
 static void parse_map(t_meta *meta, t_point *proyect)
@@ -83,7 +84,7 @@ int	draw_map(t_meta *meta, int fit)
 
 	proyect = malloc (meta->map.len * sizeof(t_point));
 	if (proyect == NULL)
-		return (-1);
+		terminate(ERR_MEM);
 	meta->map.renders = meta->map.renders + 1;
 	generate_background(meta, meta->map.colors.backcolor, meta->map.colors.menucolor);
 	copy_map(meta->map.points, proyect, meta->map.len);

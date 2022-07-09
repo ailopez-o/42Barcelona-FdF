@@ -14,6 +14,7 @@
 #include "../inc/map.h"
 #include "../inc/utils.h"
 #include "../inc/draw_utils.h"
+#include "../inc/errors.h"
 #include <stdio.h>
 #include <fcntl.h>
 
@@ -133,10 +134,7 @@ static int	map_size(int fd, t_map *map)
 		z_limits(splited, map);
 		linelen = line_elems(line);
 		if (map->limits.axis[x] != linelen)
-		{
-			printf( "Map Error\n");
-			return (-1);
-		}
+			terminate(ERR_LINE);
 		map->limits.axis[x] = linelen;
 		map->len += map->limits.axis[x];
 		map->limits.axis[y]++;
@@ -147,8 +145,6 @@ static int	map_size(int fd, t_map *map)
 	return (1);
 }
 
-
-
 int	load_map(t_map *map, char *path)
 {
 	int		fd;
@@ -158,14 +154,15 @@ int	load_map(t_map *map, char *path)
 	map_ini(map);
 	fd = open(path, O_RDONLY);
 	if (fd < 2)
-		return (-1);
-	if (map_size(fd, map) < 0)
-		return (-1);
+		terminate(ERR_OPEN);
+	map_size(fd, map);
 	map->points = ft_calloc (map->len, sizeof(t_point));
+	if (map->points == NULL)
+		terminate(ERR_MEM);
 	close (fd);
 	fd = open(path, O_RDONLY);
 	if (fd < 2)
-		return (-1);
+		terminate(ERR_OPEN);
 	numline = 0;
 	map->len = 0;
 	line = get_next_line(fd);

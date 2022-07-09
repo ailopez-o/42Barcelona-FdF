@@ -21,16 +21,16 @@ int main(int argv, char **argc)
 	t_meta 		meta;
 
 	if(argv != 2)
-		terminate();
+		terminate(ERR_ARGS);
 	if (load_map(&meta.map, argc[1]) < 0)
-		terminate();
+		terminate(ERR_MAP);
     meta.vars.mlx = mlx_init();
     meta.vars.win = mlx_new_window(meta.vars.mlx, WINX, WINY, "FDF - ailopez-");
   	meta.bitmap.img = mlx_new_image(meta.vars.mlx, WINX, WINY);
     meta.bitmap.buffer = mlx_get_data_addr(meta.bitmap.img , \
 		&meta.bitmap.bitxpixel, &meta.bitmap.lines, &meta.bitmap.endian);
 	if (draw_map(&meta, FIT) < 0)
-		terminate();	
+		terminate(ERR_MAP);	
 	mlx_hook(meta.vars.win, 2, 0, key_press, &meta);
 	mlx_hook(meta.vars.win, 3, 0, key_release, &meta);
 	mlx_hook(meta.vars.win, 4, 0, mouse_press, &meta);
