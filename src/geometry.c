@@ -25,8 +25,6 @@ void	traslate(t_point *points, t_point move, int len)
 	}
 }
 
-
-
 void	scale(t_point *points, int scale, int len)
 {
 	int	i;
@@ -40,46 +38,7 @@ void	scale(t_point *points, int scale, int len)
 		i++;
 	}
 }
-/*
-int	fit(t_map *map)
-{
-	t_point		*proyect;
 
-	proyect = malloc (map->len * sizeof(t_point));
-	if (proyect == NULL)
-		return (-1);
-
-		copy_map(map->points, proyect, map->len);
-		z_division(proyect, map->zdivisor, map->len);
-		rotate_x(proyect, proyect, map->ang[x], map->len);
-		rotate_y(proyect, proyect, map->ang[y], map->len);
-		rotate_z(proyect, proyect, map->ang[z], map->len);	
-		orto_proyection (proyect, proyect, map->len);
-		map->source.axis[x] = XCENTER;
-		map->source.axis[y] = YCENTER;	
-		map->source.axis[z] = 0;
-		map->scale = 2;
-		scale (proyect, map->scale, map->len);
-		traslate(proyect, map->source, map->len);
-	while (!limits(proyect, map->len))	
-	{
-		copy_map(map->points, proyect, map->len);
-		z_division(proyect, map->zdivisor, map->len);
-		rotate_x(proyect, proyect, map->ang[x], map->len);
-		rotate_y(proyect, proyect, map->ang[y], map->len);
-		rotate_z(proyect, proyect, map->ang[z], map->len);	
-		orto_proyection (proyect, proyect, map->len);
-		map->source.axis[x] = XCENTER;
-		map->source.axis[y] = YCENTER;	
-		map->source.axis[z] = 0;
-		scale (proyect, map->scale, map->len);
-		traslate(proyect, map->source, map->len);
-		map->scale++;
-	}
-	free (proyect);
-	return (1);
-}
-*/
 void	isometric(t_map *map)
 {
 	map->ang[x] = 30;

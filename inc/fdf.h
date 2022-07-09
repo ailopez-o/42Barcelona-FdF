@@ -175,4 +175,10 @@ void 	dbl_free(char **ptr);
 void	copy_map(t_point *src, t_point *dst, int len);
 void	z_division(t_point *proyect, float divisor, int len);
 void	draw_menu(t_meta *meta);
+void	wired(t_meta *meta, t_point *wire);
+void	doted(t_meta *meta, t_point *proyect);
+void	copy_map(t_point *src, t_point *dst, int len);
+void	z_division(t_point *proyect, float divisor, int len);
+void	map_ini(t_map *map);
+
 #endif
