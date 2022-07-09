@@ -38,7 +38,7 @@ WHITE = \033[0;97m
 
 #Sources
 
-SRC_FILES	=	main keycontrol mouse utils matrix geometry map_load map_draw get_next_line menu map_utils draw_utils
+SRC_FILES	=	main control_keys control_mouse control_utils utils matrix geometry map_load map_draw get_next_line menu map_utils draw_utils
 INC_FILES	= 	fdf keycodes
 
 SRC 		= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))

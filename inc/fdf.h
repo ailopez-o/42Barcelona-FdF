@@ -39,22 +39,22 @@
 # define ON_EXPOSE		12
 # define ON_DESTROY		17
 
-# define ROJO 				0xc1272d
-# define VERDE				0x33cc55
-# define FUCSIA 			0xff255c
-# define AZUL				0x1B8EFA
-# define CARBON				0x151515
-# define WHITE				0xBBBBBB
-# define COLOR_DISCO		0x9A1F6A
-# define COLOR_BRICK_RED	0xC2294E
-# define COLOR_FLAMINGO		0xEC4B27
-# define COLOR_JAFFA		0xEF8633
-# define COLOR_SAFFRON		0xF3AF3D
+# define ROJO 		0xc1272d
+# define VERDE		0x33cc55
+# define FUCSIA 	0xff255c
+# define AZUL		0x1B8EFA
+# define CARBON		0x151515
+# define WHITE		0xBBBBBB
+# define DISCO		0x9A1F6A
+# define BRICK_RED	0xC2294E
+# define FLAMINGO	0xEC4B27
+# define JAFFA		0xEF8633
+# define SAFFRON	0xF3AF3D
 
-# define DEFAULT_COLOR		COLOR_JAFFA
+# define DEFAULT_COLOR		JAFFA
 # define BOTTOM_COLOR		AZUL
-# define TOP_COLOR			COLOR_BRICK_RED
-# define GROUND_COLOR		COLOR_SAFFRON
+# define TOP_COLOR			BRICK_RED
+# define GROUND_COLOR		SAFFRON
 # define TEXT_COLOR			0xEAEAEA
 # define BACK_COLOR			0x151515
 # define MENU_COLOR			0x202020
@@ -183,5 +183,8 @@ void	copy_map(t_point *src, t_point *dst, int len);
 void	z_division(t_point *proyect, float divisor, int len);
 void	map_ini(t_map *map);
 void	colorize(t_map *map);
+void	angle_control(int key, t_meta *meta);
+void	colorscheme(int bck, int men, int bot, int top, int gnd, t_map *map);
+void	angle(float *ang, float value);
 
 #endif

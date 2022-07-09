@@ -20,16 +20,8 @@ int	mouse_move(int X, int Y, void *param)
 		return (0);
 	if (meta->keys.b_mouseL)
 	{
-		meta->map.ang[x] += ((int)meta->keys.last_clickL.axis[y] - Y);
-		meta->map.ang[y] += ((int)meta->keys.last_clickL.axis[x] - X);
-		if (meta->map.ang[x] < 0)
-			meta->map.ang[x] = 360 + meta->map.ang[x];
-		if (meta->map.ang[x] > 360)
-			meta->map.ang[x] = meta->map.ang[x] - 360;
-		if (meta->map.ang[y] < 0)
-			meta->map.ang[y] = 360 + meta->map.ang[y];
-		if (meta->map.ang[y] > 360)
-			meta->map.ang[y] = meta->map.ang[y] - 360;
+		angle(&meta->map.ang[x], (int)meta->keys.last_clickL.axis[y] - Y);
+		angle(&meta->map.ang[y], (int)meta->keys.last_clickL.axis[x] - X);
 		meta->keys.last_clickL.axis[x] = X;
 		meta->keys.last_clickL.axis[y] = Y;
 		draw_map(meta, FREE);
@@ -64,8 +56,6 @@ int	mouse_press(int button, int X, int Y, void *param)
 {
 	t_meta	*meta;
 
-	printf("MousePress: %d\n", button);
-
 	meta = (t_meta *)param;
 	if (button == 1)
 	{
@@ -83,14 +73,9 @@ int	mouse_press(int button, int X, int Y, void *param)
 	{
 		if (meta->map.scale > 2)
 			meta->map.scale = meta->map.scale / 1.5;
-		printf("Escala: %f\n", meta->map.scale);
-		draw_map(meta, FREE);
 	}
 	if (button == 5)
-	{
 		meta->map.scale = meta->map.scale * 1.5;
-		printf("Escala: %f\n", meta->map.scale);
-		draw_map(meta, FREE);
-	}
+	draw_map(meta, FREE);
 	return (0);
 }
