@@ -98,6 +98,7 @@ typedef struct	m_map {
 	float		zdivisor;
 	float 		scale;
 	int			len;
+	float		brange;
 	int			renders;
 	bool		b_lines;
 	bool		b_dots;

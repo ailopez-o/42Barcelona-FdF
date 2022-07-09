@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/map.h"
+#include <math.h>
 
 void	traslate(t_point *points, t_point move, int len)
 {
@@ -44,6 +45,23 @@ void	isometric(t_map *map)
 	map->ang[x] = 30;
 	map->ang[y] = 330;
 	map->ang[z] = 30;
+	map->brange = 0;
 	map->source.axis[x] = XCENTER;
 	map->source.axis[y] = YCENTER;
 }
+
+void	bending(t_point *points, int len, float range)
+{
+
+	int	i;
+	float vv;
+
+	i = 0;
+	while (i < len)
+	{
+		vv = (points[i].axis[x] * points[i].axis[x]) * (range);
+		points[i].axis[z] = points[i].axis[z] - vv;
+		i++;
+	}
+}
+

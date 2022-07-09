@@ -105,6 +105,7 @@ void	map_ini(t_map *map)
 	map->renders = 0;
 	map->scale = 1;
 	map->zdivisor = 1;
+	map->brange = 0;
 	map->source.axis[x] = XCENTER;
 	map->source.axis[y] = YCENTER;
 	map->source.axis[z] = 0;

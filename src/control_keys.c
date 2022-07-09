@@ -21,11 +21,7 @@ void	control_keys(int key, t_meta *meta)
 {
 	if (key == KEY_R)
 	{
-		meta->map.ang[x] = 0;
-		meta->map.ang[y] = 0;
-		meta->map.ang[z] = 0;
-		meta->map.source.axis[x] = XCENTER;
-		meta->map.source.axis[y] = YCENTER;		
+		map_ini(&meta->map);
 		draw_map(meta, FIT);
 	}	
 	if (key == KEY_F)
@@ -44,6 +40,14 @@ void	control_keys(int key, t_meta *meta)
 		meta->keys.b_keyctrl = 1;
 	if (key == KEY_D)
 		meta->map.b_dots = !meta->map.b_dots;	
+	if (key == KEY_B)
+	{
+		if (meta->keys.b_keyctrl)
+			meta->map.brange -= 0.0005;	
+		else
+			meta->map.brange += 0.0005;
+	}
+		
 	if (key == KEY_L)
 		meta->map.b_lines = !meta->map.b_lines;				
 	if (key == KEY_SUM || key == KEY_SUM2)
