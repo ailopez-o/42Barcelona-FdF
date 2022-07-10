@@ -14,6 +14,8 @@
 #include "../inc/matrix.h"
 #include "../inc/geometry.h"
 #include "../inc/errors.h"
+#include <stdio.h>
+#include <time.h>
 #include <math.h>
 #include <stdlib.h>
 
@@ -98,6 +100,13 @@ int	draw_map(t_meta *meta, int fit)
 {
 	t_point		*proyect;
 
+
+
+    // Calculate the time taken by fun()
+    clock_t t;
+    t = clock();
+	// *******************
+
 	proyect = malloc (meta->map.len * sizeof(t_point));
 	if (proyect == NULL)
 		terminate(ERR_MEM);
@@ -116,5 +125,11 @@ int	draw_map(t_meta *meta, int fit)
 	meta->bitmap.img, 0, 0);
 	draw_menu(meta);
 	free (proyect);
+
+	// *******************
+    t = clock() - t;
+    double time_taken = ((double)t)/CLOCKS_PER_SEC; // in seconds
+	printf("Performance [%f]\n", time_taken);	
+	// *******************
 	return (1);
 }

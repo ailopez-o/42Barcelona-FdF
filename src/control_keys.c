@@ -45,6 +45,7 @@ void	control_keys1(int key, t_meta *meta)
 	if (key == KEY_R)
 	{
 		map_ini(&meta->map);
+		colorize(&meta->map);	
 		draw_map(meta, FIT);
 	}	
 	if (key == KEY_F)
@@ -57,6 +58,11 @@ void	control_keys1(int key, t_meta *meta)
 	if (key == KEY_I)
 	{
 		isometric(&meta->map);
+		draw_map(meta, FIT);
+	}			
+	if (key == KEY_P)
+	{
+		parallel(&meta->map);
 		draw_map(meta, FIT);
 	}			
 	if (key == KEY_CMD)

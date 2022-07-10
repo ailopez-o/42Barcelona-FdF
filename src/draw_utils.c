@@ -69,7 +69,7 @@ void draw_dot(t_meta *meta, t_point point, int radius)
     t_point     pixel;
 
     pixel.color = point.color;
-    while (X >= Y)
+    while (x >= y)
     {
         for (int i = point.axis[X] - x; i <= point.axis[X] + x; i++)
         {
@@ -117,6 +117,17 @@ int gradient(int startcolor, int endcolor, int len, int pix)
     return (newcolor);
 }
 
+int valid_pixel(t_point pixel)
+{
+
+    if (pixel.axis[X] < 0 || pixel.axis[X] > WINX)
+        return (0);
+    if (pixel.axis[Y] < 0 || pixel.axis[Y] > WINY)
+        return (0);
+    return (1);
+}
+
+
 int draw_line(t_meta *meta, t_point start, t_point end)
 {
     t_point     delta;
@@ -124,6 +135,8 @@ int draw_line(t_meta *meta, t_point start, t_point end)
 	int         pixels;
     int         len;
 
+    if (valid_pixel(start) == 0 && valid_pixel(end) == 0)
+        return (0);
     delta.axis[X] = end.axis[X] - start.axis[X];
     delta.axis[Y] = end.axis[Y] - start.axis[Y];
     pixels = sqrt((delta.axis[X] * delta.axis[X]) + (delta.axis[Y] * delta.axis[Y]));
@@ -133,13 +146,13 @@ int draw_line(t_meta *meta, t_point start, t_point end)
 	pixel.axis[X] = start.axis[X];
 	pixel.axis[Y] = start.axis[Y];
     pixel.color = start.color;
-	while (pixels)
+	while (pixels > 0)
 	{
         pixel.color = gradient(start.color, end.color, len, len - pixels);
     	my_putpixel(meta, pixel);
     	pixel.axis[X] += delta.axis[X];
     	pixel.axis[Y] += delta.axis[Y];
-    	--pixels;
+        pixels = pixels - 1;
 	}
 	return(1);
 }

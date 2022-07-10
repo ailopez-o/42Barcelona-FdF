@@ -50,6 +50,16 @@ void	isometric(t_map *map)
 	map->source.axis[Y] = YCENTER;
 }
 
+void	parallel(t_map *map)
+{
+	map->ang[X] = 90;
+	map->ang[Y] = 0;
+	map->ang[Z] = 0;
+	map->brange = 0;
+	map->source.axis[X] = XCENTER;
+	map->source.axis[Y] = YCENTER;
+}
+
 void	bending(t_point *points, int len, float range)
 {
 	int		i;
