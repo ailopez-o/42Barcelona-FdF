@@ -47,7 +47,7 @@ WHITE = \033[0;97m
 #Sources
 
 SRC_FILES	=	main control_keys control_mouse control_utils utils matrix geometry \
-				map_load map_draw get_next_line menu map_utils draw_utils errors
+				map_load map_draw get_next_line menu map_utils draw_utils
 
 SRC 		= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ 		= 	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
@@ -72,7 +72,7 @@ bonus:
 			
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c $(INCS) | $(OBJF)
 			@echo "$(YELLOW)Compiling: $< $(DEF_COLOR)"
-			$(CC) $(CFLAGS) -MMD -O3 -c $< -o $@
+			$(CC) $(CFLAGS) -MMD -c $< -o $@
 
 $(OBJF):
 			@mkdir -p $(OBJ_DIR)

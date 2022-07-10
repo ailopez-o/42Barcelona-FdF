@@ -25,10 +25,11 @@ void	wired(t_meta *meta, t_point *wire)
 	i = 0;
 	while (i < meta->map.len)
 	{
-		if ((i + 1) % (int)meta->map.limits.axis[x] != 0)
+		if ((i + 1) % (int)meta->map.limits.axis[X] != 0)
 			draw_line(meta, wire[i], wire[i + 1]);
-		if ((i / (int)meta->map.limits.axis[x]) != (meta->map.limits.axis[y] - 1))
-			draw_line(meta, wire[i], wire[i + (int)meta->map.limits.axis[x]]);
+		if ((i / (int)meta->map.limits.axis[X]) != \
+		(meta->map.limits.axis[Y] - 1))
+			draw_line(meta, wire[i], wire[i + (int)meta->map.limits.axis[X]]);
 		i++;
 	}
 }
@@ -44,7 +45,8 @@ void	colorize(t_map *map)
 	i = 0;
 	while (i < map->len)
 	{
-		load_color((int)map->limits.axis[z], map->zmin, &map->points[i], map->colors);
+		load_color((int)map->limits.axis[Z], map->zmin, \
+		&map->points[i], map->colors);
 		i++;
 	}
 }
@@ -66,22 +68,6 @@ void	doted(t_meta *meta, t_point *proyect)
 }
 
 /* 
-*	This function copy len points of the array from src to dst
-*/
-
-void	copy_map(t_point *src, t_point *dst, int len)
-{
-	int	i;
-
-	i = 0;
-	while (i < len)
-	{
-		dst[i] = src[i];
-		i++;
-	}
-}
-
-/* 
 *	This function iterate len points of the array and 
 *	divide de z axis by divisor
 */
@@ -93,7 +79,7 @@ void	z_division(t_point *proyect, float divisor, int len)
 	i = 0;
 	while (i < len)
 	{
-		proyect[i].axis[z] = proyect[i].axis[z] / divisor;
+		proyect[i].axis[Z] = proyect[i].axis[Z] / divisor;
 		i++;
 	}
 }
@@ -106,12 +92,12 @@ void	map_ini(t_map *map)
 	map->scale = 1;
 	map->zdivisor = 1;
 	map->brange = 0;
-	map->source.axis[x] = XCENTER;
-	map->source.axis[y] = YCENTER;
-	map->source.axis[z] = 0;
-	map->ang[x] = 0;
-	map->ang[y] = 0;
-	map->ang[z] = 0;
+	map->source.axis[X] = XCENTER;
+	map->source.axis[Y] = YCENTER;
+	map->source.axis[Z] = 0;
+	map->ang[X] = 0;
+	map->ang[Y] = 0;
+	map->ang[Z] = 0;
 	map->colors.backcolor = BACK_COLOR;
 	map->colors.menucolor = MENU_COLOR;
 	map->colors.bottomcolor = BOTTOM_COLOR;

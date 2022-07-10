@@ -17,9 +17,9 @@
 # define WINX 1920	
 # define WINY 1080
 
-# define x 0
-# define y 1
-# define z 2
+# define X 0
+# define Y 1
+# define Z 2
 
 # define ROJO 		0xc1272d
 # define VERDE		0x33cc55
@@ -47,48 +47,48 @@
 # define LIMIT_MINY			FIT_MARGIN
 # define LIMIT_MAXY			WINY - FIT_MARGIN
 
-#define XCENTER				(((WINX - MENU_WIDTH) / 2) + MENU_WIDTH);
-#define YCENTER				WINY/2;
+#define XCENTER				((WINX - MENU_WIDTH) / 2) + MENU_WIDTH
+#define YCENTER				WINY / 2
 
 # define FIT_MARGIN			50
 # define FIT				1
 # define FREE				0
 
-typedef struct	s_point {
-	float		axis[3];
-	int 		color;
-}				t_point;
+typedef struct s_point {
+	float	axis[3];
+	int		color;
+}	t_point;
 
-typedef struct	m_colors {
-	int			topcolor;
-	int			groundcolor;
-	int			bottomcolor;
-	int			backcolor;
-	int 		menucolor;	
+typedef struct m_colors {
+	int	topcolor;
+	int	groundcolor;
+	int	bottomcolor;
+	int	backcolor;
+	int	menucolor;	
 }	t_colors;
 
-typedef struct	s_bitmap {
+typedef struct s_bitmap {
 	void	*img;
 	char	*buffer;
 	int		bitxpixel;
 	int		lines;
 	int		endian;
-}				t_bitmap;
+}	t_bitmap;
 
-typedef struct	s_vars {
+typedef struct s_vars {
 	void	*mlx;
 	void	*win;
-}				t_vars;
+}	t_vars;
 
-typedef struct	s_keys {
-	bool		b_mouseL;
-	bool		b_mouseR;
-	bool		b_keyctrl;
-	t_point		last_clickL;
-	t_point		last_clickR;
-}			t_keys;
+typedef struct s_keys {
+	bool	b_mouse_l;
+	bool	b_mouse_r;
+	bool	b_keyctrl;
+	t_point	last_click_l;
+	t_point	last_click_r;
+}	t_keys;
 
-typedef struct	m_map {
+typedef struct m_map {
 	t_point		*points;
 	t_point		limits;
 	t_point		source;	
@@ -96,27 +96,26 @@ typedef struct	m_map {
 	int			zmin;
 	float		ang[3];
 	float		zdivisor;
-	float 		scale;
+	float		scale;
 	int			len;
 	float		brange;
 	int			renders;
 	bool		b_lines;
 	bool		b_dots;
-}				t_map;
+}	t_map;
 
-typedef struct	s_meta {
+typedef struct s_meta {
 	t_vars		vars;
 	t_bitmap	bitmap;
 	t_map		map;
 	t_keys		keys;
-}				t_meta;
+}	t_meta;
 
 int		draw_map(t_meta *meta, int fit);
 int		load_map(t_map *map, char *path);
 void	colorize(t_map *map);
 void	map_ini(t_map *map);
 void	z_division(t_point *proyect, float divisor, int len);
-void	copy_map(t_point *src, t_point *dst, int len);
 void	generate_background(t_meta *meta, int backcolor, int menucolor);
 void	wired(t_meta *meta, t_point *wire);
 void	doted(t_meta *meta, t_point *proyect);

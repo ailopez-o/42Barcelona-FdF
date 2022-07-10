@@ -20,7 +20,7 @@
 
 static void	show_info(t_map *map)
 {
-	printf("\nMapa Leido [%d][%d][%d][%d] - SIZE[%d] \n", (int)map->limits.axis[x], (int)map->limits.axis[y], (int)map->limits.axis[z], map->zmin, map->len);
+	printf("\nMapa Leido [%d][%d][%d][%d] - SIZE[%d] \n", (int)map->limits.axis[X], (int)map->limits.axis[Y], (int)map->limits.axis[Z], map->zmin, map->len);
 }
 
 
@@ -33,16 +33,16 @@ static void	show_info(t_map *map)
 void	load_color(int max, int min, t_point *point, t_colors	colors)
 {
 	point->color = DEFAULT_COLOR;
-	if (point->axis[z] == max)
+	if (point->axis[Z] == max)
 		point->color = colors.topcolor;
-	else if (point->axis[z] == 0)
+	else if (point->axis[Z] == 0)
 		point->color = colors.groundcolor;
-	else if (point->axis[z] == min && min != 0)
+	else if (point->axis[Z] == min && min != 0)
 		point->color = colors.bottomcolor;
-	else if (point->axis[z] > 0)
-		point->color = gradient(colors.groundcolor, colors.topcolor, max, point->axis[z]);
+	else if (point->axis[Z] > 0)
+		point->color = gradient(colors.groundcolor, colors.topcolor, max, point->axis[Z]);
 	else
-		point->color = gradient(colors.bottomcolor, colors.groundcolor, -min, - (min - point->axis[z]));
+		point->color = gradient(colors.bottomcolor, colors.groundcolor, -min, - (min - point->axis[Z]));
 }
 
 
@@ -63,10 +63,10 @@ static void	load_points(char *line, t_map *map, int numline)
 	i = 0;
 	while (splited[i])
 	{
-		map->points[map->len].axis[z] = ft_atoi(&splited[i][0]);
-		map->points[map->len].axis[x] = i - map->limits.axis[x] / 2;
-		map->points[map->len].axis[y] = numline - map->limits.axis[y] / 2;
-		load_color((int)map->limits.axis[z], map->zmin, &map->points[map->len], map->colors);
+		map->points[map->len].axis[Z] = ft_atoi(&splited[i][0]);
+		map->points[map->len].axis[X] = i - map->limits.axis[X] / 2;
+		map->points[map->len].axis[Y] = numline - map->limits.axis[Y] / 2;
+		load_color((int)map->limits.axis[Z], map->zmin, &map->points[map->len], map->colors);
 		if (ft_strchr(splited[i], ',') != 0)
 		{
 			color = ft_split(splited[i], ',');
@@ -101,8 +101,8 @@ static void	z_limits(char **splited, t_map *map)
 	while (splited[i])
 	{
 		valor = ft_atoi(&splited[i][0]);
-		if (map->limits.axis[z] < valor)
-			map->limits.axis[z] = valor;
+		if (map->limits.axis[Z] < valor)
+			map->limits.axis[Z] = valor;
 		if (map->zmin > valor)
 			map->zmin = valor;
 		i++;
@@ -122,22 +122,22 @@ static int	map_size(int fd, t_map *map)
 
 	map->len = 0;
 
-	map->limits.axis[y] = 0;
-	map->limits.axis[z] = 0;
+	map->limits.axis[Y] = 0;
+	map->limits.axis[Z] = 0;
 	map->zmin = 0;
 	line = get_next_line(fd);
-	map->limits.axis[x] = line_elems(line);	
+	map->limits.axis[X] = line_elems(line);	
 	while (line != NULL)
 	{
 		write(1, "*", 1);
 		splited = ft_split(line, ' ');
 		z_limits(splited, map);
 		linelen = line_elems(line);
-		if (map->limits.axis[x] != linelen)
+		if (map->limits.axis[X] != linelen)
 			terminate(ERR_LINE);
-		map->limits.axis[x] = linelen;
-		map->len += map->limits.axis[x];
-		map->limits.axis[y]++;
+		map->limits.axis[X] = linelen;
+		map->len += map->limits.axis[X];
+		map->limits.axis[Y]++;
 		dbl_free(splited);
 		free(line);
 		line = get_next_line(fd);

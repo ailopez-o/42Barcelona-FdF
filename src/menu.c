@@ -54,17 +54,17 @@ static void	draw_mapinfo(t_meta *meta)
 	free (stritoa);
 	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, MAPINFO_BOX + \
 	LINE_SIZE * 3, TEXT_COLOR, "Xmax:");
-	gcvt(meta->map.limits.axis[x], 5, str);
+	gcvt(meta->map.limits.axis[X], 5, str);
 	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB + 80, MAPINFO_BOX + \
 	LINE_SIZE * 3, TEXT_COLOR, str);
 	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, MAPINFO_BOX + \
 	LINE_SIZE * 4, TEXT_COLOR, "Ymax:");
-	gcvt(meta->map.limits.axis[y], 5, str);
+	gcvt(meta->map.limits.axis[Y], 5, str);
 	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB + 80, MAPINFO_BOX + \
 	LINE_SIZE * 4, TEXT_COLOR, str);
 	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, MAPINFO_BOX + \
 	LINE_SIZE * 5, TEXT_COLOR, "Zmax:");
-	gcvt(meta->map.limits.axis[z], 5, str);
+	gcvt(meta->map.limits.axis[Z], 5, str);
 	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB + 80, MAPINFO_BOX + \
 	LINE_SIZE * 5, TEXT_COLOR, str);
 	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, MAPINFO_BOX + \
@@ -103,17 +103,17 @@ static void	draw_info(t_meta *meta)
 	DRAWINFO_BOX + LINE_SIZE * 2, TEXT_COLOR, "Reenders:");
 	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB + 120, \
 	DRAWINFO_BOX + LINE_SIZE * 2, TEXT_COLOR, str);
-	gcvt(meta->map.ang[x], 5, str);
+	gcvt(meta->map.ang[X], 5, str);
 	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, \
 	DRAWINFO_BOX + LINE_SIZE * 3, TEXT_COLOR, "X Axis:");
 	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB + 120, \
 	DRAWINFO_BOX + LINE_SIZE * 3, TEXT_COLOR, str);
-	gcvt(meta->map.ang[y], 5, str);
+	gcvt(meta->map.ang[Y], 5, str);
 	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, \
 	DRAWINFO_BOX + LINE_SIZE * 4, TEXT_COLOR, "Y Axix:");
 	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB + 120, \
 	DRAWINFO_BOX + LINE_SIZE * 4, TEXT_COLOR, str);
-	gcvt(meta->map.ang[z], 5, str);
+	gcvt(meta->map.ang[Z], 5, str);
 	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, \
 	DRAWINFO_BOX + LINE_SIZE * 5, TEXT_COLOR, "Z Axix:");
 	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB + 120, \

@@ -9,10 +9,9 @@
 /*   Updated: 2022/07/09 19:25:55 by aitorlope        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef CONTROL_KEYS_LINE_H
-# define CONTROL_KEYS_LINE_H
+#ifndef CONTROL_KEYS_H
+# define CONTROL_KEYS_H
 
 int		key_press(int key, void *param);
 int		key_release(int key, void *param);
-
 #endif

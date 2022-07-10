@@ -9,7 +9,7 @@
 /*   Updated: 2022/06/16 11:06:59 by aitorlope        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-# include "../lib/libft/libft.h"
+#include "../lib/libft/libft.h"
 
 #define BUFFER_SIZE 1000
 

@@ -14,15 +14,16 @@
 #include "../inc/matrix.h"
 #include "../inc/geometry.h"
 #include "../inc/errors.h"
+#include <math.h>
 #include <stdlib.h>
 
-static void parse_map(t_meta *meta, t_point *proyect)
+static void	parse_map(t_meta *meta, t_point *proyect)
 {
 	z_division(proyect, meta->map.zdivisor, meta->map.len);
 	bending(proyect, meta->map.len, meta->map.brange);
-	rotate_x(proyect, proyect, meta->map.ang[x], meta->map.len);
-	rotate_y(proyect, proyect, meta->map.ang[y], meta->map.len);
-	rotate_z(proyect, proyect, meta->map.ang[z], meta->map.len);
+	rotate_x(proyect, proyect, meta->map.ang[X], meta->map.len);
+	rotate_y(proyect, proyect, meta->map.ang[Y], meta->map.len);
+	rotate_z(proyect, proyect, meta->map.ang[Z], meta->map.len);
 	orto_proyection (proyect, proyect, meta->map.len);
 	scale (proyect, meta->map.scale, meta->map.len);
 	traslate(proyect, meta->map.source, meta->map.len);
@@ -39,15 +40,31 @@ static int	limits(t_point *points, int len)
 	i = 0;
 	while (i < len)
 	{
-		if (points[i].axis[x] < LIMIT_MINX || \
-			points[i].axis[x] > LIMIT_MAXX)
+		if (points[i].axis[X] < LIMIT_MINX || \
+			points[i].axis[X] > LIMIT_MAXX)
 			return (1);
-		if (points[i].axis[y] < LIMIT_MINY || \
-			points[i].axis[y] > LIMIT_MAXY)
+		if (points[i].axis[Y] < LIMIT_MINY || \
+			points[i].axis[Y] > LIMIT_MAXY)
 			return (1);
 		i++;
 	}
 	return (0);
+}
+
+/* 
+*	This function copy len points of the array from src to dst
+*/
+
+static void	copy_map(t_point *src, t_point *dst, int len)
+{
+	int	i;
+
+	i = 0;
+	while (i < len)
+	{
+		dst[i] = src[i];
+		i++;
+	}
 }
 
 /* 
@@ -57,9 +74,9 @@ static int	limits(t_point *points, int len)
 
 static void	go_fit(t_meta *meta, t_point *proyect)
 {
-	meta->map.source.axis[x] = XCENTER;
-	meta->map.source.axis[y] = YCENTER;
-	meta->map.source.axis[z] = 0;
+	meta->map.source.axis[X] = XCENTER;
+	meta->map.source.axis[Y] = YCENTER;
+	meta->map.source.axis[Z] = 0;
 	meta->map.scale = 1;
 	copy_map(meta->map.points, proyect, meta->map.len);
 	parse_map(meta, proyect);
@@ -77,7 +94,6 @@ static void	go_fit(t_meta *meta, t_point *proyect)
 *	scale needed to fit the screen.
 */
 
-
 int	draw_map(t_meta *meta, int fit)
 {
 	t_point		*proyect;
@@ -86,7 +102,8 @@ int	draw_map(t_meta *meta, int fit)
 	if (proyect == NULL)
 		terminate(ERR_MEM);
 	meta->map.renders = meta->map.renders + 1;
-	generate_background(meta, meta->map.colors.backcolor, meta->map.colors.menucolor);
+	generate_background(meta, meta->map.colors.backcolor, \
+	meta->map.colors.menucolor);
 	copy_map(meta->map.points, proyect, meta->map.len);
 	parse_map(meta, proyect);
 	if (fit)
@@ -94,8 +111,9 @@ int	draw_map(t_meta *meta, int fit)
 	if (meta->map.b_lines)
 		wired(meta, proyect);
 	if (meta->map.b_dots)
-		doted(meta,proyect);
-	mlx_put_image_to_window(meta->vars.mlx, meta->vars.win, meta->bitmap.img, 0, 0);	
+		doted(meta, proyect);
+	mlx_put_image_to_window(meta->vars.mlx, meta->vars.win, \
+	meta->bitmap.img, 0, 0);
 	draw_menu(meta);
 	free (proyect);
 	return (1);

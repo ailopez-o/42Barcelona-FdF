@@ -19,9 +19,9 @@ void	traslate(t_point *points, t_point move, int len)
 	i = 0;
 	while (i < len)
 	{
-		points[i].axis[x] = points[i].axis[x] + move.axis[x];
-		points[i].axis[y] = points[i].axis[y] + move.axis[y];
-		points[i].axis[z] = points[i].axis[z] + move.axis[z];
+		points[i].axis[X] = points[i].axis[X] + move.axis[X];
+		points[i].axis[Y] = points[i].axis[Y] + move.axis[Y];
+		points[i].axis[Z] = points[i].axis[Z] + move.axis[Z];
 		i++;
 	}
 }
@@ -33,35 +33,34 @@ void	scale(t_point *points, int scale, int len)
 	i = 0;
 	while (i < len)
 	{
-		points[i].axis[x] = points[i].axis[x] * scale;
-		points[i].axis[y] = points[i].axis[y] * scale;
-		points[i].axis[z] = points[i].axis[z] * scale;
+		points[i].axis[X] = points[i].axis[X] * scale;
+		points[i].axis[Y] = points[i].axis[Y] * scale;
+		points[i].axis[Z] = points[i].axis[Z] * scale;
 		i++;
 	}
 }
 
 void	isometric(t_map *map)
 {
-	map->ang[x] = 30;
-	map->ang[y] = 330;
-	map->ang[z] = 30;
+	map->ang[X] = 30;
+	map->ang[Y] = 330;
+	map->ang[Z] = 30;
 	map->brange = 0;
-	map->source.axis[x] = XCENTER;
-	map->source.axis[y] = YCENTER;
+	map->source.axis[X] = XCENTER;
+	map->source.axis[Y] = YCENTER;
 }
 
 void	bending(t_point *points, int len, float range)
 {
-
-	int	i;
-	float vv;
+	int		i;
+	float	vv;
 
 	i = 0;
 	while (i < len)
 	{
-		vv = ((points[i].axis[x] * points[i].axis[x]) * (range)) + (points[i].axis[y] * points[i].axis[y]) * (range);
-		points[i].axis[z] = points[i].axis[z] - vv;
+		vv = ((points[i].axis[X] * points[i].axis[X]) * (range)) + \
+		(points[i].axis[Y] * points[i].axis[Y]) * (range);
+		points[i].axis[Z] = points[i].axis[Z] - vv;
 		i++;
 	}
 }
-

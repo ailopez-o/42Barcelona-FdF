@@ -14,4 +14,5 @@
 
 void	dbl_free(char **ptr);
 int		ft_round(double num);
+void	matrix_init(float (*matrix)[3]);
 #endif

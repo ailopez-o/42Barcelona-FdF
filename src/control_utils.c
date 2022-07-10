@@ -1,8 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   control_utils.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aitorlopezdeaudicana <marvin@42.fr>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/10 19:45:09 by aitorlope         #+#    #+#             */
+/*   Updated: 2022/07/10 19:45:12 by aitorlope        ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "../lib/miniliblx/minilibx_macos/mlx.h"
+#include "../lib/libft/libft.h"
 #include "../inc/map.h"
 #include "../inc/keycodes.h"
 #include "../inc/map.h"
 #include <stdlib.h>
+#include <errno.h>
 
 void	angle(float *ang, float value)
 {
@@ -21,27 +34,17 @@ void	angle_control(int key, t_meta *meta)
 	if (meta->keys.b_keyctrl)
 		ang = 90;
 	if (key == KEY_DOWN)
-		angle(&meta->map.ang[x], ang);
+		angle(&meta->map.ang[X], ang);
 	if (key == KEY_UP)
-		angle(&meta->map.ang[x], -ang);
+		angle(&meta->map.ang[X], -ang);
 	if (key == KEY_LEFT)
-		angle(&meta->map.ang[y], ang);
+		angle(&meta->map.ang[Y], ang);
 	if (key == KEY_RIGHT)
-		angle(&meta->map.ang[y], -ang);
+		angle(&meta->map.ang[Y], -ang);
 	if (key == KEY_Q)
-		angle(&meta->map.ang[z], ang);
+		angle(&meta->map.ang[Z], ang);
 	if (key == KEY_W)
-		angle(&meta->map.ang[z], -ang);
-}
-
-void	colorscheme(int bck, int men, int bot, int top, int gnd, t_map *map)
-{
-	map->colors.backcolor = bck;
-	map->colors.bottomcolor = bot;
-	map->colors.groundcolor = gnd;
-	map->colors.menucolor = men;
-	map->colors.topcolor = top;
-	colorize(map);
+		angle(&meta->map.ang[Z], -ang);
 }
 
 int	terminate_program(void *param)
@@ -52,4 +55,13 @@ int	terminate_program(void *param)
 	mlx_destroy_window(meta->vars.mlx, meta->vars.win);
 	free(meta->map.points);
 	exit(0);
+}
+
+void	terminate(char *s)
+{
+	if (errno == 0)
+		ft_putendl_fd(s, 2);
+	else
+		perror(s);
+	exit(1);
 }

@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/map.h"
+#include "../inc/utils.h"
 #include <math.h>
 
 /*
@@ -17,26 +18,26 @@
 *   and return the result.
 */
 
-t_point mul_mat(float matrix[3][3], t_point point) 
+t_point	mul_mat(float matrix[3][3], t_point point)
 {
-    int i;
-    int k;
-    t_point result;
+	int		i;
+	int		k;
+	t_point	result;
 
-    i = 0;
-    while (i < 3)
-    {
-        result.axis[i] = 0;
-        result.color = point.color;
-        k = 0;
-        while (k < 3)
-        {
-            result.axis[i] += matrix[i][k] * point.axis[k];
-            k++;
-        }
-    i++;
-    }
-    return (result);
+	i = 0;
+	while (i < 3)
+	{
+		result.axis[i] = 0;
+		result.color = point.color;
+		k = 0;
+		while (k < 3)
+		{
+			result.axis[i] += matrix[i][k] * point.axis[k];
+			k++;
+		}
+		i++;
+	}
+	return (result);
 }
 
 /*
@@ -44,24 +45,26 @@ t_point mul_mat(float matrix[3][3], t_point point)
 *   and store in "proyection" array.
 */
 
-void rotate_x(t_point *points, t_point *proyection, float ang, int len)
+void	rotate_x(t_point *points, t_point *proyection, float ang, int len)
 {
-    int     i;
-    float   rad;
-    rad = (ang * M_PI) / 180;
-    float   proyect_matrix[3][3] = {
-        {1, 0, 0},
-        {0, cos(rad), -sin(rad)},
-        {0, sin(rad), cos(rad)}
-    };
+	int		i;
+	float	rad;
+	float	proyect_matrix[3][3];
 
-    i = 0;
-    while (i < len)
-    {
-        proyection[i] = mul_mat(proyect_matrix, points[i]);
-        proyection[i].color = points[i].color; 
-        i++;
-    }
+	rad = ang * M_PI / 180;
+	matrix_init(proyect_matrix);
+	proyect_matrix[0][0] = 1;
+	proyect_matrix[1][1] = cos(rad);
+	proyect_matrix[1][2] = -sin(rad);
+	proyect_matrix[2][1] = sin(rad);
+	proyect_matrix[2][2] = cos(rad);
+	i = 0;
+	while (i < len)
+	{
+		proyection[i] = mul_mat(proyect_matrix, points[i]);
+		proyection[i].color = points[i].color;
+		i++;
+	}
 }
 
 /*
@@ -69,24 +72,26 @@ void rotate_x(t_point *points, t_point *proyection, float ang, int len)
 *   and store in "proyection" array.
 */
 
-void rotate_y(t_point *points, t_point *proyection, float ang, int len)
+void	rotate_y(t_point *points, t_point *proyection, float ang, int len)
 {
-    int     i;
-    float   rad;
-    rad = (ang * M_PI) / 180;
-    float   proyect_matrix[3][3] = {
-        {cos(rad), 0, sin(rad)},
-        {0, 1, 0},
-        {-(sin(rad)), 0, cos(rad)}
-    };
+	int		i;
+	float	rad;
+	float	proyect_matrix[3][3];
 
-    i = 0;
-    while (i < len)
-    {
-        proyection[i] = mul_mat(proyect_matrix, points[i]);
-        proyection[i].color = points[i].color;
-        i++;
-    }
+	rad = ang * M_PI / 180;
+	matrix_init(proyect_matrix);
+	proyect_matrix[0][0] = cos(rad);
+	proyect_matrix[0][2] = sin(rad);
+	proyect_matrix[1][1] = 1;
+	proyect_matrix[2][0] = -sin(rad);
+	proyect_matrix[2][2] = cos(rad);
+	i = 0;
+	while (i < len)
+	{
+		proyection[i] = mul_mat(proyect_matrix, points[i]);
+		proyection[i].color = points[i].color;
+		i++;
+	}
 }
 
 /*
@@ -94,23 +99,26 @@ void rotate_y(t_point *points, t_point *proyection, float ang, int len)
 *   and store in "proyection" array.
 */
 
-void rotate_z(t_point *points, t_point *proyection, float ang, int len)
+void	rotate_z(t_point *points, t_point *proyection, float ang, int len)
 {
-    int     i;
-    float   rad;
-    rad = (ang * M_PI) / 180;
-    float   proyect_matrix[3][3] = {
-        {cos(rad), -sin(rad), 0},
-        {sin (rad), cos(rad), 0},
-        {0, 0, 1}
-    };
-    i = 0;
-    while (i < len)
-    {
-        proyection[i] = mul_mat(proyect_matrix, points[i]);
-        proyection[i].color = points[i].color;   
-        i++;
-    }
+	int		i;
+	float	rad;
+	float	proyect_matrix[3][3];
+
+	rad = ang * M_PI / 180;
+	matrix_init(proyect_matrix);
+	proyect_matrix[0][0] = cos(rad);
+	proyect_matrix[0][1] = -sin(rad);
+	proyect_matrix[1][0] = sin(rad);
+	proyect_matrix[1][1] = cos(rad);
+	proyect_matrix[2][2] = 1;
+	i = 0;
+	while (i < len)
+	{
+		proyection[i] = mul_mat(proyect_matrix, points[i]);
+		proyection[i].color = points[i].color;
+		i++;
+	}
 }
 
 /*
@@ -118,21 +126,19 @@ void rotate_z(t_point *points, t_point *proyection, float ang, int len)
 *   and store in "proyection" array.
 */
 
-void orto_proyection(t_point *points, t_point *proyection, int len)
+void	orto_proyection(t_point *points, t_point *proyection, int len)
 {
-    int     i;
-    float   proyect_matrix[3][3] = {
-        {1, 0, 0},
-        {0, 1, 0},
-        {0, 0, 0}
-    };
+	int		i;
+	float	proyect_matrix[3][3];
 
-    i = 0;
-    while (i < len)
-    {
-        proyection[i] = mul_mat(proyect_matrix, points[i]);
-        proyection[i].color = points[i].color;
-        i++;
-    }
+	matrix_init(proyect_matrix);
+	proyect_matrix[0][0] = 1;
+	proyect_matrix[1][1] = 1;
+	i = 0;
+	while (i < len)
+	{
+		proyection[i] = mul_mat(proyect_matrix, points[i]);
+		proyection[i].color = points[i].color;
+		i++;
+	}
 }
-

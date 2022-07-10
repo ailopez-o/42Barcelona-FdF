@@ -11,24 +11,24 @@
 /* ************************************************************************** */
 #include <stdlib.h>
 
-void dbl_free(char **ptr)
+void	dbl_free(char **ptr)
 {
-    int i;
+	int	i;
 
-    if (!ptr)
-        return;
-    i = 0;
-    while(ptr[i])
-    {
-        free(ptr[i]);
-        i++;
-    }
-    free (ptr);
+	if (!ptr)
+		return ;
+	i = 0;
+	while (ptr[i])
+	{
+		free(ptr[i]);
+		i++;
+	}
+	free (ptr);
 }
 
 int	ft_round(double num)
 {
-	int rounded;
+	int	rounded;
 
 	rounded = (int)num;
 	if (num - rounded >= .5)
@@ -36,4 +36,20 @@ int	ft_round(double num)
 	return (rounded);
 }
 
+void	matrix_init(float (*matrix)[3])
+{
+	int	i;
+	int	j;
 
+	i = 0;
+	while (i < 3)
+	{
+		j = 0;
+		while (j < 3)
+		{
+			matrix[i][j] = 0;
+			j++;
+		}
+		i++;
+	}
+}
