@@ -1,6 +1,8 @@
+#include "../lib/miniliblx/minilibx_macos/mlx.h"
 #include "../inc/map.h"
 #include "../inc/keycodes.h"
 #include "../inc/map.h"
+#include <stdlib.h>
 
 void	angle(float *ang, float value)
 {
@@ -40,4 +42,14 @@ void	colorscheme(int bck, int men, int bot, int top, int gnd, t_map *map)
 	map->colors.menucolor = men;
 	map->colors.topcolor = top;
 	colorize(map);
+}
+
+int	terminate_program(void *param)
+{
+	t_meta	*meta;
+
+	meta = (t_meta *)param;
+	mlx_destroy_window(meta->vars.mlx, meta->vars.win);
+	free(meta->map.points);
+	exit(0);
 }

@@ -67,11 +67,7 @@ int	key_press(int key, void *param)
 	angle_control(key, meta);
 	control_keys(key, meta);
     if (key == KEY_ESC)
-	{
-		mlx_destroy_window(meta->vars.mlx, meta->vars.win);
-		free(meta->map.points);
-		exit(0);	
-	}
+		terminate_program(meta);
 	if (key == KEY_0)
 		colorscheme(CARBON, MENU_COLOR, AZUL, BRICK_RED, SAFFRON, &meta->map);
 	if (key == KEY_1)

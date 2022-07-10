@@ -13,6 +13,7 @@
 #include "../inc/map.h"
 #include "../inc/control_keys.h"
 #include "../inc/control_mouse.h"
+#include "../inc/control_utils.h"
 #include "../inc/errors.h"
 #include <stdlib.h>
 
@@ -36,6 +37,7 @@ int main(int argv, char **argc)
 	mlx_hook(meta.vars.win, 4, 0, mouse_press, &meta);
 	mlx_hook(meta.vars.win, 5, 0, mouse_release, &meta);
 	mlx_hook(meta.vars.win, 6, 0, mouse_move, &meta);	
+	mlx_hook(meta.vars.win, 17, 0, terminate_program, &meta);
     mlx_loop(meta.vars.mlx);
 	free (meta.map.points);	
 	return(0);
