@@ -18,8 +18,9 @@
 
 
 <p align="center">
-	<img src="https://raw.githubusercontent.com/aitorlopez42/42Barcelona-FdF/main/map0.png" />
-	<img src="https://raw.githubusercontent.com/aitorlopez42/42Barcelona-FdF/main/map1.png" />		
+	<img src="https://raw.githubusercontent.com/aitorlopez42/42Barcelona-FdF/main/img/map0.png" />
+	<img src="https://raw.githubusercontent.com/aitorlopez42/42Barcelona-FdF/main/img/map1.png" />
+	<img src="https://raw.githubusercontent.com/aitorlopez42/42Barcelona-FdF/main/img/map2.png" />
 </p>
 
 
