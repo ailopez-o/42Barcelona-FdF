@@ -20,9 +20,10 @@
 
 static void	show_info(t_map *map)
 {
-	printf("\nMapa Leido [%d][%d][%d][%d] - SIZE[%d] \n", (int)map->limits.axis[X], (int)map->limits.axis[Y], (int)map->limits.axis[Z], map->zmin, map->len);
+	printf("\nMapa Leido [%d][%d][%d][%d] - SIZE[%d] \n", \
+	(int)map->limits.axis[X], (int)map->limits.axis[Y], \
+	(int)map->limits.axis[Z], map->zmin, map->len);
 }
-
 
 /* 
 *	Acording the z value of the point and de max and min values of the map
@@ -40,11 +41,12 @@ void	load_color(int max, int min, t_point *point, t_colors	colors)
 	else if (point->axis[Z] == min && min != 0)
 		point->color = colors.bottomcolor;
 	else if (point->axis[Z] > 0)
-		point->color = gradient(colors.groundcolor, colors.topcolor, max, point->axis[Z]);
+		point->color = gradient(colors.groundcolor, colors.topcolor, \
+		max, point->axis[Z]);
 	else
-		point->color = gradient(colors.bottomcolor, colors.groundcolor, -min, - (min - point->axis[Z]));
+		point->color = gradient(colors.bottomcolor, colors.groundcolor, \
+		-min, - (min - point->axis[Z]));
 }
-
 
 /* 
 *	Splits the info of line to storage
@@ -66,7 +68,8 @@ static void	load_points(char *line, t_map *map, int numline)
 		map->points[map->len].axis[Z] = ft_atoi(&splited[i][0]);
 		map->points[map->len].axis[X] = i - map->limits.axis[X] / 2;
 		map->points[map->len].axis[Y] = numline - map->limits.axis[Y] / 2;
-		load_color((int)map->limits.axis[Z], map->zmin, &map->points[map->len], map->colors);
+		load_color((int)map->limits.axis[Z], map->zmin, \
+		&map->points[map->len], map->colors);
 		if (ft_strchr(splited[i], ',') != 0)
 		{
 			color = ft_split(splited[i], ',');
@@ -95,7 +98,7 @@ static int	line_elems(char *line)
 static void	z_limits(char **splited, t_map *map)
 {
 	int	i;
-	int valor;
+	int	valor;
 
 	i = 0;
 	while (splited[i])
@@ -121,7 +124,6 @@ static int	map_size(int fd, t_map *map)
 	int		linelen;
 
 	map->len = 0;
-
 	map->limits.axis[Y] = 0;
 	map->limits.axis[Z] = 0;
 	map->zmin = 0;
@@ -176,4 +178,3 @@ int	load_map(t_map *map, char *path)
 	show_info(map);
 	return (1);
 }
-
