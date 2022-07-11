@@ -132,7 +132,7 @@ static void	draw_info(t_meta *meta)
 	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, \
 	DRAWINFO_BOX + LINE_SIZE * 8, TEXT_COLOR, "Blending:");
 	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB + 120, \
-	DRAWINFO_BOX + LINE_SIZE * 8, TEXT_COLOR, str);	
+	DRAWINFO_BOX + LINE_SIZE * 8, TEXT_COLOR, str);
 	free(str);
 }
 
