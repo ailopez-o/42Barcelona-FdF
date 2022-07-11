@@ -14,6 +14,11 @@
 
 # include <stdbool.h>
 
+/* DEFINES NORMINETTE REFUSED
+#define XCENTER				((WINX - MENU_WIDTH) / 2) + MENU_WIDTH
+#define YCENTER				WINY / 2
+*/
+
 # define WINX 1920	
 # define WINY 1080
 
@@ -39,18 +44,12 @@
 # define GROUND_COLOR		SAFFRON
 # define BACK_COLOR			0x151515
 # define MENU_COLOR			0x202020
+# define TEXT_COLOR			0xEAEAEA	
+# define NUMBER_COLOR		0xF3AF3D
 
 # define MENU_WIDTH			350
-
-# define LIMIT_MINX			MENU_WIDTH + FIT_MARGIN
-# define LIMIT_MAXX			WINX - FIT_MARGIN
-# define LIMIT_MINY			FIT_MARGIN
-# define LIMIT_MAXY			WINY - FIT_MARGIN
-
-#define XCENTER				((WINX - MENU_WIDTH) / 2) + MENU_WIDTH
-#define YCENTER				WINY / 2
-
 # define FIT_MARGIN			50
+
 # define FIT				1
 # define FREE				0
 

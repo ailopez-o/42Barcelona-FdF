@@ -42,11 +42,11 @@ static int	limits(t_point *points, int len)
 	i = 0;
 	while (i < len)
 	{
-		if (points[i].axis[X] < LIMIT_MINX || \
-			points[i].axis[X] > LIMIT_MAXX)
+		if (points[i].axis[X] < (MENU_WIDTH + FIT_MARGIN) || \
+			points[i].axis[X] > (WINX - FIT_MARGIN))
 			return (1);
-		if (points[i].axis[Y] < LIMIT_MINY || \
-			points[i].axis[Y] > LIMIT_MAXY)
+		if (points[i].axis[Y] < FIT_MARGIN || \
+			points[i].axis[Y] > (WINY - FIT_MARGIN))
 			return (1);
 		i++;
 	}
@@ -76,8 +76,8 @@ static void	copy_map(t_point *src, t_point *dst, int len)
 
 static void	go_fit(t_meta *meta, t_point *proyect)
 {
-	meta->map.source.axis[X] = XCENTER;
-	meta->map.source.axis[Y] = YCENTER;
+	meta->map.source.axis[X] = ((WINX - MENU_WIDTH) / 2) + MENU_WIDTH;
+	meta->map.source.axis[Y] = WINY / 2;
 	meta->map.source.axis[Z] = 0;
 	meta->map.scale = 1;
 	copy_map(meta->map.points, proyect, meta->map.len);

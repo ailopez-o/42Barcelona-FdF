@@ -15,4 +15,7 @@
 void	dbl_free(char **ptr);
 int		ft_round(double num);
 void	matrix_init(float (*matrix)[3]);
+void    print_nbr(t_meta *meta, int x, int y, int nbr);
+void    print_str(t_meta *meta, int x, int y, char *str);
+
 #endif

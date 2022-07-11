@@ -60,7 +60,7 @@ static void	load_points(char *line, t_map *map, int numline)
 	char	**color;
 	int		i;
 
-	write(1, ".", 1);
+	write(1, "✅", 4);
 	splited = ft_split(line, ' ');
 	i = 0;
 	while (splited[i])
@@ -131,7 +131,7 @@ static int	map_size(int fd, t_map *map)
 	map->limits.axis[X] = line_elems(line);	
 	while (line != NULL)
 	{
-		write(1, "*", 1);
+		write(1, "🧱", 4);
 		splited = ft_split(line, ' ');
 		z_limits(splited, map);
 		linelen = line_elems(line);

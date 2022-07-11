@@ -9,7 +9,24 @@
 /*   Updated: 2022/06/29 16:04:25 by ailopez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "../lib/libft/libft.h"
+#include "../lib/miniliblx/minilibx_macos/mlx.h"
+#include "../inc/map.h"
 #include <stdlib.h>
+
+void print_nbr(t_meta *meta, int x, int y, int nbr)
+{
+	char	*str;
+
+	str = ft_itoa(nbr);
+	mlx_string_put(meta->vars.mlx, meta->vars.win, x, y, NUMBER_COLOR, str);
+	free (str);
+}
+
+void print_str(t_meta *meta, int x, int y, char *str)
+{
+	mlx_string_put(meta->vars.mlx, meta->vars.win, x, y, TEXT_COLOR, str);
+}
 
 void	dbl_free(char **ptr)
 {

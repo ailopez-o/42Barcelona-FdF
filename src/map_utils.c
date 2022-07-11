@@ -92,8 +92,8 @@ void	map_ini(t_map *map)
 	map->scale = 1;
 	map->zdivisor = 1;
 	map->brange = 0;
-	map->source.axis[X] = XCENTER;
-	map->source.axis[Y] = YCENTER;
+	map->source.axis[X] = ((WINX - MENU_WIDTH) / 2) + MENU_WIDTH;
+	map->source.axis[Y] = WINY / 2;
 	map->source.axis[Z] = 0;
 	map->ang[X] = 0;
 	map->ang[Y] = 0;

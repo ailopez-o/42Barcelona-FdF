@@ -9,131 +9,115 @@
 /*   Updated: 2022/07/09 12:38:50 by aitorlope        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../lib/miniliblx/minilibx_macos/mlx.h"
-#include "../lib/libft/libft.h"
 #include "../inc/map.h"
+#include "../inc/utils.h"
 #include <stdlib.h>
 
-#define CONTROL_BOX			340
+#define CONTROL_BOX			750
 #define DRAWINFO_BOX		40
-#define MAPINFO_BOX			550
-#define COLORSCHEME_BOX		800
+#define MAPINFO_BOX			340
+#define COLORSCHEME_BOX		550
 #define LINE_SIZE			30			
 #define MENU_TAB			30
-#define TEXT_COLOR			0xEAEAEA
 
 static void	draw_colorscheme(t_meta *meta)
 {
-	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, COLORSCHEME_BOX, \
-	TEXT_COLOR, "//// COLORSCHEME ////");
-	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, COLORSCHEME_BOX + \
-	LINE_SIZE * 2, TEXT_COLOR, "0: DEFAULT");
-	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, COLORSCHEME_BOX + \
-	LINE_SIZE * 3, TEXT_COLOR, "1: TERRAIN");
-	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, COLORSCHEME_BOX + \
-	LINE_SIZE * 4, TEXT_COLOR, "2: BLACK & WHITE");
-	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, COLORSCHEME_BOX + \
-	LINE_SIZE * 5, TEXT_COLOR, "3: WHITE & BLACK");
-	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, COLORSCHEME_BOX + \
-	LINE_SIZE * 6, TEXT_COLOR, "4: DISCO");
+	int		line;
+
+	line = COLORSCHEME_BOX;
+	print_str(meta, MENU_TAB, line, "//// COLORSCHEME ////");
+	line += LINE_SIZE;
+	print_str(meta, MENU_TAB, line, "0: DEFAULT");
+	line += LINE_SIZE;
+	print_str(meta, MENU_TAB, line, "1: TERRAIN");
+	line += LINE_SIZE;
+	print_str(meta, MENU_TAB, line, "2: BLACK & WHITE");
+	line += LINE_SIZE;
+	print_str(meta, MENU_TAB, line, "3: WHITE & BLACK");
+	line += LINE_SIZE;
 }
 
 static void	draw_mapinfo(t_meta *meta)
 {
-	char	*str;
-	char	*stritoa;
+	int		line;
 
-	str = ft_calloc(10, 1);
-	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, MAPINFO_BOX, \
-	TEXT_COLOR, "//// MAP INFO ////");
-	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, MAPINFO_BOX + \
-	LINE_SIZE * 2, TEXT_COLOR, "Size:");
-	stritoa = ft_itoa(meta->map.len);
-	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB + 80, MAPINFO_BOX + \
-	LINE_SIZE * 2, TEXT_COLOR, stritoa);
-	free (stritoa);
-	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, MAPINFO_BOX + \
-	LINE_SIZE * 3, TEXT_COLOR, "Xmax:");
-	gcvt(meta->map.limits.axis[X], 5, str);
-	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB + 80, MAPINFO_BOX + \
-	LINE_SIZE * 3, TEXT_COLOR, str);
-	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, MAPINFO_BOX + \
-	LINE_SIZE * 4, TEXT_COLOR, "Ymax:");
-	gcvt(meta->map.limits.axis[Y], 5, str);
-	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB + 80, MAPINFO_BOX + \
-	LINE_SIZE * 4, TEXT_COLOR, str);
-	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, MAPINFO_BOX + \
-	LINE_SIZE * 5, TEXT_COLOR, "Zmax:");
-	gcvt(meta->map.limits.axis[Z], 5, str);
-	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB + 80, MAPINFO_BOX + \
-	LINE_SIZE * 5, TEXT_COLOR, str);
-	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, MAPINFO_BOX + \
-	LINE_SIZE * 6, TEXT_COLOR, "Zmin:");
-	gcvt(meta->map.zmin, 5, str);
-	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB + 78, MAPINFO_BOX + \
-	LINE_SIZE * 6, TEXT_COLOR, str);
-	free(str);
+	line = MAPINFO_BOX;
+	print_str(meta, MENU_TAB, line, "//// MAP INFO ////");
+	line += LINE_SIZE;
+	print_str(meta, MENU_TAB, line, "Size:");
+	print_nbr(meta, MENU_TAB + 80, line, meta->map.len);
+	line += LINE_SIZE;
+	print_str(meta, MENU_TAB, line, "Xmax:");
+	print_nbr(meta, MENU_TAB + 80, line, meta->map.limits.axis[X]);
+	line += LINE_SIZE;
+	print_str(meta, MENU_TAB, line, "Ymax:");
+	print_nbr(meta, MENU_TAB + 80, line, meta->map.limits.axis[Y]);
+	line += LINE_SIZE;
+	print_str(meta, MENU_TAB, line, "Zmax:");
+	print_nbr(meta, MENU_TAB + 80, line, meta->map.limits.axis[Z]);
+	line += LINE_SIZE;
+	print_str(meta, MENU_TAB, line, "Zmin:");
+	print_nbr(meta, MENU_TAB + 80, line, meta->map.zmin);
+	line += LINE_SIZE;
 }
 
 static void	draw_controls(t_meta *meta)
 {
-	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, CONTROL_BOX, \
-	TEXT_COLOR, "//// CONTROLS ////");
-	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, CONTROL_BOX + \
-	LINE_SIZE * 2, TEXT_COLOR, "Scroll: Zom In/Out");
-	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, CONTROL_BOX + \
-	LINE_SIZE * 3, TEXT_COLOR, "Left Click: Rotate X/Y axis");
-	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, CONTROL_BOX + \
-	LINE_SIZE * 4, TEXT_COLOR, "Arrows: Rotate X/Y axis");
-	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, CONTROL_BOX + \
-	LINE_SIZE * 5, TEXT_COLOR, "Q/W: Rotate Z axis");
-	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, CONTROL_BOX + \
-	LINE_SIZE * 6, TEXT_COLOR, "Right Click: Move");
+	int		line;
+
+	line = CONTROL_BOX;
+	print_str(meta, MENU_TAB, line, "//// CONTROLS ////");
+	line += LINE_SIZE;
+	print_str(meta, MENU_TAB, line, "Scroll: Zom In/Out");
+	line += LINE_SIZE;
+	print_str(meta, MENU_TAB, line, "Left Click: Rotate X/Y axis");
+	line += LINE_SIZE;
+	print_str(meta, MENU_TAB, line, "Right Click: Move");
+	line += LINE_SIZE;
+	print_str(meta, MENU_TAB, line, "Arrows: Rotate X/Y axis");
+	line += LINE_SIZE;
+	print_str(meta, MENU_TAB, line, "Q/W: Rotate Z axis");
+	line += LINE_SIZE;
+	print_str(meta, MENU_TAB, line, "+/-: Z Divisor");
+	line += LINE_SIZE;
+	print_str(meta, MENU_TAB, line, "B/Ctr + B: Blending");
+	line += LINE_SIZE;
+	print_str(meta, MENU_TAB, line, "P/I Parralell/Isometric Views");
+	line += LINE_SIZE;
+	print_str(meta, MENU_TAB, line, "F/C Fit/Center");
+	line += LINE_SIZE;
 }
 
 static void	draw_info(t_meta *meta)
 {
-	char	*str;
+	int		line;
 
-	str = ft_calloc(10, 1);
-	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, DRAWINFO_BOX, \
-	TEXT_COLOR, "//// DRAW INFO ////");
-	gcvt(meta->map.renders, 5, str);
-	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, \
-	DRAWINFO_BOX + LINE_SIZE * 2, TEXT_COLOR, "Reenders:");
-	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB + 120, \
-	DRAWINFO_BOX + LINE_SIZE * 2, TEXT_COLOR, str);
-	gcvt(meta->map.ang[X], 5, str);
-	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, \
-	DRAWINFO_BOX + LINE_SIZE * 3, TEXT_COLOR, "X Axis:");
-	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB + 120, \
-	DRAWINFO_BOX + LINE_SIZE * 3, TEXT_COLOR, str);
-	gcvt(meta->map.ang[Y], 5, str);
-	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, \
-	DRAWINFO_BOX + LINE_SIZE * 4, TEXT_COLOR, "Y Axix:");
-	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB + 120, \
-	DRAWINFO_BOX + LINE_SIZE * 4, TEXT_COLOR, str);
-	gcvt(meta->map.ang[Z], 5, str);
-	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, \
-	DRAWINFO_BOX + LINE_SIZE * 5, TEXT_COLOR, "Z Axix:");
-	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB + 120, \
-	DRAWINFO_BOX + LINE_SIZE * 5, TEXT_COLOR, str);
-	gcvt(meta->map.scale, 5, str);
-	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, \
-	DRAWINFO_BOX + LINE_SIZE * 6, TEXT_COLOR, "Zoom:");
-	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB + 120, \
-	DRAWINFO_BOX + LINE_SIZE * 6, TEXT_COLOR, str);
-	gcvt(meta->map.zdivisor, 5, str);
-	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, \
-	DRAWINFO_BOX + LINE_SIZE * 7, TEXT_COLOR, "Z Divisor:");
-	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB + 120, \
-	DRAWINFO_BOX + LINE_SIZE * 7, TEXT_COLOR, str);
-	gcvt(meta->map.brange, 5, str);
-	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB, \
-	DRAWINFO_BOX + LINE_SIZE * 8, TEXT_COLOR, "Blending:");
-	mlx_string_put(meta->vars.mlx, meta->vars.win, MENU_TAB + 120, \
-	DRAWINFO_BOX + LINE_SIZE * 8, TEXT_COLOR, str);
-	free(str);
+	line = DRAWINFO_BOX;
+	print_str(meta, MENU_TAB, line, "//// DRAW INFO ////");
+	line += LINE_SIZE;
+	print_str(meta, MENU_TAB, line, "Reenders:");
+	print_nbr(meta, MENU_TAB + 100, line, meta->map.renders);
+	line += LINE_SIZE;
+	print_str(meta, MENU_TAB, line, "Performance(ms):");
+	print_nbr(meta, MENU_TAB + 170, line, meta->map.performance * 1000);
+	line += LINE_SIZE;
+	print_str(meta, MENU_TAB, line, "X Axis:");
+	print_nbr(meta, MENU_TAB + 80, line, meta->map.ang[X]);
+	line += LINE_SIZE;
+	print_str(meta, MENU_TAB, line, "Y Axis:");
+	print_nbr(meta, MENU_TAB + 80, line, meta->map.ang[Y]);
+	line += LINE_SIZE;
+	print_str(meta, MENU_TAB, line, "Z Axis:");
+	print_nbr(meta, MENU_TAB + 80, line, meta->map.ang[Z]);
+	line += LINE_SIZE;
+	print_str(meta, MENU_TAB, line, "Zoom:");
+	print_nbr(meta, MENU_TAB + 80, line, meta->map.scale);
+	line += LINE_SIZE;
+	print_str(meta, MENU_TAB, line, "Z Divisor:");
+	print_nbr(meta, MENU_TAB + 110, line, meta->map.zdivisor);
+	line += LINE_SIZE;
+	print_str(meta, MENU_TAB, line, "Blending:");
+	print_nbr(meta, MENU_TAB + 100, line, meta->map.brange * 10000);
 }
 
 void	draw_menu(t_meta *meta)

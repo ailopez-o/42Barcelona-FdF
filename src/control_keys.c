@@ -52,8 +52,8 @@ void	control_keys1(int key, t_meta *meta)
 		draw_map(meta, FIT);
 	if (key == KEY_C)
 	{
-		meta->map.source.axis[X] = XCENTER;
-		meta->map.source.axis[Y] = YCENTER;
+		meta->map.source.axis[X] = ((WINX - MENU_WIDTH) / 2) + MENU_WIDTH;
+		meta->map.source.axis[Y] = WINY / 2;
 	}		
 	if (key == KEY_I)
 	{

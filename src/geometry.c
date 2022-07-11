@@ -46,8 +46,8 @@ void	isometric(t_map *map)
 	map->ang[Y] = 330;
 	map->ang[Z] = 30;
 	map->brange = 0;
-	map->source.axis[X] = XCENTER;
-	map->source.axis[Y] = YCENTER;
+	map->source.axis[X] = ((WINX - MENU_WIDTH) / 2) + MENU_WIDTH;
+	map->source.axis[Y] = WINY / 2;
 }
 
 void	parallel(t_map *map)
@@ -56,8 +56,8 @@ void	parallel(t_map *map)
 	map->ang[Y] = 0;
 	map->ang[Z] = 0;
 	map->brange = 0;
-	map->source.axis[X] = XCENTER;
-	map->source.axis[Y] = YCENTER;
+	map->source.axis[X] = ((WINX - MENU_WIDTH) / 2) + MENU_WIDTH;
+	map->source.axis[Y] = WINY / 2;
 }
 
 void	bending(t_point *points, int len, float range)
