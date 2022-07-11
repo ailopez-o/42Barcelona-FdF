@@ -98,15 +98,10 @@ static void	go_fit(t_meta *meta, t_point *proyect)
 
 int	draw_map(t_meta *meta, int fit)
 {
-	t_point		*proyect;
+	t_point	*proyect;
+	clock_t	t;
 
-
-
-    // Calculate the time taken by fun()
-    clock_t t;
-    t = clock();
-	// *******************
-
+	t = clock();
 	proyect = malloc (meta->map.len * sizeof(t_point));
 	if (proyect == NULL)
 		terminate(ERR_MEM);
@@ -125,11 +120,8 @@ int	draw_map(t_meta *meta, int fit)
 	meta->bitmap.img, 0, 0);
 	draw_menu(meta);
 	free (proyect);
-
-	// *******************
-    t = clock() - t;
-    double time_taken = ((double)t)/CLOCKS_PER_SEC; // in seconds
-	printf("Performance [%f]\n", time_taken);	
-	// *******************
+	t = clock() - t;
+	meta->map.performance = ((double)t) / CLOCKS_PER_SEC;
+	printf("Performance [%f]\n", meta->map.performance);
 	return (1);
 }

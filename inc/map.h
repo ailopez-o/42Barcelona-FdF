@@ -102,6 +102,7 @@ typedef struct m_map {
 	int			renders;
 	bool		b_lines;
 	bool		b_dots;
+	double		performance;
 }	t_map;
 
 typedef struct s_meta {
