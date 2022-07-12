@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "../inc/get_next_line.h"
 #include "../lib/libft/libft.h"
-#include "../inc/map.h"
+#include "../inc/defines.h"
 #include "../inc/utils.h"
 #include "../inc/draw_utils.h"
 #include "../inc/map_utils.h"

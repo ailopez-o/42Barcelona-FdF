@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "../lib/libft/libft.h"
-#include "../inc/map.h"
+#include "../inc/defines.h"
 #include "../inc/utils.h"
 #include <stdio.h>
 

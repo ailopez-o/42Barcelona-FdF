@@ -9,7 +9,7 @@
 /*   Updated: 2022/07/06 00:12:08 by ailopez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../inc/map.h"
+#include "../inc/defines.h"
 #include <math.h>
 
 void	traslate(t_point *points, t_point move, int len)

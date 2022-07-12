@@ -9,6 +9,7 @@
 /*   Updated: 2022/07/09 13:26:30 by aitorlope        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "../inc/defines.h"
 #include "../inc/map.h"
 #include "../inc/draw_utils.h"
 

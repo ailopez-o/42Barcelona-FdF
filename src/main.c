@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "../lib/miniliblx/minilibx_macos/mlx.h"
+#include "../inc/defines.h"
 #include "../inc/map.h"
 #include "../inc/control_keys.h"
 #include "../inc/control_mouse.h"

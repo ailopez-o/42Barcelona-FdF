@@ -9,7 +9,7 @@
 /*   Updated: 2022/07/09 12:38:50 by aitorlope        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../inc/map.h"
+#include "../inc/defines.h"
 #include "../inc/utils.h"
 #include <stdlib.h>
 

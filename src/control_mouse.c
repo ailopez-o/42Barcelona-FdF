@@ -9,6 +9,7 @@
 /*   Updated: 2022/06/29 16:04:07 by ailopez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "../inc/defines.h"
 #include "../inc/map.h"
 #include "../inc/keycodes.h"
 #include "../inc/control_utils.h"

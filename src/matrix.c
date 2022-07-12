@@ -9,7 +9,7 @@
 /*   Updated: 2022/06/29 16:02:18 by ailopez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../inc/map.h"
+#include "../inc/defines.h"
 #include "../inc/utils.h"
 #include <math.h>
 

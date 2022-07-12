@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "../lib/miniliblx/minilibx_macos/mlx.h"
 #include "../lib/libft/libft.h"
-#include "../inc/map.h"
+#include "../inc/defines.h"
 #include "../inc/keycodes.h"
 #include "../inc/map.h"
 #include <stdlib.h>

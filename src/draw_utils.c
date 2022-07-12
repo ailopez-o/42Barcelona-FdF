@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "../lib/miniliblx/minilibx_macos/mlx.h"
-#include "../inc/map.h"
+#include "../inc/defines.h"
 #include "../inc/utils.h"
 #include <math.h>
 
