@@ -22,6 +22,10 @@ void	control_keys2(int key, t_meta *meta)
 		meta->map.b_dots = !meta->map.b_dots;
 	if (key == KEY_L)
 		meta->map.b_lines = !meta->map.b_lines;
+	if (key == KEY_F)
+		draw_map(meta, FIT);
+	if (key == KEY_CMD)
+		meta->keys.b_keyctrl = 1;
 	if (key == KEY_B)
 	{
 		if (meta->keys.b_keyctrl)
@@ -45,11 +49,9 @@ void	control_keys1(int key, t_meta *meta)
 	if (key == KEY_R)
 	{
 		map_ini(&meta->map);
-		colorize(&meta->map);	
+		colorize(&meta->map);
 		draw_map(meta, FIT);
 	}	
-	if (key == KEY_F)
-		draw_map(meta, FIT);
 	if (key == KEY_C)
 	{
 		meta->map.source.axis[X] = ((WINX - MENU_WIDTH) / 2) + MENU_WIDTH;
@@ -64,9 +66,7 @@ void	control_keys1(int key, t_meta *meta)
 	{
 		parallel(&meta->map);
 		draw_map(meta, FIT);
-	}			
-	if (key == KEY_CMD)
-		meta->keys.b_keyctrl = 1;
+	}		
 }
 
 void	control_colorscheme(int key, t_map *map)
@@ -77,7 +77,7 @@ void	control_colorscheme(int key, t_map *map)
 		map->colors.bottomcolor = AZUL;
 		map->colors.topcolor = BRICK_RED;
 		map->colors.groundcolor = SAFFRON;
-		colorize(map);	
+		colorize(map);
 	}
 	if (key == KEY_2)
 	{

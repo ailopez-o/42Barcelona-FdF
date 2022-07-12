@@ -14,7 +14,7 @@
 #include "../inc/map.h"
 #include <stdlib.h>
 
-void print_nbr(t_meta *meta, int x, int y, int nbr)
+void	print_nbr(t_meta *meta, int x, int y, int nbr)
 {
 	char	*str;
 
@@ -23,7 +23,7 @@ void print_nbr(t_meta *meta, int x, int y, int nbr)
 	free (str);
 }
 
-void print_str(t_meta *meta, int x, int y, char *str)
+void	print_str(t_meta *meta, int x, int y, char *str)
 {
 	mlx_string_put(meta->vars.mlx, meta->vars.win, x, y, TEXT_COLOR, str);
 }

@@ -128,7 +128,7 @@ static int	map_size(int fd, t_map *map)
 	map->limits.axis[Z] = 0;
 	map->zmin = 0;
 	line = get_next_line(fd);
-	map->limits.axis[X] = line_elems(line);	
+	map->limits.axis[X] = line_elems(line);
 	while (line != NULL)
 	{
 		write(1, "🧱", 4);
