@@ -14,6 +14,7 @@
 #include "../inc/keycodes.h"
 #include "../inc/geometry.h"
 #include "../inc/control_utils.h"
+#include "../inc/map_utils.h"
 #include <stdlib.h>
 
 void	control_keys2(int key, t_meta *meta)

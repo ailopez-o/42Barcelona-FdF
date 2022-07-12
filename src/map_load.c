@@ -14,16 +14,10 @@
 #include "../inc/map.h"
 #include "../inc/utils.h"
 #include "../inc/draw_utils.h"
+#include "../inc/map_utils.h"
 #include "../inc/errors.h"
 #include <stdio.h>
 #include <fcntl.h>
-
-static void	show_info(t_map *map)
-{
-	printf("\nMapa Leido [%d][%d][%d][%d] - SIZE[%d] \n", \
-	(int)map->limits.axis[X], (int)map->limits.axis[Y], \
-	(int)map->limits.axis[Z], map->zmin, map->len);
-}
 
 /* 
 *	Acording the z value of the point and de max and min values of the map
@@ -82,56 +76,25 @@ static void	load_points(char *line, t_map *map, int numline)
 	dbl_free(splited);
 }
 
-static int	line_elems(char *line)
-{
-	int		i;
-	char	**split;
-
-	split = ft_split(line, ' ');
-	i = 0;
-	while (split[i])
-		i++;
-	dbl_free(split);
-	return (i);
-}
-
-static void	z_limits(char **splited, t_map *map)
-{
-	int	i;
-	int	valor;
-
-	i = 0;
-	while (splited[i])
-	{
-		valor = ft_atoi(&splited[i][0]);
-		if (map->limits.axis[Z] < valor)
-			map->limits.axis[Z] = valor;
-		if (map->zmin > valor)
-			map->zmin = valor;
-		i++;
-	}
-}
-
 /* 
 *	This function determinates the max values x, y, z of the map
 *	and return -1 if the maps has different line sizes.
 */
 
-static int	map_size(int fd, t_map *map)
+static void	map_size(char *path, t_map *map)
 {
 	char	*line;
 	char	**splited;
 	int		linelen;
+	int		fd;
 
-	map->len = 0;
-	map->limits.axis[Y] = 0;
-	map->limits.axis[Z] = 0;
-	map->zmin = 0;
+	fd = open(path, O_RDONLY);
+	if (fd < 2)
+		terminate(ERR_OPEN);
 	line = get_next_line(fd);
 	map->limits.axis[X] = line_elems(line);
 	while (line != NULL)
 	{
-		write(1, "🧱", 4);
 		splited = ft_split(line, ' ');
 		z_limits(splited, map);
 		linelen = line_elems(line);
@@ -144,7 +107,7 @@ static int	map_size(int fd, t_map *map)
 		free(line);
 		line = get_next_line(fd);
 	}
-	return (1);
+	close (fd);
 }
 
 int	load_map(t_map *map, char *path)
@@ -154,14 +117,10 @@ int	load_map(t_map *map, char *path)
 	int		numline;
 
 	map_ini(map);
-	fd = open(path, O_RDONLY);
-	if (fd < 2)
-		terminate(ERR_OPEN);
-	map_size(fd, map);
+	map_size(path, map);
 	map->points = ft_calloc (map->len, sizeof(t_point));
 	if (map->points == NULL)
 		terminate(ERR_MEM);
-	close (fd);
 	fd = open(path, O_RDONLY);
 	if (fd < 2)
 		terminate(ERR_OPEN);

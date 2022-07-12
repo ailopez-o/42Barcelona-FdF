@@ -1,20 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   map_utils.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aitorlopezdeaudicana <marvin@42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/09 19:27:13 by aitorlope         #+#    #+#             */
-/*   Updated: 2022/07/09 19:27:16 by aitorlope        ###   ########.fr       */
+/*   Created: 2022/07/12 13:34:48 by aitorlope         #+#    #+#             */
+/*   Updated: 2022/07/12 13:34:51 by aitorlope        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef UTILS_H
-# define UTILS_H
+#ifndef MAP_UTILS_H
+# define MAP_UTILS_H
 
-void	dbl_free(char **ptr);
-int		ft_round(double num);
-void	matrix_init(float (*matrix)[3]);
-void    print_nbr(t_meta *meta, int x, int y, int nbr);
-void    print_str(t_meta *meta, int x, int y, char *str);
+void	colorize(t_map *map);
+void	wired(t_meta *meta, t_point *wire);
+void	doted(t_meta *meta, t_point *proyect);
+void	z_division(t_point *proyect, float divisor, int len);
+void	map_ini(t_map *map);
+void	show_info(t_map *map);
+int		line_elems(char *line);
+void	z_limits(char **splited, t_map *map);
 #endif

@@ -113,12 +113,7 @@ typedef struct s_meta {
 
 int		draw_map(t_meta *meta, int fit);
 int		load_map(t_map *map, char *path);
-void	colorize(t_map *map);
-void	map_ini(t_map *map);
-void	z_division(t_point *proyect, float divisor, int len);
 void	generate_background(t_meta *meta, int backcolor, int menucolor);
-void	wired(t_meta *meta, t_point *wire);
-void	doted(t_meta *meta, t_point *proyect);
 void	draw_menu(t_meta *meta);
 void	load_color(int max, int min, t_point *point, t_colors	colors);
 #endif
