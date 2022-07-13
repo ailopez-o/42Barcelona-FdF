@@ -12,7 +12,6 @@
 #ifndef MAP_H
 # define MAP_H
 
-
 /* DEFINES NORMINETTE REFUSED
 #define XCENTER				((WINX - MENU_WIDTH) / 2) + MENU_WIDTH
 #define YCENTER				WINY / 2
