@@ -19,6 +19,53 @@
 #include <stdio.h>
 #include <fcntl.h>
 
+#define BUFFER_SIZE 5000
+
+
+int	num_lines(char *buffer)
+{
+	int numlines;
+
+	numlines = 0;
+	while(*buffer)
+	{
+		if (*buffer == '\n')
+			numlines++;
+		buffer++;
+	}
+	return (numlines);
+}
+
+void fast_load(char *path, t_map *map)
+{
+	int		fd;
+	char	*buffer;
+	int		byte_read;
+	int		i;
+
+	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (buffer == NULL)
+		terminate(ERR_MEM);
+	fd = open(path, O_RDONLY);
+	if (fd < 2)
+		terminate(ERR_OPEN);
+	buffer[BUFFER_SIZE] = '\0';
+	byte_read = read(fd, buffer, BUFFER_SIZE);
+	i = 0;
+	while (buffer[i] != '\n' && buffer[i] != '\0')
+		i++;
+	map->limits.axis[Y] = 0;
+	while (byte_read)
+	{
+		map->limits.axis[Y] += num_lines(buffer);
+		byte_read = read(fd, buffer, BUFFER_SIZE);
+	}
+	close(fd);
+	free(buffer);
+}
+
+
+
 /* 
 *	Acording the z value of the point and de max and min values of the map
 *	this function set the color needed of the point received.
@@ -54,7 +101,7 @@ static void	load_points(char *line, t_map *map, int numline)
 	char	**color;
 	int		i;
 
-	write(1, "✅", 4);
+	write(1, "⚡", 4);
 	splited = ft_split(line, ' ');
 	i = 0;
 	while (splited[i])
@@ -117,6 +164,8 @@ int	load_map(t_map *map, char *path)
 	int		numline;
 
 	map_ini(map);
+	//fast_load(path, map);
+	map_ini(map);	
 	map_size(path, map);
 	map->points = ft_calloc (map->len, sizeof(t_point));
 	if (map->points == NULL)
@@ -133,7 +182,9 @@ int	load_map(t_map *map, char *path)
 		load_points(line, map, numline);
 		free(line);
 		line = get_next_line(fd);
+		//printf("LOADING [%f]", (numline/map->limits.axis[Y])*100);
 	}
+
 	show_info(map);
 	return (1);
 }
