@@ -124,6 +124,5 @@ int	draw_map(t_meta *meta, int fit)
 	free (proyect);
 	t = clock() - t;
 	meta->map.performance = ((double)t) / CLOCKS_PER_SEC;
-	printf("Performance [%f]\n", meta->map.performance);
 	return (1);
 }

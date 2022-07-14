@@ -37,7 +37,7 @@ void	set_color(char *buffer, int endian, int color, int alpha)
 	}
 }
 
-static int	my_putpixel(t_meta *meta, t_point pixel)
+int	my_putpixel(t_meta *meta, t_point pixel)
 {
 	int	mypixel;
 	int	alpha;
@@ -56,62 +56,11 @@ static int	my_putpixel(t_meta *meta, t_point pixel)
 	return (0);
 }
 
-int	gradient(int startcolor, int endcolor, int len, int pix)
-{
-	double	increment[3];
-	int		new[3];
-	int		newcolor;
-
-	increment[0] = (double)((endcolor >> 16) - \
-					(startcolor >> 16)) / (double)len;
-	increment[1] = (double)(((endcolor >> 8) & 0xFF) - \
-					((startcolor >> 8) & 0xFF)) / (double)len;
-	increment[2] = (double)((endcolor & 0xFF) - (startcolor & 0xFF)) \
-					/ (double)len;
-	new[0] = (startcolor >> 16) + ft_round(pix * increment[0]);
-	new[1] = ((startcolor >> 8) & 0xFF) + ft_round(pix * increment[1]);
-	new[2] = (startcolor & 0xFF) + ft_round(pix * increment[2]);
-	newcolor = (new[0] << 16) + (new[1] << 8) + new[2];
-	return (newcolor);
-}
-
-int	valid_pixel(t_point pixel)
-{
-	if (pixel.axis[X] < 0 || pixel.axis[X] > WINX)
-		return (0);
-	if (pixel.axis[Y] < 0 || pixel.axis[Y] > WINY)
-		return (0);
-	return (1);
-}
-
-int	draw_line(t_meta *meta, t_point start, t_point end)
-{
-	t_point	delta;
-	t_point	pixel;
-	int		pixels;
-	int		len;
-
-	if (valid_pixel(start) == 0 && valid_pixel(end) == 0)
-		return (0);
-	delta.axis[X] = end.axis[X] - start.axis[X];
-	delta.axis[Y] = end.axis[Y] - start.axis[Y];
-	pixels = sqrt((delta.axis[X] * delta.axis[X]) + \
-			(delta.axis[Y] * delta.axis[Y]));
-	len = pixels;
-	delta.axis[X] /= pixels;
-	delta.axis[Y] /= pixels;
-	pixel.axis[X] = start.axis[X];
-	pixel.axis[Y] = start.axis[Y];
-	pixel.color = start.color;
-	while (pixels > 0)
-	{
-		pixel.color = gradient(start.color, end.color, len, len - pixels);
-		my_putpixel(meta, pixel);
-		pixel.axis[X] += delta.axis[X];
-		pixel.axis[Y] += delta.axis[Y];
-		pixels = pixels - 1;
-	}
-	return (1);
+int	get_color(t_meta *meta, int color)
+{	
+	if (meta->bitmap.bitxpixel != 32)
+		color = mlx_get_color_value(meta->vars.mlx, color);
+	return (color);
 }
 
 void	generate_background(t_meta *meta, int backcolor, int menucolor)
@@ -120,10 +69,8 @@ void	generate_background(t_meta *meta, int backcolor, int menucolor)
 	int	pixel;
 	int	color;
 
-	if (meta->bitmap.bitxpixel != 32)
-		backcolor = mlx_get_color_value(meta->vars.mlx, backcolor);
-	if (meta->bitmap.bitxpixel != 32)
-		menucolor = mlx_get_color_value(meta->vars.mlx, menucolor);
+	backcolor = get_color(meta, backcolor);
+	menucolor = get_color(meta, menucolor);
 	axis[X] = 0;
 	axis[Y] = 0;
 	while (axis[Y] < WINY)
@@ -142,46 +89,4 @@ void	generate_background(t_meta *meta, int backcolor, int menucolor)
 		axis[Y]++;
 		axis[X] = 0;
 	}
-}
-
-void	draw_dot(t_meta *meta, t_point point, int radius)
-{
-    int		x = radius;
-    int		y = 0;
-    int		xChange = 1 - (radius << 1);
-    int		yChange = 0;
-    int		radiusError = 0;
-    t_point	pixel;
-
-    pixel.color = point.color;
-    while (x >= y)
-    {
-        for (int i = point.axis[X] - x; i <= point.axis[X] + x; i++)
-        {
-            pixel.axis[X] = i;
-            pixel.axis[Y] = (int)point.axis[Y] + y;
-            my_putpixel(meta, pixel);
-            pixel.axis[X] = i;
-            pixel.axis[Y] = (int)point.axis[Y] - y;
-            my_putpixel(meta, pixel);  
-        }
-        for (int i = point.axis[X] - y; i <= point.axis[X] + y; i++)
-        {
-            pixel.axis[X] = i;
-            pixel.axis[Y] = (int)point.axis[Y] + x;
-            my_putpixel(meta, pixel);
-            pixel.axis[X]= i;
-            pixel.axis[Y] = (int)point.axis[Y] - x;
-            my_putpixel(meta, pixel);    
-        }
-        y++;
-        radiusError += yChange;
-        yChange += 2;
-        if (((radiusError << 1) + xChange) > 0)
-        {
-            x--;
-            radiusError += xChange;
-            xChange += 2;
-        }
-    }
 }

@@ -26,6 +26,9 @@ int	main(int argv, char **argc)
 		terminate(ERR_ARGS);
 	if (load_map(&meta.map, argc[1]) < 0)
 		terminate(ERR_MAP);
+	meta.keys.b_keyctrl = 0;
+	meta.keys.b_mouse_l = 0;
+	meta.keys.b_mouse_r = 0;
 	meta.vars.mlx = mlx_init();
 	meta.vars.win = mlx_new_window(meta.vars.mlx, WINX, WINY, "FDF - ailopez-");
 	meta.bitmap.img = mlx_new_image(meta.vars.mlx, WINX, WINY);

@@ -19,8 +19,8 @@
 #include <stdio.h>
 #include <fcntl.h>
 
+/*
 #define BUFFER_SIZE 5000
-
 
 int	num_lines(char *buffer)
 {
@@ -64,9 +64,6 @@ void fast_load(char *path, t_map *map)
 	free(buffer);
 }
 
-
-
-/* 
 *	Acording the z value of the point and de max and min values of the map
 *	this function set the color needed of the point received.
 *	All the colors are defined in fdf.h 
@@ -164,8 +161,7 @@ int	load_map(t_map *map, char *path)
 	int		numline;
 
 	map_ini(map);
-	//fast_load(path, map);
-	map_ini(map);	
+	map_ini(map);
 	map_size(path, map);
 	map->points = ft_calloc (map->len, sizeof(t_point));
 	if (map->points == NULL)
@@ -182,9 +178,7 @@ int	load_map(t_map *map, char *path)
 		load_points(line, map, numline);
 		free(line);
 		line = get_next_line(fd);
-		//printf("LOADING [%f]", (numline/map->limits.axis[Y])*100);
 	}
-
 	show_info(map);
 	return (1);
 }
