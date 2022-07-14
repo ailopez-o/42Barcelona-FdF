@@ -61,9 +61,11 @@ all:	$(NAME)
 			
 -include 	${DEPS}
 $(NAME):	$(LIBFT) $(MINILIBX) $(OBJ)
+			make -sC $(LIBFT_DIR)
+			make -sC $(MINILIBX_DIR)			
 			@$(CC) $(CFLAGS) $(FSANITIZE) $(OBJ) $(LIBFT) $(MINILIBXCC) $(OPENGL) -o $(NAME)		
-			@echo "$(BLUE)$(CC) $(CFLAGS) $(FSANITIZE) $(OBJ) $(LIBFT) $(MINILIBXCC) $(OPENGL) -o $(NAME)$(DEF_COLOR)"
-			@echo "$(GREEN)FDF compiled!$(DEF_COLOR)"
+			@echo "👉 $(BLUE)$(CC) $(CFLAGS) $(FSANITIZE) $(OBJ) $(LIBFT) $(MINILIBXCC) $(OPENGL) -o $(NAME)$(DEF_COLOR)"
+			@echo "$(GREEN)✨ FDF compiled!$(DEF_COLOR)"
 
 			
 
@@ -71,18 +73,18 @@ bonus:
 			@$(MAKE) all
 			
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c $(INCS) | $(OBJF)
-			@echo "$(YELLOW)Compiling: $< $(DEF_COLOR)"
+			@echo "🍩 $(YELLOW)Compiling: $< $(DEF_COLOR)"
 			$(CC) $(CFLAGS) -MMD -c $< -o $@
 
 $(OBJF):
 			@mkdir -p $(OBJ_DIR)
 
 $(LIBFT):
-	@make -sC $(LIBFT_DIR)
+	@make -C $(LIBFT_DIR)
 	@echo "$(GREEN)Libft compiled!$(DEF_COLOR)"	
 
 $(MINILIBX):
-	@make -sC $(MINILIBX_DIR)
+	@make -C $(MINILIBX_DIR)
 	@echo "$(GREEN)Minilibx compiled!$(DEF_COLOR)"			
 
 clean:
