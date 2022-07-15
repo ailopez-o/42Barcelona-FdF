@@ -85,12 +85,15 @@ void	z_division(t_point *proyect, float divisor, int len)
 	}
 }
 
-void	map_ini(t_map *map)
+void	map_ini(t_map *map, int total)
 {
-	map->len = 0;
-	map->limits.axis[Y] = 0;
-	map->limits.axis[Z] = 0;
-	map->zmin = 0;
+	if (total)
+	{
+		map->len = 0;
+		map->limits.axis[Y] = 0;
+		map->limits.axis[Z] = 0;
+		map->zmin = 0;
+	}
 	map->b_lines = 1;
 	map->b_dots = 0;
 	map->renders = 0;

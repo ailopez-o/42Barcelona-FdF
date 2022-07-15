@@ -50,7 +50,7 @@ void	control_keys1(int key, t_meta *meta)
 		terminate_program(meta);
 	if (key == KEY_R)
 	{
-		map_ini(&meta->map);
+		map_ini(&meta->map, 0);
 		colorize(&meta->map);
 		draw_map(meta, FIT);
 	}	

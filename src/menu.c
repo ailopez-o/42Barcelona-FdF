@@ -101,14 +101,10 @@ static void	draw_info(t_meta *meta)
 	print_str(meta, MENU_TAB, line, "Performance(ms):");
 	print_nbr(meta, MENU_TAB + 170, line, meta->map.performance * 1000);
 	line += LINE_SIZE;
-	print_str(meta, MENU_TAB, line, "X Axis:");
-	print_nbr(meta, MENU_TAB + 80, line, meta->map.ang[X]);
-	line += LINE_SIZE;
-	print_str(meta, MENU_TAB, line, "Y Axis:");
-	print_nbr(meta, MENU_TAB + 80, line, meta->map.ang[Y]);
-	line += LINE_SIZE;
-	print_str(meta, MENU_TAB, line, "Z Axis:");
-	print_nbr(meta, MENU_TAB + 80, line, meta->map.ang[Z]);
+	print_str(meta, MENU_TAB, line, "X, Y, Z: [   ] [   ] [   ]");
+	print_nbr(meta, MENU_TAB + 100, line, meta->map.ang[X]);
+	print_nbr(meta, MENU_TAB + 160, line, meta->map.ang[Y]);
+	print_nbr(meta, MENU_TAB + 220, line, meta->map.ang[Z]);
 	line += LINE_SIZE;
 	print_str(meta, MENU_TAB, line, "Zoom:");
 	print_nbr(meta, MENU_TAB + 80, line, meta->map.scale);

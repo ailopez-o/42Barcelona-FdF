@@ -107,7 +107,6 @@ int	draw_line(t_meta *meta, t_point start, t_point end)
 	delta.axis[Y] /= pixels;
 	pixel.axis[X] = start.axis[X];
 	pixel.axis[Y] = start.axis[Y];
-	pixel.color = start.color;
 	while (pixels > 0)
 	{
 		pixel.color = gradient(start.color, end.color, len, len - pixels);
