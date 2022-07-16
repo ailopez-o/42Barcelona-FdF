@@ -24,19 +24,14 @@
 </p>
 
 
-Para compilar el juego con la versión sin enemigos ↙️
+Para compilar el programa ↙️
 
 ```bash
 $ make
 ```
-Para compilar el juego con la versión con enemigos <img width="18" alt="enemy" src="https://user-images.githubusercontent.com/66915274/178278512-cc1cead2-3500-48d0-a2e2-5e9295860635.png">
- ↙️
-```bash
-$ make bonus
-```
 Una vez ya has compilado deberas ejecutar el programa seguido del mapa 🗺️
 ```bash
-$ ./so_long map.ber
+$ ./so_long map.fdf
 ```
 
 
