@@ -29,7 +29,7 @@ To compile the program ↙️
 ```bash
 $ make
 ```
-To load you hace to launch the program with a valir mapo as parameter 🗺️
+To load you have to launch the program with a valid map as parameter 🗺️
 ```bash
 $ ./fdf map.fdf
 ```
