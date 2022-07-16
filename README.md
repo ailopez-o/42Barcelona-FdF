@@ -28,10 +28,10 @@
 
 |TECLA|ACCION|
 |---|---|
-|`+ / -`,| Z axis divisor|
-|`A`, ⬅️|Izquierda|
-|`S`, ⬇️|Abajo|
-|`D`,  ➡️ |Derecha|
+|`+ / -`| Z axis divisor|
+|`L`| Lines ON /OFF|
+|`D`| Dots ON /OFF|
+|`B / Cmd + B`| Blendig + / -|
 |`ESC ❌`|Cierra la ventana|
 
 
