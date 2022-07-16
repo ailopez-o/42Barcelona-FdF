@@ -28,10 +28,12 @@
 
 |TECLA|ACCION|
 |---|---|
+|`Mouse (Right Clicked)`| X/Y axis Rotation|
+|`Mouse (Left Clicked)`| Translation|
 |`+ / -`| Z axis divisor|
 |`L`| Lines ON /OFF|
 |`D`| Dots ON /OFF|
-|`B / Cmd + B`| Blendig + / -|
+|`B / Cmd+B`| Blendig + / -|
 |`ESC ❌`|Cierra la ventana|
 
 
