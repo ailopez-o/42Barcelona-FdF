@@ -47,6 +47,7 @@ $ ./fdf map.fdf
 |`+ / -`| Z axis divisor|
 |`L`| Lines ON /OFF|
 |`D`| Dots ON /OFF|
+|`X`| Extra Wired ON /OFF|
 |`B / Cmd+B`| Blendig + / -|
 |`1`| Terrain Color Scheme|
 |`2`| White & Black Color Scheme|

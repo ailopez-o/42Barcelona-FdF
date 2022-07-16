@@ -96,6 +96,7 @@ typedef struct m_map {
 	int			renders;
 	bool		b_lines;
 	bool		b_dots;
+	bool		b_pluslines;
 	double		performance;
 }	t_map;
 

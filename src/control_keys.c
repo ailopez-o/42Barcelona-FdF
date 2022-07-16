@@ -24,6 +24,8 @@ void	control_keys2(int key, t_meta *meta)
 		meta->map.b_dots = !meta->map.b_dots;
 	if (key == KEY_L)
 		meta->map.b_lines = !meta->map.b_lines;
+	if (key == KEY_X)
+		meta->map.b_pluslines = !meta->map.b_pluslines;
 	if (key == KEY_F)
 		draw_map(meta, FIT);
 	if (key == KEY_CMD)
