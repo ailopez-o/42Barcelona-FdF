@@ -28,7 +28,7 @@
 
 |TECLA|ACCION|
 |---|---|
-|`W`, ⬆️|Arriba|
+|`+ / -`,| Z axis divisor|
 |`A`, ⬅️|Izquierda|
 |`S`, ⬇️|Abajo|
 |`D`,  ➡️ |Derecha|
