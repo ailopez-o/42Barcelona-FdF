@@ -42,6 +42,18 @@ void	load_color(int max, int min, t_point *point, t_colors	colors)
 		-min, - (min - point->axis[Z]));
 }
 
+void	load_hexcolors(t_map *map, char *line)
+{
+	char	**color;
+
+	if (ft_strchr(line, ',') != 0)
+	{
+		color = ft_split(line, ',');
+		map->points[map->len].color = strtol(color[1] + 2, NULL, 16);
+		dbl_free(color);
+	}
+}
+
 /* 
 *	Splits the info of line to storage
 *	the points in the map->point array. 
@@ -51,7 +63,6 @@ void	load_color(int max, int min, t_point *point, t_colors	colors)
 static void	load_points(char *line, t_map *map, int numline)
 {
 	char	**splited;
-	char	**color;
 	int		i;
 
 	write(1, "⚡", 4);
@@ -59,17 +70,14 @@ static void	load_points(char *line, t_map *map, int numline)
 	i = 0;
 	while (splited[i] && splited[i][0] != '\n')
 	{
+		if (!valid_point(&splited[i][0]))
+			terminate(ERR_EMPTY);
 		map->points[map->len].axis[Z] = ft_atoi(&splited[i][0]);
 		map->points[map->len].axis[X] = i - map->limits.axis[X] / 2;
 		map->points[map->len].axis[Y] = numline - map->limits.axis[Y] / 2;
 		load_color((int)map->limits.axis[Z], map->zmin, \
 		&map->points[map->len], map->colors);
-		if (ft_strchr(splited[i], ',') != 0)
-		{
-			color = ft_split(splited[i], ',');
-			map->points[map->len].color = strtol(color[1] + 2, NULL, 16);
-			dbl_free(color);
-		}
+		load_hexcolors(map, splited[i]);
 		i++;
 		map->len++;
 	}
@@ -91,7 +99,7 @@ static void	map_size(char *path, t_map *map)
 	fd = open(path, O_RDONLY);
 	if (fd < 2)
 		terminate(ERR_OPEN);
-	line = get_next_line(fd);	
+	line = get_next_line(fd);
 	map->limits.axis[X] = line_elems(ft_split(line, ' '));
 	while (line != NULL)
 	{

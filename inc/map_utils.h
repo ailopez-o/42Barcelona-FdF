@@ -20,4 +20,5 @@ void	map_ini(t_map *map, int total);
 void	show_info(t_map *map);
 int		line_elems(char **elems);
 void	z_limits(char **splited, t_map *map);
+int		valid_point(char *value);
 #endif

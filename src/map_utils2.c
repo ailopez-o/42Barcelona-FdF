@@ -48,3 +48,22 @@ void	z_limits(char **splited, t_map *map)
 		i++;
 	}
 }
+
+int	valid_point(char *value)
+{
+	int	valid;
+
+	valid = 0;
+	if (*value == '-' || *value == '+' || ft_isdigit(*value))
+		valid++;
+	value++;
+	while (ft_isdigit(*value))
+	{
+		value++;
+		valid++;
+	}
+	if (valid == 0)
+		return (0);
+	else
+		return (1);
+}
