@@ -29,7 +29,9 @@
 |TECLA|ACCION|
 |---|---|
 |`Mouse (Right Clicked)`| X/Y axis Rotation|
-|`Mouse (Left Clicked)`| Translation|
+|`Mouse (Left Clicked)`| Traslation|
+|`Arrows`| X/Y axis Rotation. Cmd cliked +90ª|
+|`Q / W`| Z axis Rotation. Cmd cliked +90ª|
 |`+ / -`| Z axis divisor|
 |`L`| Lines ON /OFF|
 |`D`| Dots ON /OFF|
