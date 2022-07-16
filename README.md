@@ -24,14 +24,14 @@
 </p>
 
 
-Para compilar el programa ↙️
+To compile the program ↙️
 
 ```bash
 $ make
 ```
-Una vez ya has compilado deberas ejecutar el programa seguido del mapa 🗺️
+To load you hace to launch the program with a valir mapo as parameter 🗺️
 ```bash
-$ ./so_long map.fdf
+$ ./fdf map.fdf
 ```
 
 
@@ -54,7 +54,7 @@ $ ./so_long map.fdf
 |`ESC ❌`|Cierra la ventana|
 
 
-Documentation:
+## Documentación
 
 3d Transformations: 
 
