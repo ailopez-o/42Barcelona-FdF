@@ -24,6 +24,17 @@
 </p>
 
 
+## Controles 🕹
+
+|TECLA|ACCION|
+|---|---|
+|`W`, ⬆️|Arriba|
+|`A`, ⬅️|Izquierda|
+|`S`, ⬇️|Abajo|
+|`D`,  ➡️ |Derecha|
+|`ESC ❌`|Cierra la ventana|
+
+
 Documentation:
 
 3d Transformations: 
