@@ -38,6 +38,8 @@
 |`D`| Dots ON /OFF|
 |`B / Cmd+B`| Blendig + / -|
 |`1`| Terrain Color Scheme|
+|`2`| White & Black Color Scheme|
+|`3`| Black & White Color Scheme|
 |`ESC ❌`|Cierra la ventana|
 
 
