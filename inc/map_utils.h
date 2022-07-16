@@ -18,6 +18,6 @@ void	doted(t_meta *meta, t_point *proyect);
 void	z_division(t_point *proyect, float divisor, int len);
 void	map_ini(t_map *map, int total);
 void	show_info(t_map *map);
-int		line_elems(char *line);
+int		line_elems(char **elems);
 void	z_limits(char **splited, t_map *map);
 #endif

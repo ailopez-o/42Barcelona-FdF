@@ -29,7 +29,7 @@ OBJS_BONUS	=	$(SRCS_BONUS:%.c=%.o)
 
 CC		=	gcc
 
-CFLAGS	=	-Wall -Wextra -Werror
+CFLAGS	=	-g -Wall -Wextra -Werror
 
 RM		=	rm -f
 

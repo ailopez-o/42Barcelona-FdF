@@ -20,50 +20,6 @@
 #include <fcntl.h>
 
 /*
-#define BUFFER_SIZE 5000
-
-int	num_lines(char *buffer)
-{
-	int numlines;
-
-	numlines = 0;
-	while(*buffer)
-	{
-		if (*buffer == '\n')
-			numlines++;
-		buffer++;
-	}
-	return (numlines);
-}
-
-void fast_load(char *path, t_map *map)
-{
-	int		fd;
-	char	*buffer;
-	int		byte_read;
-	int		i;
-
-	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
-	if (buffer == NULL)
-		terminate(ERR_MEM);
-	fd = open(path, O_RDONLY);
-	if (fd < 2)
-		terminate(ERR_OPEN);
-	buffer[BUFFER_SIZE] = '\0';
-	byte_read = read(fd, buffer, BUFFER_SIZE);
-	i = 0;
-	while (buffer[i] != '\n' && buffer[i] != '\0')
-		i++;
-	map->limits.axis[Y] = 0;
-	while (byte_read)
-	{
-		map->limits.axis[Y] += num_lines(buffer);
-		byte_read = read(fd, buffer, BUFFER_SIZE);
-	}
-	close(fd);
-	free(buffer);
-}
-
 *	Acording the z value of the point and de max and min values of the map
 *	this function set the color needed of the point received.
 *	All the colors are defined in fdf.h 
@@ -101,7 +57,7 @@ static void	load_points(char *line, t_map *map, int numline)
 	write(1, "⚡", 4);
 	splited = ft_split(line, ' ');
 	i = 0;
-	while (splited[i])
+	while (splited[i] && splited[i][0] != '\n')
 	{
 		map->points[map->len].axis[Z] = ft_atoi(&splited[i][0]);
 		map->points[map->len].axis[X] = i - map->limits.axis[X] / 2;
@@ -135,13 +91,13 @@ static void	map_size(char *path, t_map *map)
 	fd = open(path, O_RDONLY);
 	if (fd < 2)
 		terminate(ERR_OPEN);
-	line = get_next_line(fd);
-	map->limits.axis[X] = line_elems(line);
+	line = get_next_line(fd);	
+	map->limits.axis[X] = line_elems(ft_split(line, ' '));
 	while (line != NULL)
 	{
 		splited = ft_split(line, ' ');
 		z_limits(splited, map);
-		linelen = line_elems(line);
+		linelen = line_elems(splited);
 		if (map->limits.axis[X] != linelen)
 			terminate(ERR_LINE);
 		map->limits.axis[X] = linelen;

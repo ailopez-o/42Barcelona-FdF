@@ -21,16 +21,13 @@ void	show_info(t_map *map)
 	(int)map->limits.axis[Z], map->zmin, map->len);
 }
 
-int	line_elems(char *line)
+int	line_elems(char **elems)
 {
 	int		i;
-	char	**split;
 
-	split = ft_split(line, ' ');
 	i = 0;
-	while (split[i])
+	while (elems[i] && elems[i][0] != '\n')
 		i++;
-	dbl_free(split);
 	return (i);
 }
 
