@@ -12,14 +12,15 @@
 #include "../lib/libft/libft.h"
 #include "../inc/defines.h"
 #include "../inc/utils.h"
-#include <stdio.h>
 
+/*
 void	show_info(t_map *map)
 {
 	printf("\nMapa Leido [%d][%d][%d][%d] - SIZE[%d] \n", \
 	(int)map->limits.axis[X], (int)map->limits.axis[Y], \
 	(int)map->limits.axis[Z], map->zmin, map->len);
 }
+*/
 
 int	line_elems(char **elems)
 {

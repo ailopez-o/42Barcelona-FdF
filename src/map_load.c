@@ -16,7 +16,6 @@
 #include "../inc/draw_utils.h"
 #include "../inc/map_utils.h"
 #include "../inc/errors.h"
-#include <stdio.h>
 #include <fcntl.h>
 
 /*
@@ -142,6 +141,5 @@ int	load_map(t_map *map, char *path)
 		free(line);
 		line = get_next_line(fd);
 	}
-	show_info(map);
 	return (1);
 }

@@ -16,7 +16,6 @@
 #include "../inc/geometry.h"
 #include "../inc/errors.h"
 #include "../inc/map_utils.h"
-#include <stdio.h>
 #include <time.h>
 #include <math.h>
 #include <stdlib.h>
