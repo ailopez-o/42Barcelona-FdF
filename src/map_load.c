@@ -100,15 +100,15 @@ static void	map_size(char *path, t_map *map)
 	if (fd < 2)
 		terminate(ERR_OPEN);
 	line = get_next_line(fd);
-	map->limits.axis[X] = line_elems(ft_split(line, ' '));
 	while (line != NULL)
 	{
 		splited = ft_split(line, ' ');
 		z_limits(splited, map);
 		linelen = line_elems(splited);
+		if (map->limits.axis[X] == 0)
+			map->limits.axis[X] = linelen;
 		if (map->limits.axis[X] != linelen)
 			terminate(ERR_LINE);
-		map->limits.axis[X] = linelen;
 		map->len += map->limits.axis[X];
 		map->limits.axis[Y]++;
 		dbl_free(splited);
