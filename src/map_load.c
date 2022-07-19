@@ -123,6 +123,7 @@ int	load_map(t_map *map, char *path)
 	char	*line;
 	int		numline;
 
+	map->renders = 0;
 	map_ini(map, 1);
 	map_size(path, map);
 	map->points = ft_calloc (map->len, sizeof(t_point));
