@@ -1,0 +1,3 @@
+[submodule "lib/libft"]
+	path = lib/libft
+	url = git@github.com:ailopez-o/42Barcelona-Libft.git
