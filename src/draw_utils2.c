@@ -15,6 +15,10 @@
 #include "../inc/utils.h"
 #include <math.h>
 
+/*
+*	Auxiliar function to draw a circle
+*/
+
 static void	dot_util(t_meta *meta, t_point pixel, t_point point, int coord)
 {
 	int	i;
@@ -31,6 +35,10 @@ static void	dot_util(t_meta *meta, t_point pixel, t_point point, int coord)
 		i++;
 	}
 }
+
+/*
+*	This function draw a circule in t_point position and with r radius
+*/
 
 void	draw_dot(t_meta *meta, t_point point, int radius)
 {
@@ -61,6 +69,13 @@ void	draw_dot(t_meta *meta, t_point point, int radius)
 	}
 }
 
+/*
+*	This function generates the color of each pixel between starcolor and endcolor
+*	To do that get the RGB chanels independtly and create a 
+*	linear escale between each channel.
+*	The function return the color number "pix" of line "0->len".
+*/
+
 int	gradient(int startcolor, int endcolor, int len, int pix)
 {
 	double	increment[3];
@@ -80,6 +95,10 @@ int	gradient(int startcolor, int endcolor, int len, int pix)
 	return (newcolor);
 }
 
+/*
+*	This function checks if the point is in the windows limit to avoid draw it
+*/
+
 static int	valid_pixel(t_point pixel)
 {
 	if (pixel.axis[X] < 0 || pixel.axis[X] > WINX)
@@ -88,6 +107,12 @@ static int	valid_pixel(t_point pixel)
 		return (0);
 	return (1);
 }
+
+/*
+*	This function checks if the whole line is out of the window to avoid the 
+*	operations and getting better the performance.
+*	Then calculate all the point of the line with the Bresenham's line algorithm
+*/
 
 int	draw_line(t_meta *meta, t_point start, t_point end)
 {

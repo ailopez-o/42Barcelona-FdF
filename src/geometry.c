@@ -12,6 +12,10 @@
 #include "../inc/defines.h"
 #include <math.h>
 
+/*
+*	Iterates all the points and add the "move" traslation
+*/
+
 void	traslate(t_point *points, t_point move, int len)
 {
 	int	i;
@@ -25,6 +29,10 @@ void	traslate(t_point *points, t_point move, int len)
 		i++;
 	}
 }
+
+/*
+*	Iterates all the points and multiply by scale
+*/
 
 void	scale(t_point *points, int scale, int len)
 {
@@ -40,6 +48,10 @@ void	scale(t_point *points, int scale, int len)
 	}
 }
 
+/*
+*	Set the values to draw ISOMETRIC view
+*/
+
 void	isometric(t_map *map)
 {
 	map->ang[X] = 30;
@@ -50,6 +62,10 @@ void	isometric(t_map *map)
 	map->source.axis[Y] = WINY / 2;
 }
 
+/*
+*	Set the values to draw PARALLEL view
+*/
+
 void	parallel(t_map *map)
 {
 	map->ang[X] = 90;
@@ -59,6 +75,11 @@ void	parallel(t_map *map)
 	map->source.axis[X] = ((WINX - MENU_WIDTH) / 2) + MENU_WIDTH;
 	map->source.axis[Y] = WINY / 2;
 }
+
+/*
+*	Iterate all the point to move the z value depending the range 
+*	and the x and y position
+*/
 
 void	bending(t_point *points, int len, float range)
 {

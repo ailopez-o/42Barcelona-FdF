@@ -18,6 +18,10 @@
 #include "../inc/map_utils.h"
 #include <stdlib.h>
 
+/* 
+*	This function handle some key press events
+*/
+
 void	control_keys2(int key, t_meta *meta)
 {
 	if (key == KEY_D)
@@ -46,6 +50,10 @@ void	control_keys2(int key, t_meta *meta)
 		meta->map.zdivisor++;
 }
 
+/* 
+*	This function handle some key press events
+*/
+
 void	control_keys1(int key, t_meta *meta)
 {
 	if (key == KEY_ESC)
@@ -72,6 +80,10 @@ void	control_keys1(int key, t_meta *meta)
 		draw_map(meta, FIT);
 	}		
 }
+
+/* 
+*	This function handle the colorscheme dependig the key pressed
+*/
 
 void	control_colorscheme(int key, t_map *map)
 {
@@ -101,6 +113,10 @@ void	control_colorscheme(int key, t_map *map)
 	}
 }
 
+/* 
+*	This function handle when a key is pressed
+*/
+
 int	key_press(int key, void *param)
 {
 	t_meta	*meta;
@@ -113,6 +129,10 @@ int	key_press(int key, void *param)
 	draw_map(meta, FREE);
 	return (0);
 }
+
+/* 
+*	This function handle when a key is relased
+*/
 
 int	key_release(int key, void *param)
 {

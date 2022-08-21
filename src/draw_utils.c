@@ -15,6 +15,8 @@
 #include <math.h>
 
 /*
+*	This function fills 4 bytes of the given address whith the values of colors
+*	depending the andian
 *      endian = 1 --> Most significant (Alpha) byte first
 *      endian = 0 --> Least significant (Blue) byte first
 */
@@ -37,6 +39,12 @@ void	set_color(char *buffer, int endian, int color, int alpha)
 	}
 }
 
+/*
+*	This function calculate the position of the pixel in the img array:
+*		array_pixe_position = pixel.axis[y] * WINX * 4 + 4 * pixel.axis[y]
+*	and fill the 4 colorbytes calling the set_color function
+*/
+
 int	my_putpixel(t_meta *meta, t_point pixel)
 {
 	int	mypixel;
@@ -56,12 +64,20 @@ int	my_putpixel(t_meta *meta, t_point pixel)
 	return (0);
 }
 
+/*
+*	This function set the color value to 32bits value in case of need
+*/
+
 int	get_color(t_meta *meta, int color)
 {	
 	if (meta->bitmap.bitxpixel != 32)
 		color = mlx_get_color_value(meta->vars.mlx, color);
 	return (color);
 }
+
+/*
+*	This function generate all the pixel colors and fill the img array propertly
+*/
 
 void	generate_background(t_meta *meta, int backcolor, int menucolor)
 {

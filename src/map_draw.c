@@ -20,6 +20,10 @@
 #include <math.h>
 #include <stdlib.h>
 
+/* 
+*	Call all the functions to modify the points in the space
+*/
+
 static void	parse_map(t_meta *meta, t_point *proyect)
 {
 	z_division(proyect, meta->map.zdivisor, meta->map.len);

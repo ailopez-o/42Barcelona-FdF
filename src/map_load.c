@@ -116,6 +116,13 @@ static void	map_size(char *path, t_map *map)
 	}
 	close (fd);
 }
+/* 
+*	Inicialize the structure
+*	Get the map_size
+*	Check if the map is valid
+*	Read the map
+*	Load each point to the structure
+*/
 
 int	load_map(t_map *map, char *path)
 {

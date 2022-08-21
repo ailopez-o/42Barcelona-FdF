@@ -14,6 +14,10 @@
 #include "../inc/keycodes.h"
 #include "../inc/control_utils.h"
 
+/* 
+*	This function handle every time the mouse is moved
+*/
+
 int	mouse_move(int x, int y, void *param)
 {
 	t_meta	*meta;
@@ -41,6 +45,10 @@ int	mouse_move(int x, int y, void *param)
 	return (0);
 }
 
+/* 
+*	This function handle every time a mouse button is relased
+*/
+
 int	mouse_release(int button, int x, int y, void *param)
 {
 	t_meta	*meta;
@@ -54,6 +62,10 @@ int	mouse_release(int button, int x, int y, void *param)
 		meta->keys.b_mouse_r = 0;
 	return (0);
 }
+
+/* 
+*	This function handle every time a mouse button is pressed
+*/
 
 int	mouse_press(int button, int x, int y, void *param)
 {

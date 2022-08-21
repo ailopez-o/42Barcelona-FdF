@@ -17,6 +17,10 @@
 #include <stdlib.h>
 #include <errno.h>
 
+/* 
+*	This function increment the ang value by value, checking is under the limits
+*/
+
 void	angle(float *ang, float value)
 {
 	*ang += value;
@@ -25,6 +29,10 @@ void	angle(float *ang, float value)
 	if (*ang >= 360)
 			*ang = *ang - 360;
 }
+
+/* 
+*	This function add grades to the control structure depends the key pressed
+*/
 
 void	angle_control(int key, t_meta *meta)
 {
@@ -47,6 +55,10 @@ void	angle_control(int key, t_meta *meta)
 		angle(&meta->map.ang[Z], -ang);
 }
 
+/* 
+*	This function handle the program shut down
+*/
+
 int	terminate_program(void *param)
 {
 	t_meta	*meta;
@@ -56,6 +68,10 @@ int	terminate_program(void *param)
 	free(meta->map.points);
 	exit(0);
 }
+
+/* 
+*	This function handle the program shut down when a error happends
+*/
 
 void	terminate(char *s)
 {
