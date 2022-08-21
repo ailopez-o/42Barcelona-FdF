@@ -18,7 +18,8 @@ SRC_DIR		:= src/
 OBJ_DIR		:= obj/
 CC			:= gcc
 CFLAGS		:= -g -O3 -Wall -Werror -Wextra
-FSANITIZE	:= -fsanitize=address -g3
+#FSANITIZE	:= -fsanitize=address -g3
+FSANITIZE	:= 
 NOFLAGS		:= -g
 RM			:= rm -f
 
