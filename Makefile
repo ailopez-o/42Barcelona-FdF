@@ -59,17 +59,18 @@ INCS		= 	$(addprefix $(INCLUDE), $(addsuffix .h, $(INC_FILES)))
 
 OBJF		=	.cache_exists
 
-all:	$(NAME)
-			
+all:	makelibs
+		@$(MAKE) $(NAME)
+
+makelibs:	
+	@$(MAKE) -C $(LIBFT_DIR)
+	@$(MAKE) -C $(MINILIBX_DIR)
+
 -include 	${DEPS}
-$(NAME):	$(LIBFT) $(MINILIBX) $(OBJ)
-			make -sC $(LIBFT_DIR)
-			make -sC $(MINILIBX_DIR)			
+$(NAME):	$(OBJ)		
 			@$(CC) $(CFLAGS) $(FSANITIZE) $(OBJ) $(LIBFT) $(MINILIBXCC) $(OPENGL) -o $(NAME)		
 			@echo "👉 $(BLUE)$(CC) $(CFLAGS) $(FSANITIZE) $(OBJ) $(LIBFT) $(MINILIBXCC) $(OPENGL) -o $(NAME)$(DEF_COLOR)"
 			@echo "$(GREEN)✨ FDF compiled!$(DEF_COLOR)"
-
-			
 
 bonus:		
 			@$(MAKE) all
