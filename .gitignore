@@ -2,3 +2,5 @@
 fdf
 obj/
 *.a
+.DS_Store
+*.d
