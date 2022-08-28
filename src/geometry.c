@@ -95,3 +95,17 @@ void	bending(t_point *points, int len, float range)
 		i++;
 	}
 }
+
+
+void 	spherize(t_map *map, t_point *points)
+{
+	int		i;
+
+	i = 0;
+	while (i < map->len)
+	{
+		points[i].axis[Z] = radius * cos(points[i].axis[X] * steps_x) * cos(points[i].axis[Y] * steps_y);
+		i++;
+	}
+}
+
