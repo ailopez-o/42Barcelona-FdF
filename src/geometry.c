@@ -100,11 +100,21 @@ void	bending(t_point *points, int len, float range)
 void 	spherize(t_map *map, t_point *points)
 {
 	int		i;
+	float 	steps_x;
+	float	steps_y;
+	int 	radius;
+
+	radius = 30;
+	steps_x = (360 / map->limits.axis[X]) *  (M_PI / 180);
+	steps_y = (180 / map->limits.axis[Y]) *  (M_PI / 180);
+
 
 	i = 0;
 	while (i < map->len)
 	{
-		points[i].axis[Z] = radius * cos(points[i].axis[X] * steps_x) * cos(points[i].axis[Y] * steps_y);
+		points[i].axis[Z] =  radius * cos(points[i].axis[X] * steps_x) * cos(points[i].axis[Y] * steps_y);
+		//points[i].axis[X] = points[i].axis[X] * cos(points[i].axis[X] * steps_x);
+		points[i].axis[Y] = points[i].axis[Y] * cos(points[i].axis[Y] * steps_y);
 		i++;
 	}
 }
