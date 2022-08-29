@@ -16,6 +16,7 @@
 #include "../inc/draw_utils.h"
 #include "../inc/map_utils.h"
 #include "../inc/errors.h"
+#include <math.h>
 #include <fcntl.h>
 
 /*
@@ -53,6 +54,25 @@ void	load_hexcolors(t_map *map, char *line)
 	}
 }
 
+static void go_polar(t_map *map)
+{
+	int	i;
+	float 	steps_x;
+	float	steps_y;
+
+	steps_x = (362.2 / map->limits.axis[X]) *  (M_PI / 180);
+	steps_y = (180 / map->limits.axis[Y]) *  (M_PI / 180);	
+	map->radius = map->limits.axis[X] / (M_PI * 2);
+
+	i = 0;
+	while (i < map->len)
+	{
+		map->points[i].polar[LONG] = map->points[i].axis[X] * steps_x;
+		map->points[i].polar[LAT] = (map->points[i].axis[Y] + map->limits.axis[Y] / 2) * steps_y;
+		i++;
+	}
+}
+
 /* 
 *	Splits the info of line to storage
 *	the points in the map->point array. 
@@ -76,7 +96,6 @@ static void	load_points(char *line, t_map *map, int numline)
 		map->points[map->len].axis[Y] = numline - map->limits.axis[Y] / 2;
 		load_color((int)map->limits.axis[Z], map->zmin, \
 		&map->points[map->len], map->colors);
-		load_hexcolors(map, splited[i]);
 		i++;
 		map->len++;
 	}
@@ -152,5 +171,6 @@ int	load_map(t_map *map, char *path)
 		free(line);
 		line = get_next_line(fd);
 	}
+	go_polar(map);
 	return (1);
 }

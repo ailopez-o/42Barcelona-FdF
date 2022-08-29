@@ -96,7 +96,22 @@ void	bending(t_point *points, int len, float range)
 	}
 }
 
+void 	spherize(t_map *map, t_point *points)
+{
+	int i;
 
+	i = 0;
+	while (i < map->len)
+	{
+		points[i].axis[X] = (map->radius + points[i].axis[Z]) * cos(points[i].polar[LONG]) * sin(points[i].polar[LAT]);
+		points[i].axis[Y] = (map->radius + points[i].axis[Z]) * sin(points[i].polar[LONG]) * sin(points[i].polar[LAT]);
+		points[i].axis[Z] = (map->radius + points[i].axis[Z]) * cos(points[i].polar[LAT]);	
+		i++;
+	}
+
+
+}
+/*
 void 	spherize(t_map *map, t_point *points)
 {
 	int		i;
@@ -104,7 +119,7 @@ void 	spherize(t_map *map, t_point *points)
 	float	steps_y;
 	int 	radius;
 
-	radius = 30;
+	radius = map->limits.axis[X] / (M_PI *2);
 	steps_x = (360 / map->limits.axis[X]) *  (M_PI / 180);
 	steps_y = (180 / map->limits.axis[Y]) *  (M_PI / 180);
 
@@ -114,14 +129,23 @@ void 	spherize(t_map *map, t_point *points)
 	{
 		if ((points[i].axis[X] > -(map->limits.axis[X] / 4)) && (points[i].axis[X] < (map->limits.axis[X] / 4 )))
 			points[i].axis[Z] =  radius * cos(points[i].axis[X] * steps_x) * cos(points[i].axis[Y] * steps_y);
-		else
+		if (points[i].axis[X] < -(map->limits.axis[X] / 4))
 		{	
 			//points[i].axis[Z] = (radius * cos(points[i].axis[X] * steps_x) * cos(points[i].axis[Y] * steps_y));
-			//points[i].axis[X] = points[i].axis[X] + (map->limits.axis[X] / 4);
+			points[i].axis[X] = - (points[i].axis[X] + (map->limits.axis[X] / 2));
+			points[i].axis[Z] = - radius * cos(points[i].axis[X] * steps_x) * cos(points[i].axis[Y] * steps_y);
 		
 		}
-		points[i].axis[Y] = points[i].axis[Y] + (points[i].axis[Y] * cos(points[i].axis[Y] * steps_y));
+		if (points[i].axis[X] > (map->limits.axis[X] / 4))
+		{	
+			//points[i].axis[Z] = (radius * cos(points[i].axis[X] * steps_x) * cos(points[i].axis[Y] * steps_y));
+			points[i].axis[X] = - (points[i].axis[X] - (map->limits.axis[X] / 2));
+			points[i].axis[Z] = - radius * cos(points[i].axis[X] * steps_x) * cos(points[i].axis[Y] * steps_y);
+		
+		}
+		//points[i].axis[Y] = points[i].axis[Y] + (points[i].axis[Y] * cos(points[i].axis[Y] * steps_y));
 		i++;
 	}
 }
+*/
 

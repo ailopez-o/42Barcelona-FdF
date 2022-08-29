@@ -14,12 +14,15 @@
 
 # include <stdbool.h>
 
-# define WINX 1920	
-# define WINY 1080
+# define WINX 1080	
+# define WINY 720
 
 # define X 0
 # define Y 1
 # define Z 2
+
+# define LAT 0
+# define LONG 1
 
 # define ROJO 		0xc1272d
 # define VERDE		0x33cc55
@@ -51,6 +54,8 @@
 typedef struct s_point {
 	float	axis[3];
 	int		color;
+	int 	alpha;
+	float	polar[2];
 }	t_point;
 
 typedef struct m_colors {
@@ -99,6 +104,7 @@ typedef struct m_map {
 	bool		b_pluslines;
 	double		performance;
 	float		proportion;
+	float	radius;
 }	t_map;
 
 typedef struct s_meta {

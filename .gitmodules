@@ -1,3 +1,6 @@
 [submodule "lib/libft"]
 	path = lib/libft
 	url = git@github.com:ailopez-o/42Barcelona-Libft.git
+[submodule "map_generator"]
+	path = map_generator
+	url = https://github.com/jgigault/42MapGenerator.git

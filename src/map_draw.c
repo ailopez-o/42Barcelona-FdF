@@ -28,7 +28,7 @@ static void	parse_map(t_meta *meta, t_point *proyect)
 {
 	z_division(proyect, meta->map.zdivisor, meta->map.len);
 	bending(proyect, meta->map.len, meta->map.brange);
-	//spherize(&meta->map, proyect);
+	spherize(&meta->map, proyect);
 	rotate_x(proyect, proyect, meta->map.ang[X], meta->map.len);
 	rotate_y(proyect, proyect, meta->map.ang[Y], meta->map.len);
 	rotate_z(proyect, proyect, meta->map.ang[Z], meta->map.len);
