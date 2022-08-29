@@ -98,6 +98,7 @@ typedef struct m_map {
 	bool		b_dots;
 	bool		b_pluslines;
 	double		performance;
+	float		proportion;
 }	t_map;
 
 typedef struct s_meta {

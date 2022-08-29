@@ -114,6 +114,9 @@ static void	map_size(char *path, t_map *map)
 		free(line);
 		line = get_next_line(fd);
 	}
+	map->proportion = map->limits.axis[Z] / map->limits.axis[X];
+	if (map->proportion > 0.5)
+		map->zdivisor = map->proportion * 30;
 	close (fd);
 }
 /* 

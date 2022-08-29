@@ -112,9 +112,15 @@ void 	spherize(t_map *map, t_point *points)
 	i = 0;
 	while (i < map->len)
 	{
-		points[i].axis[Z] =  radius * cos(points[i].axis[X] * steps_x) * cos(points[i].axis[Y] * steps_y);
-		//points[i].axis[X] = points[i].axis[X] * cos(points[i].axis[X] * steps_x);
-		points[i].axis[Y] = points[i].axis[Y] * cos(points[i].axis[Y] * steps_y);
+		if ((points[i].axis[X] > -(map->limits.axis[X] / 4)) && (points[i].axis[X] < (map->limits.axis[X] / 4 )))
+			points[i].axis[Z] =  radius * cos(points[i].axis[X] * steps_x) * cos(points[i].axis[Y] * steps_y);
+		else
+		{	
+			//points[i].axis[Z] = (radius * cos(points[i].axis[X] * steps_x) * cos(points[i].axis[Y] * steps_y));
+			//points[i].axis[X] = points[i].axis[X] + (map->limits.axis[X] / 4);
+		
+		}
+		points[i].axis[Y] = points[i].axis[Y] + (points[i].axis[Y] * cos(points[i].axis[Y] * steps_y));
 		i++;
 	}
 }
