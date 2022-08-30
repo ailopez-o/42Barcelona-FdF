@@ -105,6 +105,7 @@ typedef struct m_map {
 	bool		b_pluslines;
 	bool		b_geo;
 	bool		b_stars;
+	bool		b_shadow;
 	double		performance;
 	float		proportion;
 	float		radius;

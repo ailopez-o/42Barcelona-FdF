@@ -36,6 +36,8 @@ void	control_keys2(int key, t_meta *meta)
 		meta->map.b_geo = !meta->map.b_geo;		
 	if (key == KEY_S)
 		meta->map.b_stars = !meta->map.b_stars;
+	if (key == KEY_H)
+		meta->map.b_shadow = !meta->map.b_shadow;
 	if (key == KEY_F)
 		draw_map(meta, FIT);
 	if (key == KEY_CMD)

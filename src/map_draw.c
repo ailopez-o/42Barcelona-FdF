@@ -78,7 +78,7 @@ static void	parse_map(t_meta *meta, t_point *proyect)
 	rotate_x(proyect, proyect, meta->map.ang[X], meta->map.len);
 	rotate_y(proyect, proyect, meta->map.ang[Y], meta->map.len);
 	rotate_z(proyect, proyect, meta->map.ang[Z], meta->map.len);
-	if (meta->map.b_geo)
+	if (meta->map.b_geo && meta->map.b_shadow)
 		shadow (proyect, meta->map.len);	
 	orto_proyection (proyect, proyect, meta->map.len);
 	scale (proyect, meta->map.scale, meta->map.len);
