@@ -26,7 +26,7 @@ void	wired(t_meta *meta, t_point *wire)
 	i = 0;
 	while (i < meta->map.len)
 	{
-		if (1)
+		if (wire[i].paint)
 		{
 			if ((i + 1) % (int)meta->map.limits.axis[X] != 0)
 			{
@@ -75,7 +75,7 @@ void	doted(t_meta *meta, t_point *proyect)
 	i = 0;
 	while (i < meta->map.len)
 	{
-		//if (proyect[i].paint)
+		if (proyect[i].paint)
 			draw_dot(meta, proyect[i], 1);
 		i++;
 	}

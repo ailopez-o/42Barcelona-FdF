@@ -24,6 +24,7 @@ t_point	mul_mat(float matrix[3][3], t_point point)
 	int		k;
 	t_point	result;
 
+	result = point;
 	i = 0;
 	while (i < 3)
 	{

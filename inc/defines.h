@@ -55,7 +55,7 @@ typedef struct s_point {
 	float	axis[3];
 	int		color;
 	//int 	alpha;
-	int		paint;
+	bool	paint;
 	float	polar[2];
 }	t_point;
 
