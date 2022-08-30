@@ -111,41 +111,5 @@ void 	spherize(t_map *map, t_point *points)
 
 
 }
-/*
-void 	spherize(t_map *map, t_point *points)
-{
-	int		i;
-	float 	steps_x;
-	float	steps_y;
-	int 	radius;
 
-	radius = map->limits.axis[X] / (M_PI *2);
-	steps_x = (360 / map->limits.axis[X]) *  (M_PI / 180);
-	steps_y = (180 / map->limits.axis[Y]) *  (M_PI / 180);
-
-
-	i = 0;
-	while (i < map->len)
-	{
-		if ((points[i].axis[X] > -(map->limits.axis[X] / 4)) && (points[i].axis[X] < (map->limits.axis[X] / 4 )))
-			points[i].axis[Z] =  radius * cos(points[i].axis[X] * steps_x) * cos(points[i].axis[Y] * steps_y);
-		if (points[i].axis[X] < -(map->limits.axis[X] / 4))
-		{	
-			//points[i].axis[Z] = (radius * cos(points[i].axis[X] * steps_x) * cos(points[i].axis[Y] * steps_y));
-			points[i].axis[X] = - (points[i].axis[X] + (map->limits.axis[X] / 2));
-			points[i].axis[Z] = - radius * cos(points[i].axis[X] * steps_x) * cos(points[i].axis[Y] * steps_y);
-		
-		}
-		if (points[i].axis[X] > (map->limits.axis[X] / 4))
-		{	
-			//points[i].axis[Z] = (radius * cos(points[i].axis[X] * steps_x) * cos(points[i].axis[Y] * steps_y));
-			points[i].axis[X] = - (points[i].axis[X] - (map->limits.axis[X] / 2));
-			points[i].axis[Z] = - radius * cos(points[i].axis[X] * steps_x) * cos(points[i].axis[Y] * steps_y);
-		
-		}
-		//points[i].axis[Y] = points[i].axis[Y] + (points[i].axis[Y] * cos(points[i].axis[Y] * steps_y));
-		i++;
-	}
-}
-*/
 

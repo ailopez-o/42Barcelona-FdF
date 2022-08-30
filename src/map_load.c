@@ -60,15 +60,18 @@ static void go_polar(t_map *map)
 	float 	steps_x;
 	float	steps_y;
 
-	steps_x = (362.2 / map->limits.axis[X]) *  (M_PI / 180);
-	steps_y = (180 / map->limits.axis[Y]) *  (M_PI / 180);	
+	steps_x = (M_PI * 2) / (map->limits.axis[X] - 1);	
+	steps_y =  M_PI / (map->limits.axis[Y]);
 	map->radius = map->limits.axis[X] / (M_PI * 2);
 
 	i = 0;
 	while (i < map->len)
 	{
 		map->points[i].polar[LONG] = map->points[i].axis[X] * steps_x;
-		map->points[i].polar[LAT] = (map->points[i].axis[Y] + map->limits.axis[Y] / 2) * steps_y;
+		if (map->points[i].axis[Y] > 0)
+			map->points[i].polar[LAT] = ((map->points[i].axis[Y]) + (map->limits.axis[Y] / 2)) * steps_y - 0.5 * steps_y;
+		else
+			map->points[i].polar[LAT] = (map->points[i].axis[Y] + (map->limits.axis[Y] / 2) - 1) * steps_y + 0.5 * steps_y;
 		i++;
 	}
 }

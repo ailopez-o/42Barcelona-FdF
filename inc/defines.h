@@ -14,8 +14,8 @@
 
 # include <stdbool.h>
 
-# define WINX 1080	
-# define WINY 720
+# define WINX 1920	
+# define WINY 1080
 
 # define X 0
 # define Y 1
@@ -102,6 +102,7 @@ typedef struct m_map {
 	bool		b_lines;
 	bool		b_dots;
 	bool		b_pluslines;
+	bool		b_geo;	
 	double		performance;
 	float		proportion;
 	float	radius;
