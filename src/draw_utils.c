@@ -12,7 +12,9 @@
 #include "../lib/miniliblx/minilibx_macos/mlx.h"
 #include "../inc/defines.h"
 #include "../inc/utils.h"
+#include "../inc/draw_utils.h"
 #include <math.h>
+#include <stdlib.h>
 
 /*
 *	This function fills 4 bytes of the given address whith the values of colors
@@ -104,5 +106,21 @@ void	generate_background(t_meta *meta, int backcolor, int menucolor)
 		}
 		axis[Y]++;
 		axis[X] = 0;
+	}
+}
+
+void	generate_stars(t_meta *meta)
+{
+	int i;
+	t_point	star;
+
+	i = 0;
+	while (i < 200)
+	{
+		star.axis[X] = rand() % WINX;
+		star.axis[Y] = rand() % WINY;
+		star.color = WHITE;
+		draw_dot(meta, star, 2);
+		i++;
 	}
 }

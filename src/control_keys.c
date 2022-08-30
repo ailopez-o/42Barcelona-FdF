@@ -18,6 +18,8 @@
 #include "../inc/map_utils.h"
 #include <stdlib.h>
 
+//Testting branch
+
 /* 
 *	This function handle some key press events
 */
@@ -30,6 +32,10 @@ void	control_keys2(int key, t_meta *meta)
 		meta->map.b_lines = !meta->map.b_lines;
 	if (key == KEY_X)
 		meta->map.b_pluslines = !meta->map.b_pluslines;
+	if (key == KEY_G)
+		meta->map.b_geo = !meta->map.b_geo;		
+	if (key == KEY_S)
+		meta->map.b_stars = !meta->map.b_stars;
 	if (key == KEY_F)
 		draw_map(meta, FIT);
 	if (key == KEY_CMD)
@@ -43,11 +49,17 @@ void	control_keys2(int key, t_meta *meta)
 	}
 	if (key == KEY_SUM || key == KEY_SUM2)
 	{
+		if (meta->keys.b_keyctrl)
+			meta->map.scale = meta->map.scale * 1.5;
 		if (meta->map.zdivisor > 1)
 			meta->map.zdivisor--;
 	}
 	if (key == KEY_RES || key == KEY_RES2)
+	{
+		if (meta->keys.b_keyctrl)
+			meta->map.scale = meta->map.scale / 1.5;
 		meta->map.zdivisor++;
+	}
 }
 
 /* 
@@ -61,6 +73,9 @@ void	control_keys1(int key, t_meta *meta)
 	if (key == KEY_R)
 	{
 		map_ini(&meta->map, 0);
+		meta->map.proportion = meta->map.limits.axis[Z] / meta->map.limits.axis[X];
+		if (meta->map.proportion > 0.5)
+			meta->map.zdivisor = meta->map.proportion * 30;		
 		colorize(&meta->map);
 		draw_map(meta, FIT);
 	}	
@@ -111,6 +126,14 @@ void	control_colorscheme(int key, t_map *map)
 		map->colors.groundcolor = WHITE;
 		colorize(map);
 	}
+	if (key == KEY_4)
+	{
+		map->colors.backcolor = CARBON;
+		map->colors.bottomcolor = SUPERAZUL;
+		map->colors.topcolor = ROJO;
+		map->colors.groundcolor = VERDE;
+		colorize(map);
+	}	
 }
 
 /* 

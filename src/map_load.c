@@ -16,6 +16,7 @@
 #include "../inc/draw_utils.h"
 #include "../inc/map_utils.h"
 #include "../inc/errors.h"
+#include <math.h>
 #include <fcntl.h>
 
 /*
@@ -26,6 +27,7 @@
 
 void	load_color(int max, int min, t_point *point, t_colors	colors)
 {
+	point->paint = 1;
 	point->color = DEFAULT_COLOR;
 	if (point->axis[Z] == max)
 		point->color = colors.topcolor;
@@ -53,6 +55,28 @@ void	load_hexcolors(t_map *map, char *line)
 	}
 }
 
+static void go_polar(t_map *map)
+{
+	int	i;
+	float 	steps_x;
+	float	steps_y;
+
+	steps_x = (M_PI * 2) / (map->limits.axis[X] - 1);	
+	steps_y =  M_PI / (map->limits.axis[Y]);
+	map->radius = map->limits.axis[X] / (M_PI * 2);
+
+	i = 0;
+	while (i < map->len)
+	{
+		map->points[i].polar[LONG] = -(map->points[i].axis[X]) * steps_x;
+		if (map->points[i].axis[Y] > 0)
+			map->points[i].polar[LAT] = ((map->points[i].axis[Y]) + (map->limits.axis[Y] / 2)) * steps_y - 0.5 * steps_y;
+		else
+			map->points[i].polar[LAT] = (map->points[i].axis[Y] + (map->limits.axis[Y] / 2) - 1) * steps_y + 0.5 * steps_y;
+		i++;
+	}
+}
+
 /* 
 *	Splits the info of line to storage
 *	the points in the map->point array. 
@@ -76,7 +100,7 @@ static void	load_points(char *line, t_map *map, int numline)
 		map->points[map->len].axis[Y] = numline - map->limits.axis[Y] / 2;
 		load_color((int)map->limits.axis[Z], map->zmin, \
 		&map->points[map->len], map->colors);
-		load_hexcolors(map, splited[i]);
+		load_hexcolors(map, splited[i]);		
 		i++;
 		map->len++;
 	}
@@ -114,6 +138,9 @@ static void	map_size(char *path, t_map *map)
 		free(line);
 		line = get_next_line(fd);
 	}
+	map->proportion = map->limits.axis[Z] / map->limits.axis[X];
+	if (map->proportion > 0.5)
+		map->zdivisor = map->proportion * 30;
 	close (fd);
 }
 /* 
@@ -149,5 +176,6 @@ int	load_map(t_map *map, char *path)
 		free(line);
 		line = get_next_line(fd);
 	}
+	go_polar(map);
 	return (1);
 }

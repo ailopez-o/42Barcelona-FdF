@@ -17,4 +17,5 @@ void	scale(t_point *points, int scale, int len);
 void	isometric(t_map *map);
 void	bending(t_point *points, int len, float range);
 void	parallel(t_map *map);
+void 	spherize(t_map *map, t_point *points);
 #endif

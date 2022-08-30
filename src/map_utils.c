@@ -26,20 +26,23 @@ void	wired(t_meta *meta, t_point *wire)
 	i = 0;
 	while (i < meta->map.len)
 	{
-		if ((i + 1) % (int)meta->map.limits.axis[X] != 0)
+		if (wire[i].paint)
 		{
-			draw_line(meta, wire[i], wire[i + 1]);
-			if (meta->map.b_pluslines)
+			if ((i + 1) % (int)meta->map.limits.axis[X] != 0)
 			{
-				if ((i / (int)meta->map.limits.axis[X]) != \
-					(meta->map.limits.axis[Y] - 1))
-					draw_line(meta, wire[i], wire[i + \
-						(int)meta->map.limits.axis[X] + 1]);
+				draw_line(meta, wire[i], wire[i + 1]);
+				if (meta->map.b_pluslines)
+				{
+					if ((i / (int)meta->map.limits.axis[X]) != \
+						(meta->map.limits.axis[Y] - 1))
+						draw_line(meta, wire[i], wire[i + \
+							(int)meta->map.limits.axis[X] + 1]);
+				}
 			}
+			if ((i / (int)meta->map.limits.axis[X]) != \
+			(meta->map.limits.axis[Y] - 1))
+				draw_line(meta, wire[i], wire[i + (int)meta->map.limits.axis[X]]);
 		}
-		if ((i / (int)meta->map.limits.axis[X]) != \
-		(meta->map.limits.axis[Y] - 1))
-			draw_line(meta, wire[i], wire[i + (int)meta->map.limits.axis[X]]);
 		i++;
 	}
 }
@@ -72,7 +75,8 @@ void	doted(t_meta *meta, t_point *proyect)
 	i = 0;
 	while (i < meta->map.len)
 	{
-		draw_dot(meta, proyect[i], 1);
+		if (proyect[i].paint)
+			draw_dot(meta, proyect[i], 1);
 		i++;
 	}
 }
@@ -107,6 +111,8 @@ void	map_ini(t_map *map, int total)
 	map->b_lines = 1;
 	map->b_dots = 0;
 	map->b_pluslines = 0;
+	map->b_geo = 0;
+	map->b_stars = 0;
 	map->scale = 1;
 	map->zdivisor = 1;
 	map->brange = 0;
