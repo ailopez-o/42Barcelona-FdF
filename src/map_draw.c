@@ -50,6 +50,21 @@ static	void print_coor(t_meta *meta)
 }
 */
 
+static void shadow(t_point *points, int len)
+{
+	int		i;
+
+	i = 0;
+	while (i < len)
+	{
+		if (points[i].axis[Z] < 0)
+			points[i].paint = 0;
+		else
+			points[i].paint = 1;
+		i++;
+	}
+}
+
 /* 
 *	Call all the functions to modify the points in the space
 */
@@ -63,6 +78,8 @@ static void	parse_map(t_meta *meta, t_point *proyect)
 	rotate_x(proyect, proyect, meta->map.ang[X], meta->map.len);
 	rotate_y(proyect, proyect, meta->map.ang[Y], meta->map.len);
 	rotate_z(proyect, proyect, meta->map.ang[Z], meta->map.len);
+	if (meta->map.b_geo)
+		shadow (proyect, meta->map.len);	
 	orto_proyection (proyect, proyect, meta->map.len);
 	scale (proyect, meta->map.scale, meta->map.len);
 	traslate(proyect, meta->map.source, meta->map.len);

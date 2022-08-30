@@ -124,6 +124,14 @@ void	control_colorscheme(int key, t_map *map)
 		map->colors.groundcolor = WHITE;
 		colorize(map);
 	}
+	if (key == KEY_4)
+	{
+		map->colors.backcolor = CARBON;
+		map->colors.bottomcolor = AZUL;
+		map->colors.topcolor = ROJO;
+		map->colors.groundcolor = VERDE;
+		colorize(map);
+	}	
 }
 
 /* 
