@@ -99,6 +99,7 @@ static void	load_points(char *line, t_map *map, int numline)
 		map->points[map->len].axis[Y] = numline - map->limits.axis[Y] / 2;
 		load_color((int)map->limits.axis[Z], map->zmin, \
 		&map->points[map->len], map->colors);
+		load_hexcolors(map, splited[i]);		
 		i++;
 		map->len++;
 	}
