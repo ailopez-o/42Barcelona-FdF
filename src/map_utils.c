@@ -112,6 +112,7 @@ void	map_ini(t_map *map, int total)
 	map->b_dots = 0;
 	map->b_pluslines = 0;
 	map->b_geo = 0;
+	map->b_stars = 0;
 	map->scale = 1;
 	map->zdivisor = 1;
 	map->brange = 0;

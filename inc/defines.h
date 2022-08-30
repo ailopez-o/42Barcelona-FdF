@@ -28,6 +28,7 @@
 # define VERDE		0x33cc55
 # define FUCSIA 	0xff255c
 # define AZUL		0x1B8EFA
+# define SUPERAZUL	0x0000FF
 # define CARBON		0x151515
 # define WHITE		0xBBBBBB
 # define DISCO		0x9A1F6A
@@ -54,7 +55,6 @@
 typedef struct s_point {
 	float	axis[3];
 	int		color;
-	//int 	alpha;
 	bool	paint;
 	float	polar[2];
 }	t_point;
@@ -103,10 +103,11 @@ typedef struct m_map {
 	bool		b_lines;
 	bool		b_dots;
 	bool		b_pluslines;
-	bool		b_geo;	
+	bool		b_geo;
+	bool		b_stars;
 	double		performance;
 	float		proportion;
-	float	radius;
+	float		radius;
 }	t_map;
 
 typedef struct s_meta {

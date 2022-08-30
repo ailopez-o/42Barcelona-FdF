@@ -176,11 +176,10 @@ int	draw_map(t_meta *meta, int fit)
 	meta->map.renders = meta->map.renders + 1;
 	generate_background(meta, meta->map.colors.backcolor, \
 	meta->map.colors.menucolor);
-	//print_coor(meta);
+	if (meta->map.b_stars)
+		generate_stars(meta);
 	copy_map(meta->map.points, proyect, meta->map.len);
 	parse_map(meta, proyect);
-	//printf("RENDER*************************\n");	
-	//print_log(meta, proyect);
 	if (fit)
 		go_fit(meta, proyect);
 	if (meta->map.b_lines)

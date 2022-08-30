@@ -34,6 +34,8 @@ void	control_keys2(int key, t_meta *meta)
 		meta->map.b_pluslines = !meta->map.b_pluslines;
 	if (key == KEY_G)
 		meta->map.b_geo = !meta->map.b_geo;		
+	if (key == KEY_S)
+		meta->map.b_stars = !meta->map.b_stars;
 	if (key == KEY_F)
 		draw_map(meta, FIT);
 	if (key == KEY_CMD)
@@ -127,7 +129,7 @@ void	control_colorscheme(int key, t_map *map)
 	if (key == KEY_4)
 	{
 		map->colors.backcolor = CARBON;
-		map->colors.bottomcolor = AZUL;
+		map->colors.bottomcolor = SUPERAZUL;
 		map->colors.topcolor = ROJO;
 		map->colors.groundcolor = VERDE;
 		colorize(map);

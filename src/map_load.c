@@ -68,7 +68,7 @@ static void go_polar(t_map *map)
 	i = 0;
 	while (i < map->len)
 	{
-		map->points[i].polar[LONG] = map->points[i].axis[X] * steps_x;
+		map->points[i].polar[LONG] = -(map->points[i].axis[X]) * steps_x;
 		if (map->points[i].axis[Y] > 0)
 			map->points[i].polar[LAT] = ((map->points[i].axis[Y]) + (map->limits.axis[Y] / 2)) * steps_y - 0.5 * steps_y;
 		else
