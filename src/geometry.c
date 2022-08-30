@@ -96,9 +96,6 @@ void	bending(t_point *points, int len, float range)
 		points[i].axis[Z] = points[i].axis[Z] - vv;
 		i++;
 	}
-<<<<<<< HEAD
-}
-=======
 }
 
 void 	spherize(t_map *map, t_point *points)
@@ -118,9 +115,4 @@ void 	spherize(t_map *map, t_point *points)
 		points[i].axis[Z] = (map->radius + points[i].axis[Z]) * cos(points[i].polar[LAT]);	
 		i++;
 	}
-
-
 }
-
-
->>>>>>> sphere

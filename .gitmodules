@@ -3,8 +3,5 @@
 	url = git@github.com:ailopez-o/42Barcelona-Libft.git
 [submodule "map_generator"]
 	path = map_generator
-<<<<<<< HEAD
-	url = https://github.com/jgigault/42MapGenerator
-=======
 	url = https://github.com/jgigault/42MapGenerator.git
->>>>>>> sphere
+
