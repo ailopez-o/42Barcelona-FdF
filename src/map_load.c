@@ -27,6 +27,7 @@
 
 void	load_color(int max, int min, t_point *point, t_colors	colors)
 {
+	point->paint = 1;
 	point->color = DEFAULT_COLOR;
 	if (point->axis[Z] == max)
 		point->color = colors.topcolor;

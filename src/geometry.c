@@ -106,6 +106,10 @@ void 	spherize(t_map *map, t_point *points)
 		points[i].axis[X] = (map->radius + points[i].axis[Z]) * cos(points[i].polar[LONG]) * sin(points[i].polar[LAT]);
 		points[i].axis[Y] = (map->radius + points[i].axis[Z]) * sin(points[i].polar[LONG]) * sin(points[i].polar[LAT]);
 		points[i].axis[Z] = (map->radius + points[i].axis[Z]) * cos(points[i].polar[LAT]);	
+		if (points[i].polar[LAT] > (M_PI / 2))
+			points[i].paint = 0;
+		else
+			points[i].paint = 1;
 		i++;
 	}
 

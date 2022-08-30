@@ -16,9 +16,39 @@
 #include "../inc/geometry.h"
 #include "../inc/errors.h"
 #include "../inc/map_utils.h"
+#include "../inc/draw_utils.h"
 #include <time.h>
 #include <math.h>
 #include <stdlib.h>
+#include <stdio.h>
+
+/*
+static	void print_coor(t_meta *meta)
+{
+	t_point	start;
+	t_point	end;	
+
+	start.axis[X] = WINX / 2;
+	start.axis[Y] = WINY / 2;
+	start.axis[Z] = 0;
+	start.color = ROJO;
+	end.axis[X] = WINX / 2 + 500;
+	end.axis[Y] = WINY / 2;
+	end.axis[Z] = 0;
+	end.color = ROJO;
+	draw_line(meta, start, end);
+	start.axis[X] = WINX / 2;
+	start.axis[Y] = WINY / 2;
+	start.axis[Z] = 0;
+	start.color = AZUL;
+	end.axis[X] = WINX / 2;
+	end.axis[Y] = WINY / 2 + 500;
+	end.axis[Z] = 0;
+	end.color = ROJO;
+	draw_line(meta, start, end);
+
+}
+*/
 
 /* 
 *	Call all the functions to modify the points in the space
@@ -97,6 +127,20 @@ static void	go_fit(t_meta *meta, t_point *proyect)
 	}
 }
 
+/*
+void print_log(t_meta *meta, t_point *points)
+{
+	int	i;
+
+	i = 0;
+	while (i < meta->map.len)
+	{
+		printf("X[%f]Y[%f]Z[%f] - LAT[%f]LONG[%f] - PRINT[%d]\n", points[i].axis[X], points[i].axis[Y], points[i].axis[Z], points[i].polar[LAT], points[i].polar[LONG], points[i].paint);
+		i++;
+	}
+}
+*/
+
 /* 
 *	This function draw the proyection of map->points acording all
 *	the modifiers (x,y,z, scale..). If fit = 1, will caculate the 
@@ -115,8 +159,11 @@ int	draw_map(t_meta *meta, int fit)
 	meta->map.renders = meta->map.renders + 1;
 	generate_background(meta, meta->map.colors.backcolor, \
 	meta->map.colors.menucolor);
+	//print_coor(meta);
 	copy_map(meta->map.points, proyect, meta->map.len);
 	parse_map(meta, proyect);
+	//printf("RENDER*************************\n");	
+	//print_log(meta, proyect);
 	if (fit)
 		go_fit(meta, proyect);
 	if (meta->map.b_lines)

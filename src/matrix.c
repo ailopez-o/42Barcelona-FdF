@@ -62,7 +62,6 @@ void	rotate_x(t_point *points, t_point *proyection, float ang, int len)
 	while (i < len)
 	{
 		proyection[i] = mul_mat(proyect_matrix, points[i]);
-		proyection[i].color = points[i].color;
 		i++;
 	}
 }
@@ -89,7 +88,6 @@ void	rotate_y(t_point *points, t_point *proyection, float ang, int len)
 	while (i < len)
 	{
 		proyection[i] = mul_mat(proyect_matrix, points[i]);
-		proyection[i].color = points[i].color;
 		i++;
 	}
 }
@@ -116,7 +114,6 @@ void	rotate_z(t_point *points, t_point *proyection, float ang, int len)
 	while (i < len)
 	{
 		proyection[i] = mul_mat(proyect_matrix, points[i]);
-		proyection[i].color = points[i].color;
 		i++;
 	}
 }
@@ -138,7 +135,6 @@ void	orto_proyection(t_point *points, t_point *proyection, int len)
 	while (i < len)
 	{
 		proyection[i] = mul_mat(proyect_matrix, points[i]);
-		proyection[i].color = points[i].color;
 		i++;
 	}
 }
