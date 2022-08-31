@@ -54,13 +54,13 @@ void	control_keys2(int key, t_meta *meta)
 		if (meta->keys.b_keyctrl)
 			meta->map.scale = meta->map.scale * 1.5;
 		if (meta->map.zdivisor > 1)
-			meta->map.zdivisor--;
+			meta->map.zdivisor -= 10;
 	}
 	if (key == KEY_RES || key == KEY_RES2)
 	{
 		if (meta->keys.b_keyctrl)
 			meta->map.scale = meta->map.scale / 1.5;
-		meta->map.zdivisor++;
+		meta->map.zdivisor += 10;
 	}
 }
 

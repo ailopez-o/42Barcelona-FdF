@@ -38,7 +38,7 @@ void	angle_control(int key, t_meta *meta)
 {
 	int	ang;
 
-	ang = 1;
+	ang = 10;
 	if (meta->keys.b_keyctrl)
 		ang = 90;
 	if (key == KEY_DOWN)
