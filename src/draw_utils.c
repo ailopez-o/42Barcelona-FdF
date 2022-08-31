@@ -113,14 +113,25 @@ void	generate_stars(t_meta *meta)
 {
 	int i;
 	t_point	star;
+	int xmin;
+	int xmax;
+	int ymin;
+	int ymax;
 
+	if (meta->map.b_geo == 0)
+		return;
+	xmin = meta->map.source.axis[X] - (meta->map.radius * meta->map.scale);
+	xmax = meta->map.source.axis[X] + (meta->map.radius * meta->map.scale);
+	ymin = meta->map.source.axis[Y] - (meta->map.radius * meta->map.scale);
+	ymax = meta->map.source.axis[Y] + (meta->map.radius * meta->map.scale);
 	i = 0;
 	while (i < 200)
 	{
 		star.axis[X] = rand() % WINX;
 		star.axis[Y] = rand() % WINY;
 		star.color = WHITE;
-		draw_dot(meta, star, 2);
+		if ((star.axis[X] < xmin || star.axis[X] > xmax) || ((star.axis[Y]) < ymin || star.axis[Y] > ymax))
+			draw_dot(meta, star, 2);
 		i++;
 	}
 }
