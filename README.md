@@ -49,6 +49,11 @@ $ ./fdf map.fdf
 |`L`| Lines ON /OFF|
 |`D`| Dots ON /OFF|
 |`X`| Extra Wired ON /OFF|
+|`G`| GEO view ON /OFF|
+|`H`| On GEO view Shadow side ON /OFF|
+|`I`| ISOMETRIC view |
+|`P`| PARALEL view |
+|`S`| Make the magic happends |
 |`B / Cmd+B`| Blendig + / -|
 |`1`| Terrain Color Scheme|
 |`2`| White & Black Color Scheme|
