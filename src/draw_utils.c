@@ -111,15 +111,15 @@ void	generate_background(t_meta *meta, int backcolor, int menucolor)
 
 void	generate_stars(t_meta *meta)
 {
-	int i;
+	int		i;
 	t_point	star;
-	int xmin;
-	int xmax;
-	int ymin;
-	int ymax;
+	int		xmin;
+	int		xmax;
+	int		ymin;
+	int		ymax;
 
 	if (meta->map.b_geo == 0)
-		return;
+		return ;
 	xmin = meta->map.source.axis[X] - (meta->map.radius * meta->map.scale);
 	xmax = meta->map.source.axis[X] + (meta->map.radius * meta->map.scale);
 	ymin = meta->map.source.axis[Y] - (meta->map.radius * meta->map.scale);
@@ -130,7 +130,8 @@ void	generate_stars(t_meta *meta)
 		star.axis[X] = rand() % WINX;
 		star.axis[Y] = rand() % WINY;
 		star.color = WHITE;
-		if ((star.axis[X] < xmin || star.axis[X] > xmax) || ((star.axis[Y]) < ymin || star.axis[Y] > ymax))
+		if ((star.axis[X] < xmin || star.axis[X] > xmax) \
+		|| ((star.axis[Y]) < ymin || star.axis[Y] > ymax))
 			draw_dot(meta, star, 2);
 		i++;
 	}

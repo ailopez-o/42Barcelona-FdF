@@ -33,7 +33,7 @@ void	control_keys2(int key, t_meta *meta)
 	if (key == KEY_X)
 		meta->map.b_pluslines = !meta->map.b_pluslines;
 	if (key == KEY_G)
-		meta->map.b_geo = !meta->map.b_geo;		
+		meta->map.b_geo = !meta->map.b_geo;
 	if (key == KEY_S)
 		meta->map.b_stars = !meta->map.b_stars;
 	if (key == KEY_H)
@@ -75,9 +75,10 @@ void	control_keys1(int key, t_meta *meta)
 	if (key == KEY_R)
 	{
 		map_ini(&meta->map, 0);
-		meta->map.proportion = meta->map.limits.axis[Z] / meta->map.limits.axis[X];
+		meta->map.proportion = \
+		meta->map.limits.axis[Z] / meta->map.limits.axis[X];
 		if (meta->map.proportion > 0.5)
-			meta->map.zdivisor = meta->map.proportion * 30;		
+			meta->map.zdivisor = meta->map.proportion * 30;
 		colorize(&meta->map);
 		draw_map(meta, FIT);
 	}	
