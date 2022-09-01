@@ -72,6 +72,8 @@ https://www.cs.buap.mx/~iolmos/graficacion/5_Transformaciones_geometricas_3D.pdf
 
 https://github.com/qst0/ft_libgfx#the-graphics-branch
 
+https://www.scratchapixel.com/index.php?redirect
+
 General
 
 https://qst0.github.io/ft_libgfx/
