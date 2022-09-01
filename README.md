@@ -72,6 +72,12 @@ https://www.cs.buap.mx/~iolmos/graficacion/5_Transformaciones_geometricas_3D.pdf
 
 https://github.com/qst0/ft_libgfx#the-graphics-branch
 
+https://www.scratchapixel.com/index.php?redirect
+
+https://web.archive.org/web/20150225192611/http://www.arcsynthesis.org/gltut/index.html
+
+http://inside.mines.edu/fs_home/gmurray/ArbitraryAxisRotation/
+
 General
 
 https://qst0.github.io/ft_libgfx/
