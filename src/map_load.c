@@ -117,9 +117,6 @@ static void	map_size(char *path, t_map *map)
 		free(line);
 		line = get_next_line(fd);
 	}
-	map->proportion = map->limits.axis[Z] / map->limits.axis[X];
-	if (map->proportion > 0.5)
-		map->zdivisor = map->proportion * 30;
 	close (fd);
 }
 
@@ -131,13 +128,12 @@ static void	map_size(char *path, t_map *map)
 *	Load each point to the structure
 */
 
-int	load_map(t_map *map, char *path)
+void	load_map(t_map *map, char *path)
 {
 	int		fd;
 	char	*line;
 	int		numline;
 
-	map->renders = 0;
 	map_ini(map, 1);
 	map_size(path, map);
 	map->points = ft_calloc (map->len, sizeof(t_point));
@@ -157,5 +153,4 @@ int	load_map(t_map *map, char *path)
 		line = get_next_line(fd);
 	}
 	go_polar(map);
-	return (1);
 }

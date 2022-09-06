@@ -21,22 +21,6 @@
 #include <time.h>
 #include <math.h>
 #include <stdlib.h>
-#include <stdio.h>
-
-static void	shadow(t_point *points, int len)
-{
-	int		i;
-
-	i = 0;
-	while (i < len)
-	{
-		if (points[i].axis[Z] < 0)
-			points[i].paint = 0;
-		else
-			points[i].paint = 1;
-		i++;
-	}
-}
 
 /* 
 *	Call all the functions to modify the points in the space
@@ -101,6 +85,18 @@ static void	go_fit(t_meta *meta, t_point *proyect)
 	}
 }
 
+void	drawing(t_meta *meta, t_point *proyect, int fit)
+{
+	if (meta->map.b_stars)
+		generate_stars(meta);
+	if (fit)
+		go_fit(meta, proyect);
+	if (meta->map.b_lines)
+		wired(meta, proyect);
+	if (meta->map.b_dots)
+		doted(meta, proyect);
+}
+
 /* 
 *	This function draw the proyection of map->points acording all
 *	the modifiers (x,y,z, scale..). If fit = 1, will caculate the 
@@ -119,16 +115,9 @@ int	draw_map(t_meta *meta, int fit)
 	meta->map.renders = meta->map.renders + 1;
 	generate_background(meta, meta->map.colors.backcolor, \
 	meta->map.colors.menucolor);
-	if (meta->map.b_stars)
-		generate_stars(meta);
 	copy_map(meta->map.points, proyect, meta->map.len);
 	parse_map(meta, proyect);
-	if (fit)
-		go_fit(meta, proyect);
-	if (meta->map.b_lines)
-		wired(meta, proyect);
-	if (meta->map.b_dots)
-		doted(meta, proyect);
+	drawing(meta, proyect, fit);
 	mlx_put_image_to_window(meta->vars.mlx, meta->vars.win, \
 	meta->bitmap.img, 0, 0);
 	draw_menu(meta);

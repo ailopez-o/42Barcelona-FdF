@@ -12,7 +12,7 @@
 #include "../lib/libft/libft.h"
 #include "../lib/miniliblx/minilibx_macos/mlx.h"
 #include "../inc/defines.h"
-#include <stdlib.h>
+
 
 void	print_nbr(t_meta *meta, int x, int y, int nbr)
 {

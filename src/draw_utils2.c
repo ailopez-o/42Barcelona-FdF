@@ -95,17 +95,19 @@ int	gradient(int startcolor, int endcolor, int len, int pix)
 	return (newcolor);
 }
 
-/*
-*	This function checks if the point is in the windows limit to avoid draw it
-*/
-
-static int	valid_pixel(t_point pixel)
+void	shadow(t_point *points, int len)
 {
-	if (pixel.axis[X] < 0 || pixel.axis[X] > WINX)
-		return (0);
-	if (pixel.axis[Y] < 0 || pixel.axis[Y] > WINY)
-		return (0);
-	return (1);
+	int		i;
+
+	i = 0;
+	while (i < len)
+	{
+		if (points[i].axis[Z] < 0)
+			points[i].paint = 0;
+		else
+			points[i].paint = 1;
+		i++;
+	}
 }
 
 /*

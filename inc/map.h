@@ -18,7 +18,7 @@
 */
 
 int		draw_map(t_meta *meta, int fit);
-int		load_map(t_map *map, char *path);
+void	load_map(t_map *map, char *path);
 void	generate_background(t_meta *meta, int backcolor, int menucolor);
 void	draw_menu(t_meta *meta);
 void	load_color(int max, int min, t_point *point, t_colors	colors);

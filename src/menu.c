@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "../inc/defines.h"
 #include "../inc/utils.h"
-#include <stdlib.h>
+
 
 #define CONTROL_BOX			650
 #define DRAWINFO_BOX		40

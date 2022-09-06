@@ -18,22 +18,31 @@
 #include "../inc/errors.h"
 #include <stdlib.h>
 
+void	system_init(t_meta *meta)
+{
+	meta->map.renders = 0;
+	meta->map.proportion = meta->map.limits.axis[Z] / meta->map.limits.axis[X];
+	if (meta->map.proportion > 0.5)
+		meta->map.zdivisor = meta->map.proportion * 30;
+	meta->keys.b_keyctrl = 0;
+	meta->keys.b_mouse_l = 0;
+	meta->keys.b_mouse_r = 0;
+	meta->vars.mlx = mlx_init();
+	meta->vars.win = mlx_new_window(meta->vars.mlx, WINX, WINY, \
+	"FDF - ailopez-");
+	meta->bitmap.img = mlx_new_image(meta->vars.mlx, WINX, WINY);
+	meta->bitmap.buffer = mlx_get_data_addr(meta->bitmap.img, \
+		&meta->bitmap.bitxpixel, &meta->bitmap.lines, &meta->bitmap.endian);
+}
+
 int	main(int argv, char **argc)
 {
 	t_meta	meta;
 
 	if (argv != 2)
 		terminate(ERR_ARGS);
-	if (load_map(&meta.map, argc[1]) < 0)
-		terminate(ERR_MAP);
-	meta.keys.b_keyctrl = 0;
-	meta.keys.b_mouse_l = 0;
-	meta.keys.b_mouse_r = 0;
-	meta.vars.mlx = mlx_init();
-	meta.vars.win = mlx_new_window(meta.vars.mlx, WINX, WINY, "FDF - ailopez-");
-	meta.bitmap.img = mlx_new_image(meta.vars.mlx, WINX, WINY);
-	meta.bitmap.buffer = mlx_get_data_addr(meta.bitmap.img, \
-		&meta.bitmap.bitxpixel, &meta.bitmap.lines, &meta.bitmap.endian);
+	load_map(&meta.map, argc[1]);
+	system_init(&meta);
 	if (draw_map(&meta, FIT) < 0)
 		terminate(ERR_MAP);
 	mlx_hook(meta.vars.win, 2, 0, key_press, &meta);

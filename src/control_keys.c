@@ -16,7 +16,6 @@
 #include "../inc/geometry.h"
 #include "../inc/control_utils.h"
 #include "../inc/map_utils.h"
-#include <stdlib.h>
 
 /* 
 *	This function handle some key press events
