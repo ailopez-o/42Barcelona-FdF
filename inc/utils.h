@@ -17,4 +17,5 @@ int		ft_round(double num);
 void	matrix_init(float (*matrix)[3]);
 void	print_nbr(t_meta *meta, int x, int y, int nbr);
 void	print_str(t_meta *meta, int x, int y, char *str);
+void	copy_map(t_point *src, t_point *dst, int len);
 #endif

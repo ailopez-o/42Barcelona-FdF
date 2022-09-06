@@ -14,7 +14,7 @@
 #include "../inc/defines.h"
 #include "../inc/keycodes.h"
 #include "../inc/map.h"
-#include <stdlib.h>
+#include "../inc/map_utils.h"
 #include <errno.h>
 
 /* 
@@ -80,4 +80,36 @@ void	terminate(char *s)
 	else
 		perror(s);
 	exit(1);
+}
+
+/* 
+*	This function handle the colorscheme dependig the key pressed
+*/
+
+void	control_colorscheme(int key, t_map *map)
+{
+	map->colors.backcolor = CARBON;
+	map->colors.bottomcolor = AZUL;
+	map->colors.topcolor = BRICK_RED;
+	map->colors.groundcolor = SAFFRON;
+	if (key == KEY_2)
+	{
+		map->colors.backcolor = WHITE;
+		map->colors.bottomcolor = CARBON;
+		map->colors.topcolor = CARBON;
+		map->colors.groundcolor = CARBON;
+	}
+	if (key == KEY_3)
+	{
+		map->colors.bottomcolor = WHITE;
+		map->colors.topcolor = WHITE;
+		map->colors.groundcolor = WHITE;
+	}
+	if (key == KEY_4)
+	{
+		map->colors.bottomcolor = SUPERAZUL;
+		map->colors.topcolor = ROJO;
+		map->colors.groundcolor = VERDE;
+	}
+	colorize(map);
 }

@@ -113,25 +113,23 @@ void	generate_stars(t_meta *meta)
 {
 	int		i;
 	t_point	star;
-	int		xmin;
-	int		xmax;
-	int		ymin;
-	int		ymax;
+	int		lim_x[2];
+	int		lim_y[2];
 
 	if (meta->map.b_geo == 0)
 		return ;
-	xmin = meta->map.source.axis[X] - (meta->map.radius * meta->map.scale);
-	xmax = meta->map.source.axis[X] + (meta->map.radius * meta->map.scale);
-	ymin = meta->map.source.axis[Y] - (meta->map.radius * meta->map.scale);
-	ymax = meta->map.source.axis[Y] + (meta->map.radius * meta->map.scale);
+	lim_x[0] = meta->map.source.axis[X] - (meta->map.radius * meta->map.scale);
+	lim_x[1] = meta->map.source.axis[X] + (meta->map.radius * meta->map.scale);
+	lim_y[0] = meta->map.source.axis[Y] - (meta->map.radius * meta->map.scale);
+	lim_y[1] = meta->map.source.axis[Y] + (meta->map.radius * meta->map.scale);
 	i = 0;
 	while (i < 200)
 	{
 		star.axis[X] = rand() % WINX;
 		star.axis[Y] = rand() % WINY;
 		star.color = WHITE;
-		if ((star.axis[X] < xmin || star.axis[X] > xmax) \
-		|| ((star.axis[Y]) < ymin || star.axis[Y] > ymax))
+		if ((star.axis[X] < lim_x[0] || star.axis[X] > lim_x[1]) \
+		|| ((star.axis[Y]) < lim_y[0] || star.axis[Y] > lim_y[1]))
 			draw_dot(meta, star, 2);
 		i++;
 	}

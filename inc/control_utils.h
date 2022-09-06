@@ -17,4 +17,5 @@ void	angle(float *ang, float value);
 void	colorize(t_map *map);
 int		terminate_program(void *param);
 void	terminate(char *s);
+void	control_colorscheme(int key, t_map *map);
 #endif

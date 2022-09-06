@@ -18,7 +18,38 @@
 #include "../inc/map_utils.h"
 #include <stdlib.h>
 
-//Testting branch
+/* 
+*	This function handle some key press events
+*/
+
+void	control_keys3(int key, t_meta *meta)
+{
+	if (key == KEY_B)
+	{
+		if (meta->keys.b_keyctrl)
+			meta->map.brange -= 0.0001;
+		else
+			meta->map.brange += 0.0001;
+	}
+	if (key == KEY_SUM || key == KEY_SUM2)
+	{
+		if (meta->keys.b_keyctrl)
+			meta->map.scale = meta->map.scale * 1.5;
+		if (meta->map.zdivisor > 1)
+			meta->map.zdivisor -= 10;
+	}
+	if (key == KEY_RES || key == KEY_RES2)
+	{
+		if (meta->keys.b_keyctrl)
+			meta->map.scale = meta->map.scale / 1.5;
+		meta->map.zdivisor += 10;
+	}
+	if (key == KEY_I)
+	{
+		isometric(&meta->map);
+		draw_map(meta, FIT);
+	}			
+}
 
 /* 
 *	This function handle some key press events
@@ -42,26 +73,6 @@ void	control_keys2(int key, t_meta *meta)
 		draw_map(meta, FIT);
 	if (key == KEY_CMD)
 		meta->keys.b_keyctrl = 1;
-	if (key == KEY_B)
-	{
-		if (meta->keys.b_keyctrl)
-			meta->map.brange -= 0.0001;
-		else
-			meta->map.brange += 0.0001;
-	}
-	if (key == KEY_SUM || key == KEY_SUM2)
-	{
-		if (meta->keys.b_keyctrl)
-			meta->map.scale = meta->map.scale * 1.5;
-		if (meta->map.zdivisor > 1)
-			meta->map.zdivisor -= 10;
-	}
-	if (key == KEY_RES || key == KEY_RES2)
-	{
-		if (meta->keys.b_keyctrl)
-			meta->map.scale = meta->map.scale / 1.5;
-		meta->map.zdivisor += 10;
-	}
 }
 
 /* 
@@ -86,57 +97,12 @@ void	control_keys1(int key, t_meta *meta)
 	{
 		meta->map.source.axis[X] = ((WINX - MENU_WIDTH) / 2) + MENU_WIDTH;
 		meta->map.source.axis[Y] = WINY / 2;
-	}		
-	if (key == KEY_I)
-	{
-		isometric(&meta->map);
-		draw_map(meta, FIT);
-	}			
+	}
 	if (key == KEY_P)
 	{
 		parallel(&meta->map);
 		draw_map(meta, FIT);
-	}		
-}
-
-/* 
-*	This function handle the colorscheme dependig the key pressed
-*/
-
-void	control_colorscheme(int key, t_map *map)
-{
-	if (key == KEY_1)
-	{
-		map->colors.backcolor = CARBON;
-		map->colors.bottomcolor = AZUL;
-		map->colors.topcolor = BRICK_RED;
-		map->colors.groundcolor = SAFFRON;
-		colorize(map);
-	}
-	if (key == KEY_2)
-	{
-		map->colors.backcolor = WHITE;
-		map->colors.bottomcolor = CARBON;
-		map->colors.topcolor = CARBON;
-		map->colors.groundcolor = CARBON;
-		colorize(map);
-	}
-	if (key == KEY_3)
-	{
-		map->colors.backcolor = CARBON;
-		map->colors.bottomcolor = WHITE;
-		map->colors.topcolor = WHITE;
-		map->colors.groundcolor = WHITE;
-		colorize(map);
-	}
-	if (key == KEY_4)
-	{
-		map->colors.backcolor = CARBON;
-		map->colors.bottomcolor = SUPERAZUL;
-		map->colors.topcolor = ROJO;
-		map->colors.groundcolor = VERDE;
-		colorize(map);
-	}	
+	}			
 }
 
 /* 
@@ -151,7 +117,9 @@ int	key_press(int key, void *param)
 	angle_control(key, meta);
 	control_keys1(key, meta);
 	control_keys2(key, meta);
-	control_colorscheme(key, &meta->map);
+	control_keys3(key, meta);
+	if (key >= KEY_1 && key <= KEY_4)
+		control_colorscheme(key, &meta->map);
 	draw_map(meta, FREE);
 	return (0);
 }

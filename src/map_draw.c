@@ -17,40 +17,13 @@
 #include "../inc/errors.h"
 #include "../inc/map_utils.h"
 #include "../inc/draw_utils.h"
+#include "../inc/utils.h"
 #include <time.h>
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
 
-/*
-static	void print_coor(t_meta *meta)
-{
-	t_point	start;
-	t_point	end;	
-
-	start.axis[X] = WINX / 2;
-	start.axis[Y] = WINY / 2;
-	start.axis[Z] = 0;
-	start.color = ROJO;
-	end.axis[X] = WINX / 2 + 500;
-	end.axis[Y] = WINY / 2;
-	end.axis[Z] = 0;
-	end.color = ROJO;
-	draw_line(meta, start, end);
-	start.axis[X] = WINX / 2;
-	start.axis[Y] = WINY / 2;
-	start.axis[Z] = 0;
-	start.color = AZUL;
-	end.axis[X] = WINX / 2;
-	end.axis[Y] = WINY / 2 + 500;
-	end.axis[Z] = 0;
-	end.color = ROJO;
-	draw_line(meta, start, end);
-
-}
-*/
-
-static void shadow(t_point *points, int len)
+static void	shadow(t_point *points, int len)
 {
 	int		i;
 
@@ -79,7 +52,7 @@ static void	parse_map(t_meta *meta, t_point *proyect)
 	rotate_y(proyect, proyect, meta->map.ang[Y], meta->map.len);
 	rotate_z(proyect, proyect, meta->map.ang[Z], meta->map.len);
 	if (meta->map.b_geo && meta->map.b_shadow)
-		shadow (proyect, meta->map.len);	
+		shadow (proyect, meta->map.len);
 	orto_proyection (proyect, proyect, meta->map.len);
 	scale (proyect, meta->map.scale, meta->map.len);
 	traslate(proyect, meta->map.source, meta->map.len);
@@ -108,22 +81,6 @@ static int	limits(t_point *points, int len)
 }
 
 /* 
-*	This function copy len points of the array from src to dst
-*/
-
-static void	copy_map(t_point *src, t_point *dst, int len)
-{
-	int	i;
-
-	i = 0;
-	while (i < len)
-	{
-		dst[i] = src[i];
-		i++;
-	}
-}
-
-/* 
 *	This function iterate n times until get the scale needed
 *	to fit the screen.
 */
@@ -143,20 +100,6 @@ static void	go_fit(t_meta *meta, t_point *proyect)
 		meta->map.scale = meta->map.scale + 0.2;
 	}
 }
-
-/*
-void print_log(t_meta *meta, t_point *points)
-{
-	int	i;
-
-	i = 0;
-	while (i < meta->map.len)
-	{
-		printf("X[%f]Y[%f]Z[%f] - LAT[%f]LONG[%f] - PRINT[%d]\n", points[i].axis[X], points[i].axis[Y], points[i].axis[Z], points[i].polar[LAT], points[i].polar[LONG], points[i].paint);
-		i++;
-	}
-}
-*/
 
 /* 
 *	This function draw the proyection of map->points acording all
