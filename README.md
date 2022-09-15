@@ -26,6 +26,10 @@
 </p>
 
 
+To pull files ↙️
+```bash
+git clone --recursive https://github.com/ailopez-o/42Barcelona-FdF.git
+```
 To compile the program ↙️
 
 ```bash
