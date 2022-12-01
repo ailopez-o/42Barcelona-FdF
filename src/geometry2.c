@@ -15,11 +15,7 @@
 void	spherize(t_map *map, t_point *points)
 {
 	int	i;
-	int	rad[3];
 
-	rad[X] = map->ang[X] * M_PI / 180;
-	rad[Y] = map->ang[Y] * M_PI / 180;
-	rad[Z] = map->ang[Z] * M_PI / 180;
 	i = 0;
 	while (i < map->len)
 	{
