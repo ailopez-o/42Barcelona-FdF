@@ -6,7 +6,7 @@
 /*   By: aitoraudicana <marvin@42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 12:16:23 by aitoraudi         #+#    #+#             */
-/*   Updated: 2022/07/13 12:16:26 by aitoraudi        ###   ########.fr       */
+/*   Updated: 2022/11/16 05:29:02 by aitoraudi        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef DEFINES_H
@@ -14,8 +14,8 @@
 
 # include <stdbool.h>
 
-# define WINX 1920	
-# define WINY 1080
+# define WINX 1080	
+# define WINY 720
 
 # define X 0
 # define Y 1

@@ -84,12 +84,12 @@ int	mouse_press(int button, int x, int y, void *param)
 		meta->keys.last_click_r.axis[X] = x;
 		meta->keys.last_click_r.axis[Y] = y;
 	}	
-	if (button == 4)
+	if (button == 5)
 	{
 		if (meta->map.scale > 2)
 			meta->map.scale = meta->map.scale / 1.5;
 	}
-	if (button == 5)
+	if (button == 4)
 		meta->map.scale = meta->map.scale * 1.5;
 	draw_map(meta, FREE);
 	return (0);
