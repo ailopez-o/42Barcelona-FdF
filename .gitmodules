@@ -2,3 +2,6 @@
 	path = lib/libft
 	url = git@github.com:ailopez-o/42Barcelona-Libft.git
 
+[submodule "42MapGenerator"]
+	path = 42MapGenerator
+	url = git@github.com:jgigault/42MapGenerator.git
