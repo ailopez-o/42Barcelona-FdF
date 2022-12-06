@@ -66,6 +66,10 @@ $ ./fdf map.fdf
 |`4`| Earth Color Scheme|
 |`ESC ❌`|Cierra la ventana|
 
+## To-Do
+
+- Centering Zoom
+- Avoiding aliasing when zooming out.
 
 ## Documentación
 
