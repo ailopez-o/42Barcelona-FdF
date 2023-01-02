@@ -6,7 +6,7 @@
 #    By: aitoraudicana <aitoraudicana@student.42    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/09 16:48:38 by ailopez-          #+#    #+#              #
-#    Updated: 2022/12/31 14:50:58 by aitoraudica      ###   ########.fr        #
+#    Updated: 2023/01/02 13:36:22 by aitoraudica      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,8 +25,8 @@ RM			:= rm -f
 
 INC		 		:= inc/
 LIB				:= lib/
-LIBFT_DIR		:= $(LIB)libft/
-LIBFT			:= $(LIBFT_DIR)libft.a
+PRINTF_DIR		:= $(LIB)ft_printf/
+PRINTF			:= $(PRINTF_DIR)libftprintf.a
 MINILIBX_DIR	:= $(LIB)miniliblx/minilibx_macos/
 MINILIBX		:= $(MINILIBX_DIR)libmlx.a
 MINILIBXCC		:= -I mlx -L $(MINILIBX_DIR) -lmlx
@@ -63,13 +63,13 @@ all:	makelibs
 		@$(MAKE) $(NAME)
 
 makelibs:	
-	@$(MAKE) -C $(LIBFT_DIR)
+	@$(MAKE) -C $(PRINTF_DIR)
 	@$(MAKE) -C $(MINILIBX_DIR)
 
 -include 	${DEPS}
 $(NAME):	$(OBJ)		
-			@$(CC) $(CFLAGS) $(FSANITIZE) $(OBJ) $(LIBFT) $(MINILIBXCC) $(OPENGL) -o $(NAME)		
-			@echo "👉 $(BLUE)$(CC) $(CFLAGS) $(FSANITIZE) $(OBJ) $(LIBFT) $(MINILIBXCC) $(OPENGL) -o $(NAME)$(DEF_COLOR)"
+			@$(CC) $(CFLAGS) $(FSANITIZE) $(OBJ) $(PRINTF) $(MINILIBXCC) $(OPENGL) -o $(NAME)		
+			@echo "👉 $(BLUE)$(CC) $(CFLAGS) $(FSANITIZE) $(OBJ) $(PRINTF) $(MINILIBXCC) $(OPENGL) -o $(NAME)$(DEF_COLOR)"
 			@echo "$(GREEN)✨ FDF compiled!$(DEF_COLOR)"
 
 bonus:		
@@ -82,17 +82,17 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c $(INCS) | $(OBJF)
 $(OBJF):
 			@mkdir -p $(OBJ_DIR)
 
-$(LIBFT):
-	@make -C $(LIBFT_DIR)
-	@echo "$(GREEN)Libft compiled!$(DEF_COLOR)"	
+$(PRINTF):
+	@make -C $(PRINTF_DIR)
+	@echo "$(GREEN)ft_printf compiled!$(DEF_COLOR)"	
 
 $(MINILIBX):
 	@make -C $(MINILIBX_DIR)
 	@echo "$(GREEN)Minilibx compiled!$(DEF_COLOR)"			
 
 clean:
-			@make clean -sC $(LIBFT_DIR)
-			@echo "$(CYAN)Libft object and dependency files cleaned.$(DEF_COLOR)"
+			@make clean -sC $(PRINTF_DIR)
+			@echo "$(CYAN)ft_printf object and dependency files cleaned.$(DEF_COLOR)"
 			@make clean -C $(MINILIBX_DIR)
 			@echo "$(CYAN)Minilibx object files cleaned.$(DEF_COLOR)"	
 			$(RM) -rf $(OBJ_DIR)

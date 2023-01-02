@@ -6,19 +6,22 @@
 /*   By: aitoraudicana <aitoraudicana@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 13:26:13 by aitorlope         #+#    #+#             */
-/*   Updated: 2023/01/02 12:44:06 by aitoraudica      ###   ########.fr       */
+/*   Updated: 2023/01/02 15:40:21 by aitoraudica      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../lib/libft/libft.h"
+#include "../lib/ft_printf/inc/ft_printf.h"
 #include "../inc/defines.h"
 #include "../inc/utils.h"
 #include "../inc/draw_utils.h"
 #include "../inc/map_utils.h"
 #include "../inc/errors.h"
 #include "../inc/geometry.h"
+#include <strings.h>
 #include <math.h>
 #include <fcntl.h>
+
+#define	BLOCK_READ	500000
 
 /*
 *	Acording the z value of the point and de max and min values of the map
@@ -118,19 +121,26 @@ static	void	fast_map_size(t_map *map)
 	map->limits.axis[Y] = 0;
 	while (map->map_in_memory[++i])
 	{
+		if (map->map_in_memory[i] == '\n' && map->map_in_memory[i + 1] == '\0')
+			break ;
 		if (ft_isdigit(map->map_in_memory[i]) && (map->map_in_memory[i + 1] == ' ' || map->map_in_memory[i + 1] == '\n' || map->map_in_memory[i + 1] == '\0'))
 				num_elems++;
-		if (map->map_in_memory[i] == '\n' || map->map_in_memory[i] == '\0')
+		if (map->map_in_memory[i] == '\n')
 		{
-			write(1, "*", 1);
 			map->limits.axis[Y]++;
 			if (map->limits.axis[X] != 0 && (map->limits.axis[X] != num_elems))
 				terminate(ERR_LINE);
 			else
 				map->limits.axis[X] = num_elems;
-			num_elems = 0;	
+			 num_elems = 0;;	
 		}
 	}
+
+
+
+
+
+	
 	map->len = map->limits.axis[X] * map->limits.axis[Y];
 	last_line = map->map_in_memory;
 	line = NULL;
@@ -146,9 +156,10 @@ static	void	fast_map_size(t_map *map)
 			line = ft_substr(last_line, 0, &map->map_in_memory[i] - last_line);
 			last_line = &map->map_in_memory[i + 1];
 			num_points += load_points(line, map, ++numline);
-			printf("\r[%d] points loaded", num_points);
+			ft_printf("\r ▶ %d points reading...", num_points);
 		}
 	}
+	ft_printf("\r ✅ %d points readed\n", num_points);
 }
 
 /* 
@@ -185,29 +196,34 @@ static	void	fast_map_size(t_map *map)
 // 	close (fd);
 // }
 
-char	*fast_read(char	*path)
+
+
+char	*fast_read(int fd)
 {
-	int		fd;
 	char	*buffer;
 	char	*temp;
 	int		byte_read;
+	int		total_bytes;
 	char	*map;
 
+	buffer = malloc(BLOCK_READ * sizeof(char));
+	if (buffer == NULL)
+		terminate(ERR_MEM);
 	map = ft_strdup("");
-	fd = open(path, O_RDONLY);
-	if (fd < 2)
-		terminate(ERR_OPEN);
-	byte_read = 500000;
-	buffer = ft_calloc((500000), sizeof(char));
-	while (byte_read == 500000)
+	total_bytes = 0;
+	byte_read = BLOCK_READ;
+	ft_printf("\n Map loading...\n\n");
+	while (byte_read == BLOCK_READ)
 	{	
-		byte_read = read(fd, buffer, 500000);
+		ft_bzero (buffer, BLOCK_READ);
+		byte_read = read(fd, buffer, BLOCK_READ);
 		temp = map;
 		map = ft_strjoin(map, buffer);
+		total_bytes += byte_read;
+		ft_printf("\r %d kb reading", total_bytes/1024);
 		free(temp);
 	}
-	printf("\r%zu bytes readed", ft_strlen(map));		
-	printf("\n");	
+	printf("\r ✅ %d kb readed \n", total_bytes/1024);
 	free(buffer);	
 	close(fd);
 	return (map);
@@ -224,11 +240,14 @@ char	*fast_read(char	*path)
 
 void	load_map(t_map *map, char *path)
 {
-	//int		fd;
+	int		fd;
 	//int		numline;
 
 	map_ini(map, 1);
-	map->map_in_memory = fast_read(path);
+	fd = open(path, O_RDONLY);
+	if (fd < 2)
+		terminate(ERR_OPEN);	
+	map->map_in_memory = fast_read(fd);
 	fast_map_size(map);
 	//map_size(path, map);
 	//map->points = ft_calloc (map->len, sizeof(t_point));
@@ -249,4 +268,5 @@ void	load_map(t_map *map, char *path)
 	// }
 	//close(fd);
 	go_polar(map);
+	ft_printf("\nLoading GUI\n");
 }
