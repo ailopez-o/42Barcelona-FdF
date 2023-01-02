@@ -6,7 +6,7 @@
 /*   By: aitoraudicana <aitoraudicana@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 13:26:13 by aitorlope         #+#    #+#             */
-/*   Updated: 2023/01/02 12:06:21 by aitoraudica      ###   ########.fr       */
+/*   Updated: 2023/01/02 12:44:06 by aitoraudica      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,13 +107,18 @@ static	void	fast_map_size(t_map *map)
 	char	*line;
 	char	*last_line;
 	int		num_points;
+	int 	len;	
 
-	map->limits.axis[Y] = 0;
+	len = ft_strlen (map->map_in_memory);
+	len++;
+	len--;
 	i = -1;
 	num_elems = 0;
+	len = ft_strlen (map->map_in_memory);
+	map->limits.axis[Y] = 0;
 	while (map->map_in_memory[++i])
 	{
-		if (map->map_in_memory[i] != ' ' && (map->map_in_memory[i + 1] == ' ' || map->map_in_memory[i + 1] == '\n'))
+		if (ft_isdigit(map->map_in_memory[i]) && (map->map_in_memory[i + 1] == ' ' || map->map_in_memory[i + 1] == '\n' || map->map_in_memory[i + 1] == '\0'))
 				num_elems++;
 		if (map->map_in_memory[i] == '\n' || map->map_in_memory[i] == '\0')
 		{
