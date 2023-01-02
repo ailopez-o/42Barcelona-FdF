@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ailopez- <ailopez-@student.42barcelon      +#+  +:+       +#+        */
+/*   By: aitoraudicana <aitoraudicana@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 16:04:21 by ailopez-          #+#    #+#             */
-/*   Updated: 2022/06/29 16:04:25 by ailopez-         ###   ########.fr       */
+/*   Updated: 2023/01/02 16:50:02 by aitoraudica      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../lib/libft/libft.h"
-#include "../lib/miniliblx/minilibx_macos/mlx.h"
-#include "../inc/defines.h"
 
+#include "../lib/miniliblx/minilibx_macos/mlx.h"
+#include "../lib/ft_printf/inc/ft_printf.h"
+#include "../inc/defines.h"
 
 void	print_nbr(t_meta *meta, int x, int y, int nbr)
 {

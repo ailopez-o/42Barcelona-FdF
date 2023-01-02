@@ -6,7 +6,7 @@
 /*   By: aitoraudicana <aitoraudicana@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 12:16:23 by aitoraudi         #+#    #+#             */
-/*   Updated: 2023/01/02 13:41:57 by aitoraudica      ###   ########.fr       */
+/*   Updated: 2023/01/02 16:58:00 by aitoraudica      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ typedef struct m_map {
 	t_point		limits;
 	t_point		source;
 	t_colors	colors;
-	char		*map_in_memory;
+	char		*memory;
 	char		**lines;
 	int			zmin;
 	float		ang[3];
@@ -122,7 +122,6 @@ typedef struct s_meta {
 	t_keys		keys;
 }	t_meta;
 
-
 # define DEF_COLOR	"\033[0;39m"
 # define SH_GRAY	"\033[0;90m"
 # define SH_RED		"\033[0;91m"
@@ -144,6 +143,5 @@ typedef struct s_meta {
 # define U_WHITE	"\033[37;7:208m"
 # define U_YELLOW	"\033[33;7:208m"
 # define U_BLUE		"\033[34;7:208m"
-
 
 #endif

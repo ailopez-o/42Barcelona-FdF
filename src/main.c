@@ -6,7 +6,7 @@
 /*   By: aitoraudicana <aitoraudicana@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 14:36:55 by ailopez-          #+#    #+#             */
-/*   Updated: 2022/12/31 12:41:46 by aitoraudica      ###   ########.fr       */
+/*   Updated: 2023/01/02 16:56:44 by aitoraudica      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,6 @@ int	main(int argv, char **argc)
 	mlx_hook(meta.vars.win, 17, 0, terminate_program, &meta);
 	mlx_loop(meta.vars.mlx);
 	free (meta.map.points);
-	free (meta.map.map_in_memory);
+	free (meta.map.memory);
 	return (0);
 }
