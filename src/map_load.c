@@ -6,7 +6,7 @@
 /*   By: aitoraudicana <aitoraudicana@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 13:26:13 by aitorlope         #+#    #+#             */
-/*   Updated: 2023/01/02 17:02:04 by aitoraudica      ###   ########.fr       */
+/*   Updated: 2023/01/02 17:26:48 by aitoraudica      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,27 +151,27 @@ static	void	map_size(t_map *map)
 
 static	void	map_get_points(t_map *map)
 {
-	int		i;
-	char	*line;
-	char	*last_line;
-	int		num_points;
-	int		num_line;
+	int			i;
+	char		*line;
+	char		*last_line;
+	static int	num_points = 0;
+	static int	num_line = 0;
 
 	last_line = map->memory;
 	line = NULL;
-	num_points = 0;
-	num_line = 0;
-	i = -1;
+	i = 0;
 	map->points = ft_calloc (map->len, sizeof(t_point));
-	while (map->memory[++i])
+	while (++i)
 	{
 		if (map->memory[i] == '\n' || map->memory[i] == '\0')
 		{
 			free (line);
 			line = ft_substr(last_line, 0, &map->memory[i] - last_line);
 			last_line = &map->memory[i + 1];
-			num_points += load_points(line, map, ++num_line);
+			num_points += load_points(line, map, num_line++);
 			ft_printf("\r ▶ %d points reading...", num_points);
+			if (map->memory[i] == '\0')
+				break ;
 		}
 	}
 	free (line);
