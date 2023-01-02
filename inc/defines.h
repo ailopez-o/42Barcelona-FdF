@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   defines.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aitoraudicana <marvin@42.fr>               +#+  +:+       +#+        */
+/*   By: aitoraudicana <aitoraudicana@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 12:16:23 by aitoraudi         #+#    #+#             */
-/*   Updated: 2022/11/16 05:29:02 by aitoraudi        ###   ########.fr       */
+/*   Updated: 2023/01/01 21:33:49 by aitoraudica      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #ifndef DEFINES_H
 # define DEFINES_H
 
@@ -55,6 +56,7 @@
 typedef struct s_point {
 	float	axis[3];
 	int		color;
+	int		hex_color;
 	bool	paint;
 	float	polar[2];
 }	t_point;
@@ -91,8 +93,10 @@ typedef struct s_keys {
 typedef struct m_map {
 	t_point		*points;
 	t_point		limits;
-	t_point		source;	
-	t_colors	colors;	
+	t_point		source;
+	t_colors	colors;
+	char		*map_in_memory;
+	char		**lines;
 	int			zmin;
 	float		ang[3];
 	float		zdivisor;

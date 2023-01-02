@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   map_utils2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aitorlopezdeaudicana <marvin@42.fr>        +#+  +:+       +#+        */
+/*   By: aitoraudicana <aitoraudicana@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 13:34:10 by aitorlope         #+#    #+#             */
-/*   Updated: 2022/07/12 13:34:13 by aitorlope        ###   ########.fr       */
+/*   Updated: 2023/01/01 17:21:05 by aitoraudica      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../lib/libft/libft.h"
+
 #include "../inc/defines.h"
+#include "../lib/libft/libft.h"
 #include "../inc/utils.h"
 
 int	line_elems(char **elems)

@@ -3,13 +3,13 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ailopez- <ailopez-@student.42barcelon      +#+  +:+       +#+         #
+#    By: aitoraudicana <aitoraudicana@student.42    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/09 16:48:38 by ailopez-          #+#    #+#              #
-#    Updated: 2022/06/03 13:50:22 by aitoraudi        ###   ########.fr        #
-#    Updated: 2022/05/24 00:35:24 by aitorlope        ###   ########.fr        #
+#    Updated: 2022/12/31 14:50:58 by aitoraudica      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
 #Variables
 
 NAME		:= fdf
@@ -17,7 +17,7 @@ NAME		:= fdf
 SRC_DIR		:= src/
 OBJ_DIR		:= obj/
 CC			:= gcc
-CFLAGS		:= -g -O3 -Wall -Werror -Wextra
+CFLAGS		:= -g  -Wall -Werror -Wextra
 #FSANITIZE	:= -fsanitize=address -g3
 FSANITIZE	:= 
 NOFLAGS		:= -g

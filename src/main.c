@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ailopez- <ailopez-@student.42barcelon      +#+  +:+       +#+        */
+/*   By: aitoraudicana <aitoraudicana@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 14:36:55 by ailopez-          #+#    #+#             */
-/*   Updated: 2022/06/29 16:01:37 by ailopez-         ###   ########.fr       */
+/*   Updated: 2022/12/31 12:41:46 by aitoraudica      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../lib/miniliblx/minilibx_macos/mlx.h"
 #include "../inc/defines.h"
 #include "../inc/map.h"
@@ -53,5 +54,6 @@ int	main(int argv, char **argc)
 	mlx_hook(meta.vars.win, 17, 0, terminate_program, &meta);
 	mlx_loop(meta.vars.mlx);
 	free (meta.map.points);
+	free (meta.map.map_in_memory);
 	return (0);
 }
