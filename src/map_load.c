@@ -6,7 +6,7 @@
 /*   By: aitoraudicana <aitoraudicana@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 13:26:13 by aitorlope         #+#    #+#             */
-/*   Updated: 2023/01/02 11:47:59 by aitoraudica      ###   ########.fr       */
+/*   Updated: 2023/01/02 11:58:23 by aitoraudica      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ static	void	fast_map_size(t_map *map)
 	{
 		if (map->map_in_memory[i] == ' ' && map->map_in_memory[i + 1] != ' ' && map->map_in_memory[i + 1] != '\n')
 				num_elems++;
-		if (map->map_in_memory[i] == '\n')
+		if (map->map_in_memory[i] == '\n' || map->map_in_memory[i] == '\0')
 		{
 			write(1, "*", 1);
 			map->limits.axis[Y]++;
@@ -135,7 +135,7 @@ static	void	fast_map_size(t_map *map)
 	map->points = ft_calloc (map->len, sizeof(t_point));
 	while (map->map_in_memory[++i])
 	{
-		if (map->map_in_memory[i] == '\n')
+		if (map->map_in_memory[i] == '\n' || map->map_in_memory[i] == '\0')
 		{
 			free (line);
 			line = ft_substr(last_line, 0, &map->map_in_memory[i] - last_line);
