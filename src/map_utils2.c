@@ -3,42 +3,61 @@
 /*                                                        :::      ::::::::   */
 /*   map_utils2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aitorlopezdeaudicana <marvin@42.fr>        +#+  +:+       +#+        */
+/*   By: aitoraudicana <aitoraudicana@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 13:34:10 by aitorlope         #+#    #+#             */
-/*   Updated: 2022/07/12 13:34:13 by aitorlope        ###   ########.fr       */
+/*   Updated: 2023/01/02 16:48:22 by aitoraudica      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../lib/libft/libft.h"
+
 #include "../inc/defines.h"
+#include "../lib/libft/libft.h"
 #include "../inc/utils.h"
+#include "../inc/draw_utils.h"
 
-int	line_elems(char **elems)
+/*
+*	Acording the z value of the point and de max and min values of the map
+*	this function set the color needed of the point received.
+*	All the colors are defined in fdf.h 
+*/
+
+void	load_color(int max, int min, t_point *point, t_colors	colors)
 {
-	int		i;
-
-	i = 0;
-	while (elems[i] && elems[i][0] != '\n')
-		i++;
-	return (i);
+	point->paint = 1;
+	point->color = DEFAULT_COLOR;
+	if (point->hex_color > 0)
+	{
+		point->color = point->hex_color;
+		return ;
+	}
+	if (point->axis[Z] == max)
+		point->color = colors.topcolor;
+	else if (point->axis[Z] == 0)
+		point->color = colors.groundcolor;
+	else if (point->axis[Z] == min && min != 0)
+		point->color = colors.bottomcolor;
+	else if (point->axis[Z] > 0)
+		point->color = gradient(colors.groundcolor, colors.topcolor, \
+		max, point->axis[Z]);
+	else
+		point->color = gradient(colors.bottomcolor, colors.groundcolor, \
+		-min, - (min - point->axis[Z]));
 }
 
-void	z_limits(char **splited, t_map *map)
+int	has_hexcolors(char *line)
 {
-	int	i;
-	int	valor;
+	char	**color;
+	int		get_color;
 
-	write(1, "🧱", 4);
-	i = 0;
-	while (splited[i])
+	if (ft_strchr(line, ',') != 0)
 	{
-		valor = ft_atoi(&splited[i][0]);
-		if (map->limits.axis[Z] < valor)
-			map->limits.axis[Z] = valor;
-		if (map->zmin > valor)
-			map->zmin = valor;
-		i++;
+		color = ft_split(line, ',');
+		get_color = strtol(color[1] + 2, NULL, 16);
+		dbl_free(color);
+		return (get_color);
 	}
+	else
+		return (0);
 }
 
 int	valid_point(char *value)

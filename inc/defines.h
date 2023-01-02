@@ -3,19 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   defines.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aitoraudicana <marvin@42.fr>               +#+  +:+       +#+        */
+/*   By: aitoraudicana <aitoraudicana@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 12:16:23 by aitoraudi         #+#    #+#             */
-/*   Updated: 2022/11/16 05:29:02 by aitoraudi        ###   ########.fr       */
+/*   Updated: 2023/01/02 17:29:00 by aitoraudica      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #ifndef DEFINES_H
 # define DEFINES_H
 
 # include <stdbool.h>
 
-# define WINX 1080	
-# define WINY 720
+# define WINX 1920	
+# define WINY 1080
 
 # define X 0
 # define Y 1
@@ -55,6 +56,7 @@
 typedef struct s_point {
 	float	axis[3];
 	int		color;
+	int		hex_color;
 	bool	paint;
 	float	polar[2];
 }	t_point;
@@ -91,8 +93,10 @@ typedef struct s_keys {
 typedef struct m_map {
 	t_point		*points;
 	t_point		limits;
-	t_point		source;	
-	t_colors	colors;	
+	t_point		source;
+	t_colors	colors;
+	char		*memory;
+	char		**lines;
 	int			zmin;
 	float		ang[3];
 	float		zdivisor;
@@ -117,4 +121,27 @@ typedef struct s_meta {
 	t_map		map;
 	t_keys		keys;
 }	t_meta;
+
+# define DEF_COLOR	"\033[0;39m"
+# define SH_GRAY	"\033[0;90m"
+# define SH_RED		"\033[0;91m"
+# define SH_GREEN	"\033[0;92m"
+# define SH_YELLOW	"\033[0;93m"
+# define SH_BLUE	"\033[0;94m"
+# define SH_MAGENTA	"\033[0;95m"
+# define SH_CYAN	"\033[0;96m"
+# define SH_WHITE	"\033[0;97m"
+# define SH_KNR		"\x1B[0m"
+# define SH_KRED	"\x1B[31m"
+# define SH_KGRN	"\x1B[32m"
+# define SH_KYEL	"\x1B[33m"
+# define SH_KBLU	"\x1B[34m"
+# define SH_KMAG	"\x1B[35m"
+# define SH_KCYN	"\x1B[36m"
+# define SH_KWHT	"\x1B[37m"
+# define U_ORANGE	"\033[48:5:208m"
+# define U_WHITE	"\033[37;7:208m"
+# define U_YELLOW	"\033[33;7:208m"
+# define U_BLUE		"\033[34;7:208m"
+
 #endif

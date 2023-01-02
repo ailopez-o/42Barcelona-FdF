@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   menu.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aitorlopezdeaudicana <marvin@42.fr>        +#+  +:+       +#+        */
+/*   By: aitoraudicana <aitoraudicana@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 12:38:45 by aitorlope         #+#    #+#             */
-/*   Updated: 2022/07/09 12:38:50 by aitorlope        ###   ########.fr       */
+/*   Updated: 2023/01/02 16:50:55 by aitoraudica      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../inc/defines.h"
 #include "../inc/utils.h"
-
 
 #define CONTROL_BOX			650
 #define DRAWINFO_BOX		40
 #define MAPINFO_BOX			280
 #define COLORSCHEME_BOX		480
-#define LINE_SIZE			30			
+#define LINE_SIZE			30
 #define MENU_TAB			30
 
 static void	draw_colorscheme(t_meta *meta)
