@@ -6,7 +6,7 @@
 /*   By: aitoraudicana <aitoraudicana@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 13:26:13 by aitorlope         #+#    #+#             */
-/*   Updated: 2023/01/02 11:58:23 by aitoraudica      ###   ########.fr       */
+/*   Updated: 2023/01/02 12:06:21 by aitoraudica      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ static	void	fast_map_size(t_map *map)
 	num_elems = 0;
 	while (map->map_in_memory[++i])
 	{
-		if (map->map_in_memory[i] == ' ' && map->map_in_memory[i + 1] != ' ' && map->map_in_memory[i + 1] != '\n')
+		if (map->map_in_memory[i] != ' ' && (map->map_in_memory[i + 1] == ' ' || map->map_in_memory[i + 1] == '\n'))
 				num_elems++;
 		if (map->map_in_memory[i] == '\n' || map->map_in_memory[i] == '\0')
 		{
