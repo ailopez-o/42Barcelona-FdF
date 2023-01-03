@@ -6,7 +6,7 @@
 /*   By: aitoraudicana <aitoraudicana@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 13:26:27 by aitorlope         #+#    #+#             */
-/*   Updated: 2023/01/03 10:26:56 by aitoraudica      ###   ########.fr       */
+/*   Updated: 2023/01/03 10:27:49 by aitoraudica      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "../inc/map.h"
 #include "../inc/draw_utils.h"
 #include "../lib/ft_printf/inc/ft_printf.h"
-
 
 void	wire_line(t_point *point, t_meta *meta, int density, int line);
 
