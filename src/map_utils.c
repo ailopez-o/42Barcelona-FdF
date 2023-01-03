@@ -6,7 +6,7 @@
 /*   By: aitoraudicana <aitoraudicana@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 13:26:27 by aitorlope         #+#    #+#             */
-/*   Updated: 2023/01/03 02:19:54 by aitoraudica      ###   ########.fr       */
+/*   Updated: 2023/01/03 10:26:56 by aitoraudica      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,30 @@
 #include "../inc/draw_utils.h"
 #include "../lib/ft_printf/inc/ft_printf.h"
 
+
+void	wire_line(t_point *point, t_meta *meta, int density, int line);
+
 /* 
 *	This function iterate all the points of the wire array and draw a line between:
-*	--> wire[i] and wire [i+1]
-*	--> wire[i] and wire [i + mapsize]
+*	--> wire[i] and wire [i + density]
+*	--> wire[i] and wire [i + x_max * density]
 */
+
+void	wired(t_meta *meta, t_point *wire)
+{
+	int	i;
+	int	density;
+
+	density = 15 / meta->map.scale;
+	if (density == 0)
+		density = 1;
+	i = 0;
+	while (i < meta->map.len)
+	{
+		wire_line (&wire[i], meta, density, i / meta->map.limits.axis[X]);
+		i = i + meta->map.limits.axis[X] * density;
+	}
+}
 
 void	wire_line(t_point *point, t_meta *meta, int density, int line)
 {
@@ -41,22 +60,6 @@ void	wire_line(t_point *point, t_meta *meta, int density, int line)
 				draw_line(meta, point[i], point[y_end]);
 		}
 		i += density;
-	}
-}
-
-void	wired(t_meta *meta, t_point *wire)
-{
-	int	i;
-	int	density;
-
-	density = 15 / meta->map.scale;
-	if (density == 0)
-		density = 1;
-	i = 0;
-	while (i < meta->map.len)
-	{
-		wire_line (&wire[i], meta, density, i / meta->map.limits.axis[X]);
-		i = i + meta->map.limits.axis[X] * density;
 	}
 }
 
