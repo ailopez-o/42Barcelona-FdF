@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   map_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aitorlopezdeaudicana <marvin@42.fr>        +#+  +:+       +#+        */
+/*   By: aitoraudicana <aitoraudicana@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 13:26:27 by aitorlope         #+#    #+#             */
-/*   Updated: 2022/07/09 13:26:30 by aitorlope        ###   ########.fr       */
+/*   Updated: 2023/01/03 02:19:33 by aitoraudica      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../inc/defines.h"
 #include "../inc/map.h"
 #include "../inc/draw_utils.h"
+#include "../lib/ft_printf/inc/ft_printf.h"
 
 /* 
 *	This function iterate all the points of the wire array and draw a line between:
@@ -19,32 +21,42 @@
 *	--> wire[i] and wire [i + mapsize]
 */
 
+void	wire_line(t_point *point, t_meta *meta, int density, int line)
+{
+	int	i;
+	int	x_end;
+	int	y_end;
+
+	i = 0;
+	while (i < (int)meta->map.limits.axis[X])
+	{
+		x_end = i + density;
+		if (x_end >= (int)meta->map.limits.axis[X])
+			x_end = (int)meta->map.limits.axis[X] - 1;
+		y_end = i + (int)meta->map.limits.axis[X] * density;
+		if (point[i].paint)
+		{
+			draw_line(meta, point[i], point[x_end]);
+			if (line + density < (int)meta->map.limits.axis[Y])
+				draw_line(meta, point[i], point[y_end]);
+		}
+		i += density;
+	}
+}
+
 void	wired(t_meta *meta, t_point *wire)
 {
 	int	i;
+	int	density;
 
+	density = 15 / meta->map.scale;
+	if (density == 0)
+		density = 1;
 	i = 0;
 	while (i < meta->map.len)
 	{
-		if (wire[i].paint)
-		{
-			if ((i + 1) % (int)meta->map.limits.axis[X] != 0)
-			{
-				draw_line(meta, wire[i], wire[i + 1]);
-				if (meta->map.b_pluslines)
-				{
-					if ((i / (int)meta->map.limits.axis[X]) != \
-						(meta->map.limits.axis[Y] - 1))
-						draw_line(meta, wire[i], wire[i + \
-							(int)meta->map.limits.axis[X] + 1]);
-				}
-			}
-			if ((i / (int)meta->map.limits.axis[X]) != \
-			(meta->map.limits.axis[Y] - 1))
-				draw_line(meta, wire[i], wire[i + \
-				(int)meta->map.limits.axis[X]]);
-		}
-		i++;
+		wire_line (&wire[i], meta, density, i / meta->map.limits.axis[X]);
+		i = i + meta->map.limits.axis[X] * density;
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: aitoraudicana <aitoraudicana@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 12:16:23 by aitoraudi         #+#    #+#             */
-/*   Updated: 2023/01/02 17:29:00 by aitoraudica      ###   ########.fr       */
+/*   Updated: 2023/01/03 00:47:46 by aitoraudica      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # include <stdbool.h>
 
-# define WINX 1920	
-# define WINY 1080
+# define WINX 800	
+# define WINY 600
 
 # define X 0
 # define Y 1

@@ -6,7 +6,7 @@
 #    By: aitoraudicana <aitoraudicana@student.42    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/09 16:48:38 by ailopez-          #+#    #+#              #
-#    Updated: 2023/01/02 13:36:22 by aitoraudica      ###   ########.fr        #
+#    Updated: 2023/01/03 01:55:07 by aitoraudica      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ NAME		:= fdf
 SRC_DIR		:= src/
 OBJ_DIR		:= obj/
 CC			:= gcc
-CFLAGS		:= -g  -Wall -Werror -Wextra
+CFLAGS		:= -g -O3 -Wall -Werror -Wextra
 #FSANITIZE	:= -fsanitize=address -g3
 FSANITIZE	:= 
 NOFLAGS		:= -g

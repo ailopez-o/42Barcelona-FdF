@@ -3,13 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   draw_utils2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aitoraudicana <marvin@42.fr>               +#+  +:+       +#+        */
+/*   By: aitoraudicana <aitoraudicana@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 13:29:45 by aitoraudi         #+#    #+#             */
-/*   Updated: 2022/07/14 13:29:50 by aitoraudi        ###   ########.fr       */
+/*   Updated: 2023/01/03 01:02:52 by aitoraudica      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../lib/miniliblx/minilibx_macos/mlx.h"
+
 #include "../inc/defines.h"
 #include "../inc/draw_utils.h"
 #include "../inc/utils.h"
