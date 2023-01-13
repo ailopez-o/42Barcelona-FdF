@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aitoraudicana <aitoraudicana@student.42    +#+  +:+       +#+        */
+/*   By: ailopez- <ailopez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 13:26:27 by aitorlope         #+#    #+#             */
-/*   Updated: 2023/01/03 10:27:49 by aitoraudica      ###   ########.fr       */
+/*   Updated: 2023/01/13 22:37:16 by ailopez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	wired(t_meta *meta, t_point *wire)
 	int	i;
 	int	density;
 
-	density = 15 / meta->map.scale;
+	density = 8 / meta->map.scale;
 	if (density == 0)
 		density = 1;
 	i = 0;
