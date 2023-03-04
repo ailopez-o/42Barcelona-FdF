@@ -69,7 +69,6 @@ $ ./fdf map.fdf
 ## To-Do
 
 - Centering Zoom
-- Avoid aliasing when zooming out.
 
 ## Documentación
 
