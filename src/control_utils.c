@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   control_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aitorlopezdeaudicana <marvin@42.fr>        +#+  +:+       +#+        */
+/*   By: aitoraudicana <aitoraudicana@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 19:45:09 by aitorlope         #+#    #+#             */
-/*   Updated: 2022/07/10 19:45:12 by aitorlope        ###   ########.fr       */
+/*   Updated: 2023/03/22 01:20:54 by aitoraudica      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../lib/miniliblx/minilibx_macos/mlx.h"
 #include "../lib/libft/libft.h"
 #include "../inc/defines.h"
@@ -38,7 +39,7 @@ void	angle_control(int key, t_meta *meta)
 {
 	int	ang;
 
-	ang = 10;
+	ang = 1;
 	if (meta->keys.b_keyctrl)
 		ang = 90;
 	if (key == KEY_DOWN)
