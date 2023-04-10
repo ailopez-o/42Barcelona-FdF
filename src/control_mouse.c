@@ -53,8 +53,8 @@ int	mouse_release(int button, int x, int y, void *param)
 {
 	t_meta	*meta;
 
-	x++;
-	y++;
+	(void)x;
+	(void)y;
 	meta = (t_meta *)param;
 	if (button == 1)
 		meta->keys.b_mouse_l = 0;
