@@ -1,10 +1,6 @@
 [submodule "lib/libft"]
 	path = lib/libft
 	url = git@github.com:ailopez-o/42Barcelona-Libft.git
-
-[submodule "42MapGenerator"]
-	path = 42MapGenerator
-	url = git@github.com:jgigault/42MapGenerator.git
 [submodule "lib/ft_printf"]
 	path = lib/ft_printf
 	url = git@github.com:ailopez-o/42Barcelona-Printf.git
