@@ -39,6 +39,11 @@ void	system_init(t_meta *meta)
 	meta->bitmap.buffer = mlx_get_data_addr(meta->bitmap.img, \
 		&meta->bitmap.bitxpixel, &meta->bitmap.lines, &meta->bitmap.endian);
 }
+int	main_loop(t_meta *data)
+{
+	data->keys.b_keyctrl = true;
+	return (0);
+}
 
 int	main(int argv, char **argc)
 {
@@ -50,8 +55,8 @@ int	main(int argv, char **argc)
 	system_init(&meta);
 	if (draw_map(&meta, FIT) < 0)
 		terminate(ERR_MAP);
-	mlx_hook(meta.vars.win, 2, 0, key_press, &meta);
-	mlx_hook(meta.vars.win, 3, 0, key_release, &meta);
+	mlx_hook(meta.vars.win, 2, 1L << 0, key_press, &meta);
+	mlx_hook(meta.vars.win, 3, 1L << 1, key_release, &meta);
 	mlx_hook(meta.vars.win, 4, 0, mouse_press, &meta);
 	mlx_hook(meta.vars.win, 5, 0, mouse_release, &meta);
 	mlx_hook(meta.vars.win, 6, 0, mouse_move, &meta);
