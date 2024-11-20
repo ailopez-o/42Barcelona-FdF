@@ -7,3 +7,6 @@
 [submodule "lib/minilibx/minilibx_codam"]
 	path = lib/minilibx/minilibx_codam
 	url = https://github.com/codam-coding-college/MLX42.git
+[submodule "lib/minilibx/minilibx_linux"]
+	path = lib/minilibx/minilibx_linux
+	url = https://github.com/42Paris/minilibx-linux.git
