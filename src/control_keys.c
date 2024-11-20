@@ -9,7 +9,11 @@
 /*   Updated: 2022/06/29 16:01:28 by ailopez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../lib/miniliblx/minilibx_macos/mlx.h"
+#ifdef __linux__
+	#include "../lib/minilibx/minilibx_linux/mlx.h"
+#else
+	#include "../lib/minilibx/minilibx_mac/mlx.h"
+#endif
 #include "../inc/defines.h"
 #include "../inc/map.h"
 #include "../inc/keycodes.h"

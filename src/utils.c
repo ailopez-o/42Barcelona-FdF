@@ -10,7 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../lib/miniliblx/minilibx_macos/mlx.h"
+#ifdef __linux__
+	#include "../lib/minilibx/minilibx_linux/mlx.h"
+#else
+	#include "../lib/minilibx/minilibx_mac/mlx.h"
+#endif
 #include "../lib/ft_printf/inc/ft_printf.h"
 #include "../inc/defines.h"
 

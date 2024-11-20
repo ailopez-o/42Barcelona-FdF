@@ -10,6 +10,9 @@
 #                                                                              #
 # **************************************************************************** #
 
+
+UNAME_S := $(shell uname -s)
+
 #Variables
 
 NAME		:= fdf
@@ -27,11 +30,25 @@ INC		 		:= inc/
 LIB				:= lib/
 PRINTF_DIR		:= $(LIB)ft_printf/
 PRINTF			:= $(PRINTF_DIR)libftprintf.a
-MINILIBX_DIR	:= $(LIB)minilibx/minilibx_macos/
-MINILIBX		:= $(MINILIBX_DIR)libmlx.a
-MINILIBXCC		:= -I mlx -L $(MINILIBX_DIR) -lmlx
+
+ifeq ($(UNAME_S),Linux)
+	MINILIBX_DIR	:= $(LIB)minilibx/minilibx_linux/
+	#MINILIBX		:= $(MINILIBX_DIR)libmlx.a
+	MINILIBXCC		:= -I$(MINILIBX_DIR) -L $(MINILIBX_DIR) -lmlx
+	LIBS			:= -lXext -lX11 -lm
+else ifeq ($(UNAME_S),Darwin)
+	MINILIBX_DIR	:= $(LIB)minilibx/minilibx_macos/
+	#MINILIBX		:= $(MINILIBX_DIR)libmlx.a
+	MINILIBXCC		:= -I$(MINILIBX_DIR) -L $(MINILIBX_DIR) -lmlx
+	LIBS			:= -framework OpenGL -framework AppKit
+endif
+
+
+
 HEADER 			:= -I$(INC) -I$(LIBFT_DIR) -I$(MINILIBX_DIR)
-OPENGL			:= -framework OpenGL -framework AppKit
+
+
+
 
 # Colors
 
@@ -68,8 +85,8 @@ makelibs:
 
 -include 	${DEPS}
 $(NAME):	$(OBJ)		
-			@$(CC) $(CFLAGS) $(FSANITIZE) $(OBJ) $(PRINTF) $(MINILIBXCC) $(OPENGL) -o $(NAME)		
-			@echo "👉 $(BLUE)$(CC) $(CFLAGS) $(FSANITIZE) $(OBJ) $(PRINTF) $(MINILIBXCC) $(OPENGL) -o $(NAME)$(DEF_COLOR)"
+			@$(CC) $(CFLAGS) $(FSANITIZE) $(OBJ) $(PRINTF) $(MINILIBXCC) $(LIBS) -o $(NAME)		
+			@echo "👉 $(BLUE)$(CC) $(CFLAGS) $(FSANITIZE) $(OBJ) $(PRINTF) $(MINILIBXCC) $(LIBS) -o $(NAME)$(DEF_COLOR)"
 			@echo "$(GREEN)✨ FDF compiled!$(DEF_COLOR)"
 
 bonus:		
