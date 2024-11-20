@@ -7,6 +7,7 @@
 </p>
 
 **************** Working on LINUX solution ***********************************
+sudo apt-get install gcc make xorg libxext-dev libbsd-dev
 
 <p align="center">
 	<img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/ailopez-o/42Barcelona-FdF?color=lightblue" />
