@@ -4,3 +4,6 @@
 [submodule "lib/ft_printf"]
 	path = lib/ft_printf
 	url = git@github.com:ailopez-o/42Barcelona-Printf.git
+[submodule "lib/minilibx/minilibx_linux"]
+	path = lib/minilibx/minilibx_linux
+	url = https://github.com/42Paris/minilibx-linux
