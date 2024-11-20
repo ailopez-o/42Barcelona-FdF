@@ -5,6 +5,9 @@
 <p align="center">
 	<b><i>A simplified 3D graphic representation of a relief landscape.</i></b><br>
 </p>
+
+Working on LINUX solution.
+
 <p align="center">
 	<img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/ailopez-o/42Barcelona-FdF?color=lightblue" />
 	<img alt="Number of lines of code" src="https://img.shields.io/tokei/lines/github/ailopez-o/42Barcelona-FdF?color=critical" />
