@@ -81,6 +81,7 @@ all:	makelibs
 
 makelibs:	
 	@$(MAKE) -C $(PRINTF_DIR)
+	@$(MINILIBX_DIR)./configure
 	@$(MAKE) -C $(MINILIBX_DIR)
 
 -include 	${DEPS}
