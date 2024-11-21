@@ -81,7 +81,8 @@ all:	makelibs
 
 makelibs:	
 	@$(MAKE) -C $(PRINTF_DIR)
-	@$(MINILIBX_DIR)./configure
+	@cd $(MINILIBX_DIR) && ./configure
+	@cd ../../..
 	@$(MAKE) -C $(MINILIBX_DIR)
 
 -include 	${DEPS}
@@ -125,7 +126,7 @@ fclean:		clean
 			@echo "$(CYAN)libft.a lib cleaned!$(DEF_COLOR)"
 
 
-re:			fclean 
+re:			fclean makelibs
 			@$(MAKE)	
 			@echo "$(GREEN)Cleaned and rebuilt everything for Fdf!$(DEF_COLOR)"
 
