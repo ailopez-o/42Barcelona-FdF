@@ -57,9 +57,9 @@ int	main(int argv, char **argc)
 		terminate(ERR_MAP);
 	mlx_hook(meta.vars.win, 2, 1L << 0, key_press, &meta);
 	mlx_hook(meta.vars.win, 3, 1L << 1, key_release, &meta);
-	mlx_hook(meta.vars.win, 4, 0, mouse_press, &meta);
-	mlx_hook(meta.vars.win, 5, 0, mouse_release, &meta);
-	mlx_hook(meta.vars.win, 6, 0, mouse_move, &meta);
+	mlx_hook(meta.vars.win, 4, 1L << 2, mouse_press, &meta);
+	mlx_hook(meta.vars.win, 5, 1L << 3, mouse_release, &meta);
+	mlx_hook(meta.vars.win, 6, 1L << 6, mouse_move, &meta);
 	mlx_hook(meta.vars.win, 17, 0, terminate_program, &meta);
 	mlx_loop(meta.vars.mlx);
 	free (meta.map.points);

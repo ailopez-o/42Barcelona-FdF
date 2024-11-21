@@ -58,7 +58,7 @@ int	mouse_release(int button, int x, int y, void *param)
 	meta = (t_meta *)param;
 	if (button == 1)
 		meta->keys.b_mouse_l = 0;
-	if (button == 2)
+	if (button == 2 || button == 3)
 		meta->keys.b_mouse_r = 0;
 	return (0);
 }
@@ -78,7 +78,7 @@ int	mouse_press(int button, int x, int y, void *param)
 		meta->keys.last_click_l.axis[X] = x;
 		meta->keys.last_click_l.axis[Y] = y;
 	}
-	if (button == 2)
+	if (button == 2 || button == 3)
 	{
 		meta->keys.b_mouse_r = 1;
 		meta->keys.last_click_r.axis[X] = x;
